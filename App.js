@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// React
+import React, {useState, useEffect} from 'react';
+import {View, LogBox} from 'react-native';
 
-export default function App() {
+//firebase
+import { firebaseConfig } from './src/constants';
+import firebase from 'firebase/app'
+
+//navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+//screens
+import HomeScreen from './src/screens/main/HomeScreen';
+import LoginScreen from './src/screens/auth/LoginScreen';
+import RegisterScreen from './src/screens/auth/RegisterScreen';
+
+import { COLORS } from './src/constants'
+
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release']);
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
