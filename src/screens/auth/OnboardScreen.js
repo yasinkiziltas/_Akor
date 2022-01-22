@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Button } from 'react-native'
 
-export default function OnboardScreen() {
+export default function OnboardScreen({ navigation }) {
     return (
-        <View>
-            <Text></Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Hoşgeldin!</Text>
+            <Button title="Giriş" onPress={() => navigation.navigate('Login')} />
+            <Button title="Kayıt Ol" onPress={() => navigation.navigate('Register')} />
         </View>
     )
 }
