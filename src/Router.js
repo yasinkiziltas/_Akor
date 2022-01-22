@@ -1,5 +1,9 @@
+// React
+import React, { useState, useEffect } from 'react';
+import { View, LogBox } from 'react-native';
+
 //firebase
-import { firebaseConfig } from './src/constants';
+import { firebaseConfig } from '../src/constants';
 import firebase from 'firebase/app'
 
 //navigation
@@ -17,6 +21,18 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
-const AppSwitchNavigator = createNativeStackNavigator(
-    
-)
+LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release']);
+
+const Stack = createNativeStackNavigator();
+
+function Router() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default Router;
