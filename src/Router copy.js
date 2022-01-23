@@ -1,5 +1,6 @@
 // React
 import React from 'react';
+import { LogBox } from 'react-native';
 
 //firebase
 import { firebaseConfig } from '../src/constants';
@@ -25,10 +26,12 @@ if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
 
+LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release']);
+
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
 
-function AuthStack() {
+const AuthStack = () => {
   return (
     <Stack.Navigator initialRouteName="Onboard">
       <Stack.Screen
@@ -36,6 +39,7 @@ function AuthStack() {
         component={OnboardScreen}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -46,44 +50,38 @@ function AuthStack() {
         component={RegisterScreen}
         options={{ headerShown: false }}
       />
+
     </Stack.Navigator>
   )
 }
 
-function HomeStack() {
+const HomeStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   )
 }
 
-function ProfileStack() {
+const ProfileStack = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>
   )
 }
 
-
 export default function Router() {
-  const [test, setTest] = React.useState(false)
   return (
     <NavigationContainer>
-      {test ? (
-        <Tabs.Navigator>
-          <Tabs.Screen name="Anasayfa" component={HomeStack} options={{ headerShown: false }} />
-          <Tabs.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
-        </Tabs.Navigator>
-      ) : (
-          <AuthStack />
-        )}
+      <Tabs.Navigator>
+        <Tabs.Screen name="Anasayfa" component={HomeStack} options={{ headerShown: false }} />
+        <Tabs.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
+      </Tabs.Navigator>
     </NavigationContainer>
   );
 }

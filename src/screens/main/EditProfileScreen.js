@@ -3,8 +3,8 @@ import { View, Text } from 'react-native'
 
 export default function EditProfile() {
     return (
-        <View>
-            <Text></Text>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Edit Profile</Text>
         </View>
     )
 }
