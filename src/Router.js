@@ -30,7 +30,7 @@ const Tabs = createBottomTabNavigator();
 
 function AuthStack() {
   return (
-    <Stack.Navigator initialRouteName="Onboard">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Onboard"
         component={OnboardScreen}
