@@ -5,7 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { theme } from '../constants'
 const { SIZES } = theme;
 
-export default function FormButton({ value, onChangeText, placeholder, iconType, ...rest }) {
+export default function FormButton({ hidepass, value, onChangeText, placeholder, iconType, ...rest }) {
     return (
         <View>
             <View style={styles.inputContainer}>
@@ -25,24 +25,27 @@ export default function FormButton({ value, onChangeText, placeholder, iconType,
                     placeholderTextColor="#666"
                     {...rest}
                 />
+
+                {hidepass ? (
+                    <AntDesign
+                        name="eye"
+                        size={20}
+                    />
+                ) : (
+                    null
+                )}
             </View>
         </View>
     )
 }
-
-
 const styles = StyleSheet.create({
     inputContainer: {
-        // borderBottomWidth: 1,
-        // borderColor: '#029571',
-        width: SIZES.width / 1.2,
-        height: SIZES.height / 15,
-        borderRadius: 13,
+        width: SIZES.width / 1.1,
+        height: SIZES.height / 14,
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    iconStyle: {
-
+        borderBottomWidth: 0.7,
+        borderBottomColor: 'gray'
     },
     input: {
         padding: 15,

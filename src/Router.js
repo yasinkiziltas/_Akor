@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 //firebase
 import { firebaseConfig } from '../src/constants';
@@ -17,6 +17,7 @@ import EditProfileScreen from '../src/screens/main/EditProfileScreen'
 import OnboardScreen from '../src/screens/auth/OnboardScreen'
 import LoginScreen from '../src/screens/auth/LoginScreen';
 import RegisterScreen from '../src/screens/auth/RegisterScreen';
+import ForgotPassword from './screens/auth/ForgotPassword';
 
 //constants
 import { COLORS } from '../src/constants'
@@ -30,7 +31,7 @@ const Tabs = createBottomTabNavigator();
 
 function AuthStack() {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="Register">
       <Stack.Screen
         name="Onboard"
         component={OnboardScreen}
@@ -44,6 +45,11 @@ function AuthStack() {
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -73,7 +79,9 @@ function ProfileStack() {
 
 
 export default function Router() {
-  const [test, setTest] = React.useState(false)
+
+  const [test, setTest] = useState(false)
+
   return (
     <NavigationContainer>
       {test ? (
@@ -82,8 +90,8 @@ export default function Router() {
           <Tabs.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
         </Tabs.Navigator>
       ) : (
-          <AuthStack />
-        )}
+        <AuthStack />
+      )}
     </NavigationContainer>
   );
 }

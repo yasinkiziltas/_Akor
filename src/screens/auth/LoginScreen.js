@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Image, StyleSheet, View, Text } from 'react-native'
+import { Image, StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native'
+
 import { loginBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
+
 import FormInput from '../../components/FormInput'
+import FormButton from '../../components/FormButton'
+
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
 
     return (
         <>
+            <StatusBar hidden={true} />
+
             <KeyboardAwareScrollView>
                 <Animatable.View
                     animation="slideInDown"
@@ -31,25 +37,55 @@ export default function LoginScreen() {
                 >
                     <Text style={styles.loginText}>Giriş</Text>
 
-                    <FormInput
-                        value={mail}
-                        placeholder="E-Mail"
-                        onChangeText={value => setMail(value)}
-                        iconType="mail"
-                    />
-                    <View style={{ marginBottom: 5 }}>
+                    <View style={{ margin: 10 }}>
+
+                        <FormInput
+                            value={mail}
+                            placeholder="E-Mail"
+                            onChangeText={value => setMail(value)}
+                            iconType="mail"
+                        />
+                        <View style={{ marginBottom: 5 }}>
+
+                        </View>
+
+                        <FormInput
+                            value={password}
+                            placeholder="Şifre"
+                            onChangeText={value => setPassword(value)}
+                            iconType="lock"
+                            hidepass={true}
+                            secureTextEntry={true}
+                        />
+
+                        <TouchableOpacity
+                            style={styles.forgotPass}
+                            onPress={() => navigation.navigate('ForgotPassword')}
+                        >
+                            <Text style={{ color: 'gray' }}>Şifremi unuttum</Text>
+                        </TouchableOpacity>
 
                     </View>
-                    <FormInput
-                        value={password}
-                        placeholder="Şifre"
-                        onChangeText={value => setPassword(value)}
-                        iconType="arrowright"
+
+                    <FormButton
+                        placeholder="Giriş"
+                        onPress={() => navigation.navigate('Home')}
                     />
+
                 </Animatable.View>
             </KeyboardAwareScrollView >
-        </>
 
+            <Text style={styles.registerBtn}>Hesabın yok mu?
+                <TouchableOpacity
+                    style={{ paddingLeft: 5 }}
+                    onPress={() => navigation.navigate('Register')}
+                >
+                    <Text style={styles.signUpBtn}>
+                        {''}Kayıt Ol</Text>
+                </TouchableOpacity>
+
+            </Text>
+        </>
     )
 }
 
@@ -61,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundImg: {
         backgroundColor: '#e2f4ff',
         width: SIZES.width,
-        height: SIZES.height / 2,
+        height: SIZES.height / 3,
     },
     inputView: {
         marginLeft: 5,
@@ -72,5 +108,25 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 37,
         margin: 10,
-    }
+    },
+    forgotPass: {
+        position: 'absolute',
+        top: 0,
+        right: 25,
+        marginTop: 10,
+        top: SIZES.height / 5
+    },
+    registerBtn: {
+        fontWeight: 'bold',
+        color: 'gray',
+        textAlign: 'center',
+        bottom: 30,
+        left: SIZES.width / 3,
+        position: 'absolute'
+    },
+    signUpBtn: {
+        color: "#009688",
+        fontWeight: 'bold',
+        top: 2,
+    },
 })
