@@ -9,10 +9,22 @@ import FormButton from '../../components/FormButton'
 
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import firebase from 'firebase/app'
 
 export default function LoginScreen({ navigation }) {
+
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
+
+    const handleSignIn = () => {
+        firebase
+            .auth().signInWithCredential(mail, password)
+            .then(userCredentials => {
+                const user = userCredentials.user
+                console.log(user.email);
+            })
+            .catch(error => alert(error.message))
+    }
 
     return (
         <>
@@ -23,7 +35,6 @@ export default function LoginScreen({ navigation }) {
                     animation="slideInDown"
                     style={styles.container}
                 >
-
                     <Image
                         resizeMode='contain'
                         style={styles.backgroundImg}
@@ -69,7 +80,7 @@ export default function LoginScreen({ navigation }) {
 
                     <FormButton
                         placeholder="Giriş"
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={handleSignIn}
                     />
 
                 </Animatable.View>

@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
-import {Button} from 'react-native';
+import { Button } from 'react-native';
 
 //firebase
 import { firebaseConfig } from '../src/constants';
@@ -22,11 +22,6 @@ import ForgotPassword from './screens/auth/ForgotPassword';
 
 //constants
 import { COLORS } from '../src/constants'
-
-//stuff
-import AntDesign from 'react-native-vector-icons/AntDesign';
-;
-
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
@@ -56,7 +51,7 @@ function AuthStack() {
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
-        options={{ headerShown: false}}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   )
@@ -83,10 +78,22 @@ function ProfileStack() {
   )
 }
 
-
 export default function Router() {
-
+  // const [initializing, setInitializing] = useState(true);
+  // const [user, setUser] = useState();
   const [test, setTest] = useState(false)
+
+  // function onAuthStateChanged(user) {
+  //   setUser(user);
+  //   if (initializing) setInitializing(false);
+  // }
+
+  // useEffect(() => {
+  //   const subscriber = firebase.auth.onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
+
+  // if (initializing) return null;
 
   return (
     <NavigationContainer>
@@ -96,8 +103,8 @@ export default function Router() {
           <Tabs.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
         </Tabs.Navigator>
       ) : (
-        <AuthStack />
-      )}
+          <AuthStack />
+        )}
     </NavigationContainer>
   );
 }

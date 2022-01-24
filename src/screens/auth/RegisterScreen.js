@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Image, StyleSheet, ImageBackground, View, Text, StatusBar, TouchableOpacity } from 'react-native'
-
+import firebase from 'firebase/app'
 import { registerBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
@@ -13,6 +13,17 @@ export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+
+
+    const handleSignUp = () => {
+        firebase
+            .auth().createUserWithEmailAndPassword(mail, password)
+            .then(userCredentials => {
+                const user = userCredentials.user
+                console.log(user.email);
+            })
+            .catch(error => alert(error.message))
+    }
 
     return (
         <>
@@ -45,12 +56,12 @@ export default function RegisterScreen({ navigation }) {
 
                     <View style={{ margin: 10 }}>
 
-                        <FormInput
+                        {/* <FormInput
                             value={name}
                             placeholder="Ad Soyad"
                             onChangeText={value => setName(value)}
                             iconType="user"
-                        />
+                        /> */}
 
                         <FormInput
                             value={mail}
@@ -74,7 +85,7 @@ export default function RegisterScreen({ navigation }) {
 
                     <FormButton
                         placeholder="Kayıt Ol"
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={handleSignUp}
                     />
 
                 </Animatable.View>
@@ -83,7 +94,7 @@ export default function RegisterScreen({ navigation }) {
             <Text style={styles.registerBtn}>Hesabın var mı?
                 <TouchableOpacity
                     style={{ paddingLeft: 5 }}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={handleSignUp}
                 >
                     <Text style={styles.signUpBtn}>
                         {''}Giriş yap</Text>
