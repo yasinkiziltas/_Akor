@@ -13,7 +13,7 @@ export default function FormButton({ placeholder, ...rest }) {
 }
 const styles = StyleSheet.create({
     buttonContainer: {
-        marginTop: SIZES.height / 25,
+        marginTop: SIZES.height / 15,
         alignSelf: 'center',
         elevation: 8,
         width: SIZES.width / 1.1,

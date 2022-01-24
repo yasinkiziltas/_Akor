@@ -62,7 +62,7 @@ export default function LoginScreen({ navigation }) {
                             style={styles.forgotPass}
                             onPress={() => navigation.navigate('ForgotPassword')}
                         >
-                            <Text style={{ color: 'gray' }}>Şifremi unuttum</Text>
+                            <Text style={{ color: 'gray', fontSize: 18 }}>Şifremi unuttum</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -111,10 +111,9 @@ const styles = StyleSheet.create({
     },
     forgotPass: {
         position: 'absolute',
-        top: 0,
-        right: 25,
+        top: SIZES.height / 6.5,
+        right: 15,
         marginTop: 10,
-        top: SIZES.height / 5
     },
     registerBtn: {
         fontWeight: 'bold',
