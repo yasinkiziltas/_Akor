@@ -1,5 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
+import {Button} from 'react-native';
 
 //firebase
 import { firebaseConfig } from '../src/constants';
@@ -22,6 +23,11 @@ import ForgotPassword from './screens/auth/ForgotPassword';
 //constants
 import { COLORS } from '../src/constants'
 
+//stuff
+import AntDesign from 'react-native-vector-icons/AntDesign';
+;
+
+
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
 }
@@ -31,7 +37,7 @@ const Tabs = createBottomTabNavigator();
 
 function AuthStack() {
   return (
-    <Stack.Navigator initialRouteName="Register">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Onboard"
         component={OnboardScreen}
@@ -50,7 +56,7 @@ function AuthStack() {
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
-        options={{ headerShown: false }}
+        options={{ headerShown: false}}
       />
     </Stack.Navigator>
   )

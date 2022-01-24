@@ -3,14 +3,13 @@ import { Image, StyleSheet, ImageBackground, View, Text, StatusBar, TouchableOpa
 
 import { registerBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
-
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'
-
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import CustomHeader from '../../components/CustomHeader';
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
@@ -26,10 +25,16 @@ export default function LoginScreen({ navigation }) {
                 >
 
                     <ImageBackground
-                        resizeMode='cover'
                         style={styles.backgroundImg}
                         source={registerBackground}
-                    />
+                    >
+
+                        <CustomHeader
+                            isBack={true}
+                            navigation={navigation}
+                        />
+
+                    </ImageBackground>
                 </Animatable.View>
 
                 <Animatable.View
