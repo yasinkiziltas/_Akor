@@ -40,7 +40,7 @@ export default function AppStack() {
                 component={MainStack}
                 options={({ route }) => ({
                     headerShown: false,
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Anasayfa',
                     // tabBarVisible: route.state && route.state.index === 0,
                     tabBarIcon: ({ color, size }) => (
                         <MaterialCommunityIcons
@@ -52,7 +52,7 @@ export default function AppStack() {
                 })}
             />
             <Tab.Screen
-                name="MyProfile"
+                name="Profil"
                 component={ProfileStack}
                 options={{
                     headerShown: false,

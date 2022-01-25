@@ -35,7 +35,7 @@ export default function AuthStack() {
     }
 
     else {
-        routeName = 'Register'
+        routeName = 'Login'
     }
 
 
