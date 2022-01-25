@@ -43,7 +43,7 @@ export const AuthProvider = ({ children, navigation }) => {
                         await firebase.auth().createUserWithEmailAndPassword(email, password)
                     }
                     catch (e) {
-                        console.log(e)
+                        alert(e)
                     }
                 },
 
