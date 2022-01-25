@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }) {
 
     const handleSignIn = () => {
         firebase
-            .auth().signInWithCredential(mail, password)
+            .auth().signInWithEmailAndPassword(mail, password)
             .then(userCredentials => {
                 const user = userCredentials.user
                 console.log(user.email);

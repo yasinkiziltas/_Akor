@@ -2,10 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native';
 
-//firebase
-import { config } from '../src/constants';
-import firebase from 'firebase/app'
-
 //navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
