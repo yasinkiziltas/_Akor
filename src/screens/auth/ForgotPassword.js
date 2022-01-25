@@ -50,6 +50,7 @@ export default function ForgotPassword({ navigation }) {
           <View style={{ margin: 10 }}>
             <FormInput
               value={mail}
+              keyboardType="email-address"
               placeholder="E-Mail"
               onChangeText={value => setMail(value)}
               iconType="mail"

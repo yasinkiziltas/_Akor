@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Image, StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native'
 
 import { loginBackground } from '../../constants/images'
@@ -10,23 +10,13 @@ import FormButton from '../../components/FormButton'
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { AuthContext } from '../../navigation/AuthProvider'
 
 export default function LoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-
-    const handleSignIn = () => {
-        firebase
-            .auth().signInWithEmailAndPassword(mail, password)
-            .then(userCredentials => {
-                const user = userCredentials.user
-                console.log(user.email);
-            })
-            .catch(error => alert(error.message))
-    }
+    const { login } = useContext(AuthContext)
 
     return (
         <>
@@ -54,6 +44,7 @@ export default function LoginScreen({ navigation }) {
 
                         <FormInput
                             value={mail}
+                            keyboardType="email-address"
                             placeholder="E-Mail"
                             onChangeText={value => setMail(value)}
                             iconType="mail"
@@ -82,7 +73,7 @@ export default function LoginScreen({ navigation }) {
 
                     <FormButton
                         placeholder="Giriş"
-                        onPress={handleSignIn}
+                        onPress={() => login(mail, password)}
                     />
 
                 </Animatable.View>

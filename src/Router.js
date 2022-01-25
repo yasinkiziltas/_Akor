@@ -18,85 +18,42 @@ import ForgotPassword from './screens/auth/ForgotPassword';
 
 //constants
 import { COLORS } from '../src/constants'
+import { useNavigation } from '@react-navigation/core'
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
 
-function AuthStack() {
-  return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen
-        name="Onboard"
-        component={OnboardScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ForgotPassword"
-        component={ForgotPassword}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  )
-}
-
-function HomeStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  )
-}
-
-function ProfileStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
-    </Stack.Navigator>
-  )
-}
-
 export default function Router() {
-  // const [initializing, setInitializing] = useState(true);
-  // const [user, setUser] = useState();
-  const [test, setTest] = useState(false)
+  const [currentUser, setCurrentUser] = useState('')
 
-  // function onAuthStateChanged(user) {
-  //   setUser(user);
-  //   if (initializing) setInitializing(false);
-  // }
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setCurrentUser(user)
+      }
+    })
 
-  // useEffect(() => {
-  //   const subscriber = firebase.auth.onAuthStateChanged(onAuthStateChanged);
-  //   return subscriber; // unsubscribe on unmount
-  // }, []);
-
-  // if (initializing) return null;
+    return currentUser;
+  }, [])
 
   return (
     <NavigationContainer>
-      {test ? (
-        <Tabs.Navigator>
-          <Tabs.Screen name="Anasayfa" component={HomeStack} options={{ headerShown: false }} />
-          <Tabs.Screen name="Profil" component={ProfileStack} options={{ headerShown: false }} />
-        </Tabs.Navigator>
-      ) : (
-          <AuthStack />
-        )}
+      <Stack.Navigator initialRouteName="Home">
+        {currentUser ? (
+          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        ) : (
+            <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+
+          )}
+        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Onboard" component={OnboardScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ headerShown: false }} />
+      </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }

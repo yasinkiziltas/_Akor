@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Image, StyleSheet, ImageBackground, View, Text, StatusBar, TouchableOpacity } from 'react-native'
 import firebase from 'firebase/app'
 import { registerBackground } from '../../constants/images'
@@ -9,21 +9,13 @@ import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CustomHeader from '../../components/CustomHeader';
 
+import { AuthContext } from '../../navigation/AuthProvider'
+
 export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
-
-
-    const handleSignUp = () => {
-        firebase
-            .auth().createUserWithEmailAndPassword(mail, password)
-            .then(userCredentials => {
-                const user = userCredentials.user
-                console.log(user.email);
-            })
-            .catch(error => alert(error.message))
-    }
+    const { register } = useContext(AuthContext)
 
     return (
         <>
@@ -65,6 +57,7 @@ export default function RegisterScreen({ navigation }) {
 
                         <FormInput
                             value={mail}
+                            keyboardType="email-address"
                             placeholder="E-Mail"
                             onChangeText={value => setMail(value)}
                             iconType="mail"
@@ -85,7 +78,7 @@ export default function RegisterScreen({ navigation }) {
 
                     <FormButton
                         placeholder="Kayıt Ol"
-                        onPress={handleSignUp}
+                        onPress={register(mail, password)}
                     />
 
                 </Animatable.View>
