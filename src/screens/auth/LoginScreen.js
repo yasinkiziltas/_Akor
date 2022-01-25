@@ -16,6 +16,7 @@ export default function LoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
+
     const { login } = useContext(AuthContext)
 
     return (

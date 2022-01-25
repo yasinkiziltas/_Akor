@@ -15,6 +15,7 @@ export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+
     const { register } = useContext(AuthContext)
 
     return (
@@ -78,7 +79,7 @@ export default function RegisterScreen({ navigation }) {
 
                     <FormButton
                         placeholder="Kayıt Ol"
-                        onPress={register(mail, password)}
+                        onPress={() => register(mail, password)}
                     />
 
                 </Animatable.View>

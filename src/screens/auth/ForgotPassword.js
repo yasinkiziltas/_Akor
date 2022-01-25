@@ -1,4 +1,4 @@
-import React, { useState, } from 'react'
+import React, { useState, useContext } from 'react'
 import { ImageBackground, StyleSheet, View, Text, StatusBar } from 'react-native'
 import { forgotPasswordBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
@@ -7,9 +7,12 @@ import FormButton from '../../components/FormButton'
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CustomHeader from '../../components/CustomHeader';
+import { AuthContext } from '../../navigation/AuthProvider'
 
 export default function ForgotPassword({ navigation }) {
   const [mail, setMail] = useState('')
+  const { forgotPass } = useContext(AuthContext)
+
   return (
     <>
       <StatusBar hidden={true} />
@@ -60,7 +63,7 @@ export default function ForgotPassword({ navigation }) {
 
           <FormButton
             placeholder="Gönder"
-            onPress={() => { }}
+            onPress={() => forgotPass(mail)}
           />
 
         </Animatable.View>

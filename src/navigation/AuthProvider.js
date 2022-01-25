@@ -1,9 +1,8 @@
 import React, { createContext, useState } from 'react'
 import firebase from 'firebase'
-
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children, navigation }) => {
     const [user, setUser] = useState(null)
     const [userId, setUserId] = useState(null)
     const [userName, setUserName] = useState(null)
@@ -35,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
                     }
                     catch (e) {
-                        console.log(e)
+                        alert(e)
                     }
                 },
 
@@ -53,8 +52,17 @@ export const AuthProvider = ({ children }) => {
                         await firebase.auth().signOut()
                     }
                     catch (e) {
-                        console.log(e)
+                        alert(e)
                     }
+                },
+
+                forgotPass: async (mail) => {
+                    await firebase.auth().sendPasswordResetEmail(mail)
+                        .then(function (user) {
+                            alert('Lütfen mailinizi kontrol edin...')
+                        }).catch(function (e) {
+                            alert(e)
+                        })
                 }
             }}
         >
