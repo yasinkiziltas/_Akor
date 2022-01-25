@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native';
 
 //firebase
-import { firebaseConfig } from '../src/constants';
+import { config } from '../src/constants';
 import firebase from 'firebase/app'
 
 //navigation
@@ -22,10 +22,6 @@ import ForgotPassword from './screens/auth/ForgotPassword';
 
 //constants
 import { COLORS } from '../src/constants'
-
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(firebaseConfig);
-}
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();

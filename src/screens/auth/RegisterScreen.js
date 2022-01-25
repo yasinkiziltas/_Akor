@@ -94,7 +94,7 @@ export default function RegisterScreen({ navigation }) {
             <Text style={styles.registerBtn}>Hesabın var mı?
                 <TouchableOpacity
                     style={{ paddingLeft: 5 }}
-                    onPress={handleSignUp}
+                    onPress={() => navigation.navigate('Login')}
                 >
                     <Text style={styles.signUpBtn}>
                         {''}Giriş yap</Text>

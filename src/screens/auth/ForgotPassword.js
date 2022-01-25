@@ -45,7 +45,7 @@ export default function ForgotPassword({ navigation }) {
           style={styles.inputView}
         >
           <Text style={styles.loginText}>Şifremi unuttum</Text>
-          <Text style={styles.forgotText}>Endişelenmeyin! Lütfen email adresinizi girin ve şifrenizi sıfırlayın.</Text>
+          <Text style={styles.forgotText}>Endişelenmeyin! Lütfen şifrenizi sıfırlamak için mailinizi giriniz...</Text>
 
           <View style={{ margin: 10 }}>
             <FormInput

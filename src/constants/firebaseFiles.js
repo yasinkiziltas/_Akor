@@ -1,4 +1,6 @@
-export const firebaseConfig = {
+import * as firebase from "firebase"
+
+ export const config = {
   apiKey: "AIzaSyDrDBEoOY1b6iZnD0_yAw9EcYtvhhINy40",
   authDomain: "akorapp-3ae3a.firebaseapp.com",
   projectId: "akorapp-3ae3a",
@@ -6,4 +8,16 @@ export const firebaseConfig = {
   messagingSenderId: "272488545583",
   appId: "1:272488545583:web:a5d39e91d88739edae75da"
 };
+
+let app;
+if (firebase.apps.length === 0) {
+ app = firebase.initializeApp(config);
+}
+else {
+ app = firebase.app()
+}
+
+const auth = firebase.auth()
+export {auth}
+
   // firebase.firestore().settings({ experimentalForceLongPolling: true });

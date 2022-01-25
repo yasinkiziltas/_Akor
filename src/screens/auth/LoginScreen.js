@@ -9,7 +9,9 @@ import FormButton from '../../components/FormButton'
 
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import firebase from 'firebase/app'
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default function LoginScreen({ navigation }) {
 
