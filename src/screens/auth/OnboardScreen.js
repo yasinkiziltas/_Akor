@@ -69,7 +69,7 @@ export default function OnboardScreen({ navigation }) {
 
                     pages={[
                         {
-                            backgroundColor: '#6288F5',
+                            backgroundColor: '#D1F2EB',
                             image:
                                 <Image
                                     source={onboard}
@@ -88,7 +88,7 @@ export default function OnboardScreen({ navigation }) {
                                 <Image
                                     source={onboard2}
                                     style={{
-                                        borderRadius:30,
+                                        borderRadius: 30,
                                         width: 350,
                                         height: 300,
                                     }}
@@ -110,13 +110,13 @@ const styles = StyleSheet.create({
         margin: 20
     },
     btnContainer: {
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: 'bold',
         color: 'black'
     },
     btnDone: {
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 20,
         color: 'black'
     }
 })
