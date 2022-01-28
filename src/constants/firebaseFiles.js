@@ -11,17 +11,14 @@ export const config = {
 };
 
 let app;
-let currentUser;
 if (firebase.apps.length === 0) {
- app = firebase.initializeApp(config);
+  app = firebase.initializeApp(config);
 }
 else {
- app = firebase.app()
- currentUser = firebase.auth().currentUser;
+  app = firebase.app()
 }
 
 const auth = firebase.auth()
-export {auth}
-export {currentUser}
+export { auth }
 
   // firebase.firestore().settings({ experimentalForceLongPolling: true });

@@ -94,7 +94,7 @@ export default function OnboardScreen({ navigation }) {
                                     }}
                                 />,
                             title: "Akor",
-                            subtitle: 'sahnene davet et!'
+                            subtitle: 've sahnene davet et!'
                         },
 
                     ]}
