@@ -35,10 +35,9 @@ export default function AuthStack() {
     }
 
     else {
-        routeName = 'Login'
+        routeName = 'Onboarding'
     }
-
-
+    
     return (
         <Stack.Navigator initialRouteName={routeName}>
             <Stack.Screen name="Onboarding" component={OnboardScreen} options={{ header: () => null }} />

@@ -1,6 +1,7 @@
-import * as firebase from "firebase"
+// import * as firebase from "firebase"
+import firebase from 'firebase';
 
- export const config = {
+export const config = {
   apiKey: "AIzaSyDrDBEoOY1b6iZnD0_yAw9EcYtvhhINy40",
   authDomain: "akorapp-3ae3a.firebaseapp.com",
   projectId: "akorapp-3ae3a",
@@ -10,14 +11,17 @@ import * as firebase from "firebase"
 };
 
 let app;
+let currentUser;
 if (firebase.apps.length === 0) {
  app = firebase.initializeApp(config);
 }
 else {
  app = firebase.app()
+ currentUser = firebase.auth().currentUser;
 }
 
 const auth = firebase.auth()
 export {auth}
+export {currentUser}
 
   // firebase.firestore().settings({ experimentalForceLongPolling: true });
