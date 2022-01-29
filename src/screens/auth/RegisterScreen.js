@@ -7,8 +7,9 @@ import FormButton from '../../components/FormButton'
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CustomHeader from '../../components/CustomHeader';
-
 import { AuthContext } from '../../navigation/AuthProvider'
+import * as Yup from 'yup'
+import { Formik } from 'formik';
 
 export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
@@ -46,47 +47,77 @@ export default function RegisterScreen({ navigation }) {
                 >
                     <Text style={styles.loginText}>Kayıt ol</Text>
 
-                    <View style={{ margin: 10 }}>
+                    <Formik
+                        initialValues={{ mail, password }}
+                        onSubmit={values => { register(values.mail, values.password) }}
+                        validationSchema={
+                            Yup.object().shape({
+                                mail: Yup.string()
+                                    .email('Lütfen geçerli bir email adresi girin!')
+                                    .required('Email gerekli!'),
 
-                        {/* <FormInput
-                            value={name}
-                            placeholder="Ad Soyad"
-                            onChangeText={value => setName(value)}
-                            iconType="user"
-                        /> */}
+                                password: Yup.string()
+                                    .min(6, 'Şifre çok kısa, minimum 6 karakter olmalı!')
+                                    .required('Şifre gerekli!')
+                            })
+                        }
+                    >
+                        {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
+                            <>
+                                <View style={{ margin: 10 }}>
 
-                        <FormInput
-                            value={mail}
-                            keyboardType="email-address"
-                            placeholder="E-Mail"
-                            onChangeText={value => setMail(value)}
-                            iconType="mail"
-                        />
+                                    {/* <FormInput
+                                     value={name}
+                                     placeholder="Ad Soyad"
+                                      onChangeText={value => setName(value)}
+                                         iconType="user"
+                                    /> */}
 
-                        <FormInput
-                            value={password}
-                            placeholder="Şifre"
-                            secureTextEntry={true}
-                            onChangeText={value => setPassword(value)}
-                            iconType="lock"
-                            hidepass={true}
-                        />
+                                    <FormInput
+                                        onBlur={() => setFieldTouched('mail')}
+                                        value={values.mail}
+                                        keyboardType="email-address"
+                                        placeholder="E-Mail"
+                                        // onChangeText={value => setMail(value)}
+                                        onChangeText={handleChange('mail')}
+                                        iconType="mail"
+                                    />
 
-                        <Text style={{ color: 'gray', paddingTop: 20, paddingLeft: 5 }}>Kayıt olarak gizlilik sözleşmesini kabul etmiş olursunuz.</Text>
+                                    {(errors.mail && touched.mail) &&
+                                        <Text style={styles.errors}>{errors.mail} </Text>
+                                    }
 
-                    </View>
+                                    <FormInput
+                                        onBlur={() => setFieldTouched('password')}
+                                        value={values.password}
+                                        placeholder="Şifre"
+                                        secureTextEntry={true}
+                                        // onChangeText={value => setPassword(value)}
+                                        onChangeText={handleChange('password')}
+                                        iconType="lock"
+                                        hidepass={true}
+                                    />
 
-                    {/* <FormButton
-                        placeholder="Kayıt Ol"
-                        onPress={() => register(mail, password)}
-                    /> */}
+                                    {(errors.password && touched.password) &&
+                                        <Text style={styles.errors}>{errors.password} </Text>
+                                    }
 
-                    <View style={{ marginVertical: 35 }}>
-                        <FormButton
-                            onPress={() => register(mail, password)}
-                            text="Kayıt Ol"
-                        />
-                    </View>
+                                    <Text style={{ color: 'gray', paddingTop: 20, paddingLeft: 5 }}>Kayıt olarak gizlilik sözleşmesini kabul etmiş olursunuz.</Text>
+
+                                </View>
+
+                                <View style={{ marginVertical: 35 }}>
+                                    <FormButton
+                                        onPress={() => handleSubmit()}
+                                        text="Kayıt Ol"
+                                    />
+                                </View>
+
+                            </>
+                        )}
+
+                    </Formik>
+
 
                 </Animatable.View>
             </KeyboardAwareScrollView >
@@ -146,4 +177,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         top: 2,
     },
+    errors: {
+        textAlign: 'center',
+        fontSize: 14,
+        color: 'red',
+        fontWeight: 'bold',
+        marginTop: 5
+    }
 })

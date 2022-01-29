@@ -7,12 +7,13 @@ import FormButton from '../../components/FormButton'
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AuthContext } from '../../navigation/AuthProvider'
+import * as Yup from 'yup'
+import { Formik } from 'formik';
 
 export default function LoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-
     const { login } = useContext(AuthContext)
 
     return (
@@ -37,49 +38,72 @@ export default function LoginScreen({ navigation }) {
                 >
                     <Text style={styles.loginText}>Giriş</Text>
 
-                    <View style={{ margin: 10 }}>
+                    <Formik
+                        initialValues={{ mail, password }}
+                        onSubmit={values => { login(values.mail, values.password) }}
+                        validationSchema={
+                            Yup.object().shape({
+                                mail: Yup.string()
+                                    .email('Lütfen geçerli bir email adresi girin!')
+                                    .required('Email gerekli!'),
 
-                        <FormInput
-                            value={mail}
-                            keyboardType="email-address"
-                            placeholder="E-Mail"
-                            onChangeText={value => setMail(value)}
-                            iconType="mail"
-                        />
-                        <View style={{ marginBottom: 5 }}>
+                                password: Yup.string()
+                                    .min(6, 'Şifre çok kısa, minimum 6 karakter olmalı!')
+                                    .required('Şifre gerekli!')
+                            })
+                        }
+                    >
+                        {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
+                            <>
+                                <View style={{ margin: 10 }}>
+                                    <FormInput
+                                        onBlur={() => setFieldTouched('mail')}
+                                        value={values.mail}
+                                        keyboardType="email-address"
+                                        placeholder="E-Mail"
+                                        onChangeText={handleChange('mail')}
+                                        // onChangeText={value => setMail(value)}
+                                        iconType="mail"
+                                    />
 
-                        </View>
+                                    {(errors.mail && touched.mail) &&
+                                        <Text style={styles.errors}>{errors.mail} </Text>
+                                    }
 
-                        <FormInput
-                            value={password}
-                            placeholder="Şifre"
-                            onChangeText={value => setPassword(value)}
-                            iconType="lock"
-                            hidepass={true}
-                            secureTextEntry={true}
-                        />
+                                    <FormInput
+                                        onBlur={() => setFieldTouched('password')}
+                                        value={values.password}
+                                        placeholder="Şifre"
+                                        onChangeText={handleChange('password')}
+                                        // onChangeText={value => setPassword(value)}
+                                        iconType="lock"
+                                        hidepass={true}
+                                        secureTextEntry={true}
+                                    />
 
-                        <TouchableOpacity
-                            style={styles.forgotPass}
-                            onPress={() => navigation.navigate('ForgotPassword')}
-                        >
-                            <Text style={{ color: 'gray', fontSize: 18 }}>Şifremi unuttum</Text>
-                        </TouchableOpacity>
+                                    {(errors.password && touched.password) &&
+                                        <Text style={styles.errors}>{errors.password} </Text>
+                                    }
 
-                    </View>
+                                    <TouchableOpacity
+                                        style={styles.forgotPass}
+                                        onPress={() => navigation.navigate('ForgotPassword')}
+                                    >
+                                        <Text style={styles.forgotPassText}>Şifremi unuttum</Text>
+                                    </TouchableOpacity>
 
-                    {/* <FormButton
-                        placeholder="Giriş"
-                        onPress={() => login(mail, password)}
-                    /> */}
+                                </View>
 
-                    <View style={{ marginVertical: 35 }}>
-                        <FormButton
-                            onPress={() => login(mail, password)}
-                            text="Giriş"
-                        />
-                    </View>
+                                <View style={{ marginVertical: 35 }}>
+                                    <FormButton
+                                        onPress={() => handleSubmit()}
+                                        text="Giriş"
+                                    />
+                                </View>
+                            </>
+                        )}
 
+                    </Formik>
                 </Animatable.View>
             </KeyboardAwareScrollView >
 
@@ -119,9 +143,13 @@ const styles = StyleSheet.create({
     },
     forgotPass: {
         position: 'absolute',
-        top: SIZES.height / 6.5,
+        top: SIZES.height / 6,
         right: 15,
         marginTop: 10,
+    },
+    forgotPassText: {
+        color: 'gray', 
+        fontSize: 18 
     },
     registerBtn: {
         fontWeight: 'bold',
@@ -136,4 +164,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         top: 2,
     },
+    errors: {
+        textAlign: 'center',
+        fontSize: 14,
+        color: 'red',
+        fontWeight: 'bold',
+        marginTop: 5
+    }
 })

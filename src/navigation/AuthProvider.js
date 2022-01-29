@@ -29,7 +29,7 @@ export const AuthProvider = ({ children, navigation }) => {
                             setUserId(user.uid);
                             setUserName(user.displayName);
                             setEmail(user.email);
-                            console.log('Log success!')
+                            console.log('Login success!')
                         }
 
                     }
@@ -41,6 +41,14 @@ export const AuthProvider = ({ children, navigation }) => {
                 register: async (email, password) => {
                     try {
                         await firebase.auth().createUserWithEmailAndPassword(email, password)
+
+                        const user = firebase.auth().currentUser;
+                        if (user) {
+                            setUserId(user.uid);
+                            setUserName(user.displayName);
+                            setEmail(user.email);
+                            console.log('Register success!')
+                        }
                     }
                     catch (e) {
                         alert(e)
