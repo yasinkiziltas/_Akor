@@ -1,31 +1,32 @@
-import React from 'react'
-import { Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import AwesomeButton from "react-native-really-awesome-button";
+import { SIZES } from '../constants';
 
-import { theme } from '../constants'
-const { SIZES } = theme;
-
-export default function FormButton({ placeholder, ...rest }) {
+export default function FormButton({ text, ...rest }) {
     return (
-        <TouchableOpacity {...rest} style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>{placeholder}</Text>
-        </TouchableOpacity>
-    )
+        <View style={styles.buttonContainer}>
+            <AwesomeButton
+                style={{ marginTop: 20 }}
+                borderRadius={8}
+                width={350}
+                height={45}
+                backgroundColor='#ee0f37'
+            >
+                <Text style={styles.buttonText}>{text}</Text>
+            </AwesomeButton>
+        </View>
+    );
 }
+
 const styles = StyleSheet.create({
     buttonContainer: {
-        marginTop: SIZES.height / 15,
-        alignSelf: 'center',
-        elevation: 8,
-        width: SIZES.width / 1.1,
-        backgroundColor: "#0165ff",
-        borderRadius: 20,
-        paddingVertical: 12,
-        paddingHorizontal: 12
+        alignItems: 'center',
+        marginTop: SIZES.height / 15
     },
     buttonText: {
-        textAlign: 'center',
-        fontWeight: 'bold',
         fontSize: 20,
-        color: '#ffffff',
-    },
-});
+        color: 'white',
+        fontWeight: 'bold'
+    }
+})

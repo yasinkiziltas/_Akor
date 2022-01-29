@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Image, StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native'
-
 import { loginBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
-
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'
-
 import { SIZES } from '../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 import { AuthContext } from '../../navigation/AuthProvider'
 
 export default function LoginScreen({ navigation }) {
@@ -72,9 +68,14 @@ export default function LoginScreen({ navigation }) {
 
                     </View>
 
-                    <FormButton
+                    {/* <FormButton
                         placeholder="Giriş"
                         onPress={() => login(mail, password)}
+                    /> */}
+
+                    <FormButton
+                        onPress={() => login(mail, password)}
+                        text="Giriş"
                     />
 
                 </Animatable.View>

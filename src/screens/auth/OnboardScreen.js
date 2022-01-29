@@ -1,122 +1,75 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet, TouchableOpacity, ImageBackground, Image, StatusBar } from 'react-native'
-import Onboarding from 'react-native-onboarding-swiper'
+import { View, Text, StyleSheet, ImageBackground, } from 'react-native'
 import * as Animatable from 'react-native-animatable';
-import { onboard, onboard2 } from '../../constants/images';
-import { COLORS, SIZES } from '../../constants/theme';
+import { onboard2 } from '../../constants/images';
+import { SIZES } from '../../constants/theme';
+import FormButton from '../../components/FormButton'
 
-const Dots = ({ selected }) => {
-    let backgroundColor;
-    backgroundColor = selected ? COLORS.bottomColor : 'rgba(0,0,0,0.3)'
-
-    return (
-        <View
-            style={{
-                borderRadius: 5,
-                width: 20,
-                height: 10,
-                marginHorizontal: 5,
-                backgroundColor
-            }}>
-        </View>
-    )
-}
-
-const Skip = ({ ...props }) => {
-    return (
-        <Animatable.View animation="fadeInLeft" delay={10}>
-            <TouchableOpacity {...props} style={styles.btn}>
-                <Text style={styles.btnContainer}>Geç</Text>
-            </TouchableOpacity>
-        </Animatable.View>
-    )
-}
-
-const Next = ({ ...props }) => {
-    return (
-        <Animatable.View animation="fadeInRight" delay={10}>
-            <TouchableOpacity {...props} style={styles.btn}>
-                <Text style={styles.btnContainer}>İleri</Text>
-            </TouchableOpacity>
-        </Animatable.View>
-    )
-}
-
-const Done = ({ ...props }) => {
-    return (
-        <Animatable.View animation="fadeInUp">
-            <TouchableOpacity {...props} style={styles.btn}>
-                <Text style={styles.btnDone}>Başla!</Text>
-            </TouchableOpacity>
-        </Animatable.View>
-
-    )
-}
 export default function OnboardScreen({ navigation }) {
     return (
         <>
-            <StatusBar hidden={true} />
-
-            <Animatable.View style={{ flex: 1 }} animation="fadeInUp">
-                <Onboarding
-                    onSkip={() => navigation.replace('Login')}
-                    onDone={() => navigation.navigate('Login')}
-                    SkipButtonComponent={Skip}
-                    NextButtonComponent={Next}
-                    DoneButtonComponent={Done}
-                    DotComponent={Dots}
-                    bottomBarHeight={70}
-
-                    pages={[
-                        {
-                            backgroundColor: '#D1F2EB',
-                            image:
-                                <Image
-                                    source={onboard}
-                                    style={{
-                                        width: 350,
-                                        height: 300,
-                                    }}
-                                />,
-                            title: "Akor' a hoşgeldin!",
-                            subtitle: 'Sahne arkadaşını bul,',
-                        },
-
-                        {
-                            backgroundColor: '#feeae6', //feeae6
-                            image:
-                                <Image
-                                    source={onboard2}
-                                    style={{
-                                        borderRadius: 30,
-                                        width: 350,
-                                        height: 300,
-                                    }}
-                                />,
-                            title: "Akor",
-                            subtitle: 've sahnene davet et!'
-                        },
-
-                    ]}
+            <Animatable.View
+                animation="slideInDown"
+                style={styles.container}
+            >
+                <ImageBackground
+                    source={onboard2}
+                    style={styles.image}
                 />
             </Animatable.View>
 
+            <Animatable.View
+                animation="slideInUp"
+                style={{ flexDirection: 'column' }}
+            >
+                <Text style={styles.onboardText}>Akor' a hoşgeldin!</Text>
+                <Text style={styles.onboardTabText}>Sahne arkadaşını bul ve sahnene davet et!</Text>
+
+                <View style={styles.buttonContainer}>
+                    <FormButton
+                        text="Giriş"
+                        onPress={() => navigation.navigate('Login')}
+                    />
+
+                    <FormButton
+                        text="Kayıt Ol"
+                        onPress={() => navigation.navigate('Register')}
+                    />
+                </View>
+            </Animatable.View >
         </>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-    btn: {
-        margin: 20
+    container: {
+        backgroundColor: '#e3e4e8'
     },
-    btnContainer: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'black'
+    image: {
+        width: SIZES.width,
+        height: SIZES.height / 1.7,
+        borderWidth: 0.5,
+        borderColor: 'gray',
     },
-    btnDone: {
+    onboardText: {
+        marginVertical: SIZES.width / 20,
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    onboardTabText: {
+        textAlign: 'center',
+        color: 'gray',
+        fontSize: 16,
+    },
+    buttonContainer: {
+        marginVertical: 35,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonText: {
+        color: '#fff',
         fontWeight: 'bold',
-        fontSize: 20,
-        color: 'black'
+        fontSize: 17
     }
 })

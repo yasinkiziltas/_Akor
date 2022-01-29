@@ -62,7 +62,7 @@ export default function ForgotPassword({ navigation }) {
           </View>
 
           <FormButton
-            placeholder="Gönder"
+            text="Gönder"
             onPress={() => forgotPass(mail)}
           />
 

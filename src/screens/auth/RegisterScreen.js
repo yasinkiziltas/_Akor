@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Image, StyleSheet, ImageBackground, View, Text, StatusBar, TouchableOpacity } from 'react-native'
-import firebase from 'firebase/app'
 import { registerBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
@@ -77,9 +76,14 @@ export default function RegisterScreen({ navigation }) {
 
                     </View>
 
-                    <FormButton
+                    {/* <FormButton
                         placeholder="Kayıt Ol"
                         onPress={() => register(mail, password)}
+                    /> */}
+
+                    <FormButton
+                        onPress={() => register(mail, password)}
+                        text="Kayıt ol"
                     />
 
                 </Animatable.View>

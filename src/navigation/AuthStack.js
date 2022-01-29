@@ -35,7 +35,7 @@ export default function AuthStack() {
     }
 
     else {
-        routeName = 'Onboarding'
+        routeName = 'Login'
     }
     
     return (
