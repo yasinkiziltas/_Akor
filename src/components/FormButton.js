@@ -12,6 +12,7 @@ export default function FormButton({ text, ...rest }) {
                 width={350}
                 height={45}
                 backgroundColor='#ee0f37'
+                {...rest}
             >
                 <Text style={styles.buttonText}>{text}</Text>
             </AwesomeButton>
@@ -22,7 +23,7 @@ export default function FormButton({ text, ...rest }) {
 const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
-        marginTop: SIZES.height / 15
+        // marginTop: SIZES.height / 45
     },
     buttonText: {
         fontSize: 20,

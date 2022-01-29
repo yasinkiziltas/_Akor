@@ -81,10 +81,12 @@ export default function RegisterScreen({ navigation }) {
                         onPress={() => register(mail, password)}
                     /> */}
 
-                    <FormButton
-                        onPress={() => register(mail, password)}
-                        text="Kayıt ol"
-                    />
+                    <View style={{ marginVertical: 35 }}>
+                        <FormButton
+                            onPress={() => register(mail, password)}
+                            text="Kayıt Ol"
+                        />
+                    </View>
 
                 </Animatable.View>
             </KeyboardAwareScrollView >

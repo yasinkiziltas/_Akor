@@ -73,10 +73,12 @@ export default function LoginScreen({ navigation }) {
                         onPress={() => login(mail, password)}
                     /> */}
 
-                    <FormButton
-                        onPress={() => login(mail, password)}
-                        text="Giriş"
-                    />
+                    <View style={{ marginVertical: 35 }}>
+                        <FormButton
+                            onPress={() => login(mail, password)}
+                            text="Giriş"
+                        />
+                    </View>
 
                 </Animatable.View>
             </KeyboardAwareScrollView >
