@@ -5,18 +5,20 @@ import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'
 import { SIZES } from '../../constants'
+import {loadingAuth} from '../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CustomHeader from '../../components/CustomHeader';
 import { AuthContext } from '../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
+import LottieView from 'lottie-react-native';
 
 export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
-
-    const { register } = useContext(AuthContext)
+    
+    const { register, loading } = useContext(AuthContext)
 
     return (
         <>
@@ -112,6 +114,21 @@ export default function RegisterScreen({ navigation }) {
                                         text="Kayıt Ol"
                                     />
                                 </View>
+
+                                {loading ? (
+                                        <LottieView
+                                            source={loadingAuth}
+                                            style={{
+                                                alignSelf: 'center',
+                                                width: 50,
+                                                height: 50
+                                            }}
+                                            autoPlay
+                                            loop
+                                        />
+                                    ) : (
+                                        null
+                                    )}
 
                             </>
                         )}

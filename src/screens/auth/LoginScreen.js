@@ -4,17 +4,20 @@ import { loginBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'
-import { SIZES } from '../../constants'
+import { SIZES} from '../../constants'
+import {loadingAuth} from '../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AuthContext } from '../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
+import LottieView from 'lottie-react-native';
 
 export default function LoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-    const { login } = useContext(AuthContext)
+
+    const { login, loading } = useContext(AuthContext)
 
     return (
         <>
@@ -56,6 +59,7 @@ export default function LoginScreen({ navigation }) {
                         {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
                             <>
                                 <View style={{ margin: 10 }}>
+                                    
                                     <FormInput
                                         onBlur={() => setFieldTouched('mail')}
                                         value={values.mail}
@@ -91,6 +95,21 @@ export default function LoginScreen({ navigation }) {
                                     >
                                         <Text style={styles.forgotPassText}>Şifremi unuttum</Text>
                                     </TouchableOpacity>
+
+                                    {loading ? (
+                                        <LottieView
+                                            source={loadingAuth}
+                                            style={{
+                                                alignSelf: 'center',
+                                                width: 50,
+                                                height: 50
+                                            }}
+                                            autoPlay
+                                            loop
+                                        />
+                                    ) : (
+                                        null
+                                    )}
 
                                 </View>
 
