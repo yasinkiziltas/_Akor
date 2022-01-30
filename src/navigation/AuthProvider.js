@@ -25,10 +25,10 @@ export const AuthProvider = ({ children, navigation }) => {
 
                 login: async (email, password) => {
                     try {
-                        await firebase.auth().signInWithEmailAndPassword(email, password)
 
                         if (!loading) {
                             setLoading(true)
+                            await firebase.auth().signInWithEmailAndPassword(email, password)
                         }
 
                         const user = firebase.auth().currentUser;
@@ -47,10 +47,10 @@ export const AuthProvider = ({ children, navigation }) => {
 
                 register: async (email, password) => {
                     try {
-                        await firebase.auth().createUserWithEmailAndPassword(email, password)
 
                         if (!loading) {
                             setLoading(true)
+                            await firebase.auth().createUserWithEmailAndPassword(email, password)
                         }
 
                         const user = firebase.auth().currentUser;
