@@ -6,7 +6,7 @@ export const COLORS = {
     white: "#FFFFFF",
     gray: "#6A6A6A",
     blue: "#0682FE",
-    // appColor: '#009688', 
+    appColor: '#ee0f37', 
     bottomColor: '#FF2968'
 };
 export const SIZES = {

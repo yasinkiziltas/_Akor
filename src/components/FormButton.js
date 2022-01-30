@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import AwesomeButton from "react-native-really-awesome-button";
-import { SIZES } from '../constants';
+import { COLORS } from '../constants';
 
 export default function FormButton({ text, ...rest }) {
     return (
@@ -11,7 +11,7 @@ export default function FormButton({ text, ...rest }) {
                 borderRadius={8}
                 width={350}
                 height={45}
-                backgroundColor='#ee0f37'
+                backgroundColor={COLORS.appColor}
                 {...rest}
             >
                 <Text style={styles.buttonText}>{text}</Text>
@@ -23,7 +23,6 @@ export default function FormButton({ text, ...rest }) {
 const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
-        // marginTop: SIZES.height / 45
     },
     buttonText: {
         fontSize: 20,
