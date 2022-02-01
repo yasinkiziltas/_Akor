@@ -56,8 +56,7 @@ export default function AppStack() {
                     tabBarActiveTintColor: COLORS.appColor,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-                        justifyContent: 'center',
-                        flex: 1,
+                        
                         borderRadius: 25,
                         position: 'absolute',
                         bottom: 20,
@@ -89,7 +88,8 @@ export default function AppStack() {
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons
-                                name="calendar-account-outline"
+                            // view-grid-outline
+                                name="warehouse"
                                 color={color}
                                 size={36}
                             />
