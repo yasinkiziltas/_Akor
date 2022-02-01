@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image, StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, View, Text, StatusBar, TouchableOpacity, ActivityIndicator} from 'react-native'
 import { loginBackground } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
@@ -97,16 +97,21 @@ export default function LoginScreen({ navigation }) {
                                     </TouchableOpacity>
 
                                     {loading ? (
-                                        <LottieView
-                                            source={loadingAuth}
-                                            style={{
-                                                alignSelf: 'center',
-                                                width: 50,
-                                                height: 50
-                                            }}
-                                            autoPlay
-                                            loop
+                                        <ActivityIndicator
+                                            style={{ marginTop: 5 }}
+                                            color='red'
+                                            size={25}
                                         />
+                                        // <LottieView
+                                        //     source={loadingAuth}
+                                        //     style={{
+                                        //         alignSelf: 'center',
+                                        //         width: 50,
+                                        //         height: 50
+                                        //     }}
+                                        //     autoPlay
+                                        //     loop
+                                        // />
                                     ) : (
                                         null
                                     )}

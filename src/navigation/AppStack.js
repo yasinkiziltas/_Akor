@@ -77,7 +77,7 @@ export default function AppStack() {
                             <MaterialCommunityIcons
                                 name="home-outline"
                                 color={color}
-                                 size={36}
+                                size={36}
                             />
                         ),
                     })}
@@ -91,7 +91,7 @@ export default function AppStack() {
                             <MaterialCommunityIcons
                                 name="calendar-account-outline"
                                 color={color}
-                                 size={36}
+                                size={36}
                             />
                         ),
                     })}
@@ -105,7 +105,7 @@ export default function AppStack() {
                             <MaterialCommunityIcons
                                 name="message-outline"
                                 color={color}
-                                 size={36}
+                                size={36}
                             />
                         ),
                     })}
