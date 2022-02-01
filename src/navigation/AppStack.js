@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -103,8 +104,8 @@ export default function AppStack() {
                     options={({ route }) => ({
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons
-                                name="message-outline"
+                            <Feather
+                                name="message-circle"
                                 color={color}
                                 size={36}
                             />
@@ -117,8 +118,8 @@ export default function AppStack() {
                     options={{
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
-                            <Ionicons
-                                name="person-outline"
+                            <MaterialCommunityIcons
+                                name="account"
                                 color={color}
                                 size={36}
                             />

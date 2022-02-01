@@ -106,12 +106,12 @@ export default function RegisterScreen({ navigation }) {
                                         <Text style={styles.errors}>{errors.password} </Text>
                                     }
 
-                                    <Checkbox.Item
+                                    {/* <Checkbox.Item
                                         labelStyle={{ color: 'gray', fontWeight: 'bold' }}
                                         onPress={() => setChecked(!checked)}
                                         status={checked ? 'checked' : 'unchecked'}
                                         label="Mekan sahibi misiniz?"
-                                    />
+                                    /> */}
 
                                     <Text style={{ color: 'gray', paddingTop: 20, paddingLeft: 5 }}>Kayıt olarak gizlilik sözleşmesini kabul etmiş olursunuz.</Text>
 
