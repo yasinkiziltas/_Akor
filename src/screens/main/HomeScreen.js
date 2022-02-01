@@ -30,7 +30,7 @@ const renderItemEvents = ({ item }) => (
 
     </>
 )
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
     const { userEmail } = useContext(AuthContext)
     return (
         <>
@@ -41,8 +41,8 @@ export default function HomeScreen() {
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.welcomeText}>Tekrar Hoşgeldin, <Text style={{ color: 'green' }}>Yasin!</Text></Text>
                     <TouchableOpacity
-                        onPress={() => alert('Notifications')}
-                        style={{ position: 'absolute', right: 10 }}
+                        onPress={() => navigation.navigate('Notifications')}
+                        style={{ position: 'absolute', right: 10, top: 10 }}
                     >
                         <IonIcons
                             name='notifications-outline'

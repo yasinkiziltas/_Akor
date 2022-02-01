@@ -1,5 +1,6 @@
 import React from 'react'
 import HomeScreen from '../screens/main/HomeScreen';
+import NotificationScreen from '../screens/main/NotificationScreen';
 import CalendarScreen from '../screens/main/CalendarScreen'
 import MessageScreen from '../screens/main/MessageScreen'
 import ProfileScreen from '../screens/main/ProfileScreen'
@@ -21,6 +22,8 @@ function MainStack() {
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
+
         </Stack.Navigator>
     )
 }
