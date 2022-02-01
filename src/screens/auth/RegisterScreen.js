@@ -5,19 +5,21 @@ import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'
 import { SIZES } from '../../constants'
-import {loadingAuth} from '../../constants/images';
+import { loadingAuth } from '../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CustomHeader from '../../components/CustomHeader';
 import { AuthContext } from '../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import LottieView from 'lottie-react-native';
+import { Checkbox } from 'react-native-paper'
 
 export default function RegisterScreen({ navigation }) {
     const [mail, setMail] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
-    
+    const [checked, setChecked] = useState(false);
+
     const { register, loading } = useContext(AuthContext)
 
     return (
@@ -104,6 +106,13 @@ export default function RegisterScreen({ navigation }) {
                                         <Text style={styles.errors}>{errors.password} </Text>
                                     }
 
+                                    <Checkbox.Item
+                                        labelStyle={{ color: 'gray', fontWeight: 'bold' }}
+                                        onPress={() => setChecked(!checked)}
+                                        status={checked ? 'checked' : 'unchecked'}
+                                        label="Mekan sahibi misiniz?"
+                                    />
+
                                     <Text style={{ color: 'gray', paddingTop: 20, paddingLeft: 5 }}>Kayıt olarak gizlilik sözleşmesini kabul etmiş olursunuz.</Text>
 
                                 </View>
@@ -116,17 +125,17 @@ export default function RegisterScreen({ navigation }) {
                                 </View>
 
                                 {loading ? (
-                                        <LottieView
-                                            source={loadingAuth}
-                                            style={{
-                                                alignSelf: 'center',
-                                                width: 50,
-                                                height: 50
-                                            }}
-                                            autoPlay
-                                            loop
-                                        />
-                                    ) : (
+                                    <LottieView
+                                        source={loadingAuth}
+                                        style={{
+                                            alignSelf: 'center',
+                                            width: 50,
+                                            height: 50
+                                        }}
+                                        autoPlay
+                                        loop
+                                    />
+                                ) : (
                                         null
                                     )}
 

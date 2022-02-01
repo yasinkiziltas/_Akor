@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Image, StyleSheet, View, Text, StatusBar, TouchableOpacity, ActivityIndicator} from 'react-native'
-import { loginBackground } from '../../constants/images'
+import {
+    Image,
+    StyleSheet,
+    View,
+    Text,
+    StatusBar,
+    TouchableOpacity,
+    ActivityIndicator,
+    ImageBackground,
+} from 'react-native'
+import { loginBackground, loginbackground2 } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'
-import { SIZES} from '../../constants'
-import {loadingAuth} from '../../constants/images';
+import { SIZES } from '../../constants'
+import { loadingAuth } from '../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AuthContext } from '../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import LottieView from 'lottie-react-native';
+import CustomHeader from '../../components/CustomHeader';
 
 export default function LoginScreen({ navigation }) {
 
@@ -28,11 +38,24 @@ export default function LoginScreen({ navigation }) {
                     animation="slideInDown"
                     style={styles.container}
                 >
-                    <Image
+                    {/* <Image
                         resizeMode='contain'
                         style={styles.backgroundImg}
                         source={loginBackground}
-                    />
+                    /> */}
+
+                    <ImageBackground
+                        // resizeMode='contain'¨
+                        style={styles.backgroundImg}
+                        source={loginbackground2}
+                    >
+
+                        <CustomHeader
+                            isBack={true}
+                            navigation={navigation}
+                        />
+
+                    </ImageBackground>
                 </Animatable.View>
 
                 <Animatable.View
@@ -59,7 +82,7 @@ export default function LoginScreen({ navigation }) {
                         {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
                             <>
                                 <View style={{ margin: 10 }}>
-                                    
+
                                     <FormInput
                                         onBlur={() => setFieldTouched('mail')}
                                         value={values.mail}
@@ -113,8 +136,8 @@ export default function LoginScreen({ navigation }) {
                                         //     loop
                                         // />
                                     ) : (
-                                        null
-                                    )}
+                                            null
+                                        )}
 
                                 </View>
 
@@ -172,8 +195,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     forgotPassText: {
-        color: 'gray', 
-        fontSize: 18 
+        color: 'gray',
+        fontSize: 18
     },
     registerBtn: {
         fontWeight: 'bold',

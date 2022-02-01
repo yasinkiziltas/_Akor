@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,7 +57,7 @@ export default function AppStack() {
                     tabBarActiveTintColor: COLORS.appColor,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-                        
+
                         borderRadius: 25,
                         position: 'absolute',
                         bottom: 20,
@@ -87,9 +88,9 @@ export default function AppStack() {
                     options={({ route }) => ({
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialCommunityIcons
-                            // view-grid-outline
-                                name="warehouse"
+                            <MaterialIcons
+                                // view-grid-outline
+                                name="place"
                                 color={color}
                                 size={36}
                             />

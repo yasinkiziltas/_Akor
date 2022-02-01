@@ -18,7 +18,7 @@ const renderItemEvents = ({ item }) => (
                 <ImageBackground
                     imageStyle={{ borderRadius: 20 }}
                     style={styles.randomEvents}
-                    source={item.img} 
+                    source={item.img}
                 >
                     <View style={styles.textView}>
                         <Text style={styles.imageText}>{item.eventType}</Text>
@@ -57,7 +57,7 @@ export default function HomeScreen() {
             </Animatable.View>
 
             <Animatable.View animation="fadeInDown">
-                <Text style={styles.welcomeText}>Yaklaşan Gösteriler</Text>
+                <Text style={styles.welcomeText}>Yaklaşan Etkinlikler</Text>
 
                 <FlatList
                     showsHorizontalScrollIndicator={false}
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     welcomeText: {
-        paddingTop:10,
+        paddingTop: 10,
         marginLeft: 10,
         fontWeight: 'bold',
         paddingBottom: 35,

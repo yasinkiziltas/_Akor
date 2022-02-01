@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, } from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableOpacity, Text } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 import { onboard2 } from '../../constants/images';
 import { SIZES } from '../../constants/theme';
@@ -23,7 +23,7 @@ export default function OnboardScreen({ navigation }) {
                 style={{ flexDirection: 'column' }}
             >
                 <Text style={styles.onboardText}>Akor' a hoşgeldin!</Text>
-                <Text style={styles.onboardTabText}>Sahne arkadaşını bul ve sahnene davet et!</Text>
+                <Text style={styles.onboardTabText}>Sahneni veya sahne arkadaşını bulmak için en ideal yer!</Text>
 
                 <View style={styles.buttonContainer}>
                     <FormButton
@@ -35,6 +35,17 @@ export default function OnboardScreen({ navigation }) {
                         text="Kayıt Ol"
                         onPress={() => navigation.navigate('Register')}
                     />
+
+                    <FormButton
+                        text="Mekan Sahibi Girişi"
+                        onPress={() => alert('Mekan sahibi girişi')}
+                    />
+
+                    <TouchableOpacity
+                        style={{ marginVertical: 50 }}
+                        onPress={() => alert('Non Auth')}>
+                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Üye olmadan devam et</Text>
+                    </TouchableOpacity>
                 </View>
             </Animatable.View >
         </>
@@ -47,7 +58,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: SIZES.width,
-        height: SIZES.height / 1.7,
+        height: SIZES.height / 3,
         borderWidth: 0.5,
         borderColor: 'gray',
     },
@@ -60,7 +71,7 @@ const styles = StyleSheet.create({
     onboardTabText: {
         textAlign: 'center',
         color: 'gray',
-        fontSize: 16,
+        fontSize: 14,
     },
     buttonContainer: {
         marginVertical: 35,
