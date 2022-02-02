@@ -6,7 +6,6 @@ import { AuthContext } from '../../navigation/AuthProvider'
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../constants/mainEvents'
-import { logo } from '../../constants/images';
 
 const renderItemEvents = ({ item }) => (
     <>
@@ -21,9 +20,41 @@ const renderItemEvents = ({ item }) => (
                     source={item.img}
                 >
                     <View style={styles.textView}>
-                        <Text style={styles.imageText}>{item.eventType}</Text>
+                        <Text style={styles.typeText}>Tür</Text>
+                        <Text style={styles.type}>{item.eventType}</Text>
                     </View>
 
+                    <View style={{
+                        justifyContent:'center',
+                        alignItems:'center',
+                        opacity:0.8,
+                        backgroundColor:'gray',
+                        borderRadius:10,
+                        width:50,
+                        height:50,
+                        position:'absolute',
+                        top:15, 
+                        left:130,
+                    }}>
+                        <Text style={{color:'white', textAlign:'center'}}>{item.eventDate}</Text>
+                    </View>
+
+                    <View style={{
+                        flexDirection: 'column',
+                        position: 'absolute',
+                        bottom: 30,
+                        left: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+
+                    }}>
+                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{item.placeName}</Text>
+
+                        <View style={{ position: 'absolute', left: 0, top: 30, flexDirection:'row',}}>
+                            <Text style={{ color: 'white', fontSize: 14 }}>{item.eventLocation}</Text>
+                            <Text style={{ color: 'white', fontSize: 14, marginLeft:20, fontWeight:'bold' }}>-{item.eventHour}</Text>
+                        </View>
+                    </View>
                 </ImageBackground>
             </TouchableOpacity>
         </View>
@@ -101,14 +132,18 @@ const styles = StyleSheet.create({
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
+        top: 10,
+        left: 10,
     },
-    imageText: {
+    typeText: {
         fontSize: 20,
-        color: 'white',
+        color: 'gray',
+        fontWeight: 'bold',
+    },
+    type: {
+        left: 5,
+        fontSize: 20,
+        color: '#fff',
         fontWeight: 'bold',
     }
 })

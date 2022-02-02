@@ -61,7 +61,6 @@ export default function AppStack() {
                     tabBarActiveTintColor: COLORS.appColor,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-
                         borderRadius: 25,
                         position: 'absolute',
                         bottom: 20,
