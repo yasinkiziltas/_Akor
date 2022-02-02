@@ -31,7 +31,7 @@ export const DATA = [
         placeName: 'Vodafone Park',
         eventType: 'Türk Sanat',
         eventLocation:'Eskişehir',
-        eventDate:'14 Ocak',
+        eventDate:'14 Haziran',
         eventHour:'19:00',
         img: require('../../assets/images/voda.jpg')
     },

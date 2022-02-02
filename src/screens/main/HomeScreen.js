@@ -27,14 +27,14 @@ const renderItemEvents = ({ item }) => (
                     <View style={{
                         justifyContent:'center',
                         alignItems:'center',
-                        opacity:0.8,
+                         
                         backgroundColor:'gray',
                         borderRadius:10,
-                        width:50,
+                        width:55,
                         height:50,
                         position:'absolute',
                         top:15, 
-                        left:130,
+                        left:140,
                     }}>
                         <Text style={{color:'white', textAlign:'center'}}>{item.eventDate}</Text>
                     </View>
@@ -51,8 +51,8 @@ const renderItemEvents = ({ item }) => (
                         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{item.placeName}</Text>
 
                         <View style={{ position: 'absolute', left: 0, top: 30, flexDirection:'row',}}>
-                            <Text style={{ color: 'white', fontSize: 14 }}>{item.eventLocation}</Text>
-                            <Text style={{ color: 'white', fontSize: 14, marginLeft:20, fontWeight:'bold' }}>-{item.eventHour}</Text>
+                            <Text style={{ color: 'white', fontSize: 16,  }}>{item.eventLocation}</Text>
+                            <Text style={{ color: 'white', fontSize: 16, marginLeft:20, fontWeight:'bold' }}>{item.eventHour}</Text>
                         </View>
                     </View>
                 </ImageBackground>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         top: 10,
-        left: 10,
+        left: 5,
     },
     typeText: {
         fontSize: 20,
