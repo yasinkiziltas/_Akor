@@ -4,6 +4,7 @@ import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../constants/index';
 import { AuthContext } from '../../navigation/AuthProvider'
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../constants/mainEvents'
 
@@ -72,11 +73,11 @@ export default function HomeScreen({ navigation }) {
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.welcomeText}>Tekrar Hoşgeldin, <Text style={{ color: 'green' }}>Yasin!</Text></Text>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Notifications')}
+                        onPress={() => navigation.navigate('AddEvent')}
                         style={{ position: 'absolute', right: 10, top: 10 }}
                     >
-                        <IonIcons
-                            name='notifications-outline'
+                        <Feather
+                            name='plus'
                             size={30}
                         />
                     </TouchableOpacity>
