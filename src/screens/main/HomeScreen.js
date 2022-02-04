@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ImageBackground, Image } from 'react-native'
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../constants/index';
@@ -6,6 +6,7 @@ import { AuthContext } from '../../navigation/AuthProvider'
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../constants/mainEvents'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const renderItemEvents = ({ item }) => (
     <>
@@ -45,9 +46,25 @@ const renderItemEvents = ({ item }) => (
 export default function HomeScreen({ navigation }) {
 
     const { userName, userEmail } = useContext(AuthContext)
+    const [currentUserName, setCurrentUserName] = useState()
+    const [currentUserEmail, setCurrentUserMail] = useState()
 
     useEffect(() => {
-        console.log('Email', userEmail);
+        AsyncStorage.getItem('cUsername').then(user => {
+            setCurrentUserName(user)
+            console.log('Name: ', currentUserName)
+        }).catch(e =>
+            console.log(e)
+        )
+
+        AsyncStorage.getItem('cUseremail').then(useremail => {
+            setCurrentUserMail(useremail)
+            console.log('Mail: ', currentUserEmail)
+        }).catch(e =>
+            console.log(e)
+        )
+
+        // console.log('Email', userEmail);
     }, [])
 
     return (
@@ -56,7 +73,7 @@ export default function HomeScreen({ navigation }) {
                 animation="fadeInUp"
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.welcomeText}>Hoşgeldin! <Text style={styles.welcomeUserText}>{userName}</Text></Text>
+                    <Text style={styles.welcomeText}>Hoşgeldin! <Text style={styles.welcomeUserText}>{currentUserName}</Text></Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AddEvent')}
                         style={styles.addEvent}

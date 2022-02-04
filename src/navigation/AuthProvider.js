@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import firebase from 'firebase'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = createContext();
 
@@ -91,9 +92,11 @@ export const AuthProvider = ({ children, navigation }) => {
 
                         const user = firebase.auth().currentUser;
                         if (user) {
-                            setUserId(user.uid);
-                            setUserName(name);
-                            setEmail(user.email);
+                            AsyncStorage.setItem('cUsername', name)
+                            AsyncStorage.setItem('cUseremail', email)
+                            // setUserId(user.uid);
+                            // setUserName(name);
+                            // setEmail(user.email);
                         }
                     }
                     catch (e) {
