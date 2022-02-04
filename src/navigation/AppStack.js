@@ -2,7 +2,7 @@ import React from 'react'
 import HomeScreen from '../screens/main/HomeScreen';
 import NotificationScreen from '../screens/main/NotificationScreen';
 import EventAddScreen from '../screens/main/EventAddScreen';
-import CalendarScreen from '../screens/main/CalendarScreen'
+import EventScreen from '../screens/main/EventScreen'
 import MessageScreen from '../screens/main/MessageScreen'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import EditProfileScreen from '../screens/main/EditProfileScreen'
@@ -11,7 +11,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -25,15 +24,14 @@ function MainStack() {
             <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddEvent" component={EventAddScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
-
         </Stack.Navigator>
     )
 }
 
-function CalendarStack() {
+function EventStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Calendar" component={CalendarScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Events" component={EventScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
@@ -89,7 +87,7 @@ export default function AppStack() {
                 />
                 <Tab.Screen
                     name="Takvim"
-                    component={CalendarStack}
+                    component={EventStack}
                     options={({ route }) => ({
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (

@@ -20,8 +20,8 @@ export default function CustomHeader({ title, navigation, isBack }) {
                                     name="arrow-left"
                                     size={35}
                                     style={{
-                                        width:35,
-                                        height:35,
+                                        width: 35,
+                                        height: 35,
                                         marginLeft: 10,
                                     }}
                                 />
@@ -35,15 +35,13 @@ export default function CustomHeader({ title, navigation, isBack }) {
             </View>
 
             <View style={contentHeader}>
-                <Text style={{
-                    textAlign: 'center',
-                    color: "black",
-                    fontWeight: 'bold',
-                    fontSize: 16,
-                }}
-                >
+                <Text style={styles.midTitle} >
                     {title}
                 </Text>
+            </View>
+
+            <View style={contentHeader}>
+
             </View>
 
         </SafeAreaView >
@@ -59,6 +57,13 @@ const styles = StyleSheet.create({
     },
     contentHeader: {
         flex: 1,
+        alignItems: 'center',
         justifyContent: 'center',
+    },
+    midTitle: {
+        textAlign: 'center',
+        color: "black",
+        fontWeight: 'bold',
+        fontSize: 16,
     },
 })

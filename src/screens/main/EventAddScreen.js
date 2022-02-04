@@ -4,7 +4,7 @@ import React from 'react';
 export default function EventAddScreen() {
   return (
     <View>
-      <Text></Text>
+      <Text>EventAddScreen</Text>
     </View>
   );
 }

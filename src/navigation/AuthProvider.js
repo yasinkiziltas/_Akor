@@ -71,6 +71,15 @@ export const AuthProvider = ({ children, navigation }) => {
                                 .add({
                                     userName: name,
                                     userEmail: email,
+                                    userPhone: null,
+                                    userAge: null,
+                                    userJob: null,
+                                    userDateOfBirth: null,
+                                    userPhoto: null,
+                                    userAddress: null,
+                                    userBio: null,
+                                    userGender: null,
+
                                 })
                                 .then(() => {
                                     console.log('Kayıt başarılı!');

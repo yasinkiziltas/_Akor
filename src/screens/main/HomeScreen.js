@@ -95,7 +95,7 @@ export default function HomeScreen({ navigation }) {
                 animation="fadeInUp"
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.welcomeText}>Hoşgeldin <Text style={{ color: 'green' }}>{userName}</Text></Text>
+                    <Text style={styles.welcomeText}>Hoşgeldin! <Text style={{ color: 'green' }}>{userName}</Text></Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AddEvent')}
                         style={{ position: 'absolute', right: 10, top: 10 }}
