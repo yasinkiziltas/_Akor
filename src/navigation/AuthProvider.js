@@ -58,18 +58,32 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                 },
 
-                register: async (email, password) => {
+                register: async (name, email, password) => {
                     try {
 
                         if (!loading) {
                             setLoading(true)
                             await firebase.auth().createUserWithEmailAndPassword(email, password)
+
+                            await firebase
+                                .firestore()
+                                .collection('users')
+                                .add({
+                                    userName: name,
+                                    userEmail: email,
+                                })
+                                .then(() => {
+                                    console.log('Kayıt başarılı!');
+                                })
+                                .catch((error) => {
+                                    console.log('Hata!', error);
+                                })
                         }
 
                         const user = firebase.auth().currentUser;
                         if (user) {
                             setUserId(user.uid);
-                            setUserName(user.displayName);
+                            setUserName(name);
                             setEmail(user.email);
                         }
                     }

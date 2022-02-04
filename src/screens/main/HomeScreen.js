@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, ImageBackground, Im
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../constants/index';
 import { AuthContext } from '../../navigation/AuthProvider'
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../constants/mainEvents'
+import firebase from 'firebase'
 
 const renderItemEvents = ({ item }) => (
     <>
@@ -26,18 +26,18 @@ const renderItemEvents = ({ item }) => (
                     </View>
 
                     <View style={{
-                        justifyContent:'center',
-                        alignItems:'center',
-                         
-                        backgroundColor:'gray',
-                        borderRadius:10,
-                        width:55,
-                        height:50,
-                        position:'absolute',
-                        top:15, 
-                        left:140,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+
+                        backgroundColor: 'gray',
+                        borderRadius: 10,
+                        width: 55,
+                        height: 50,
+                        position: 'absolute',
+                        top: 15,
+                        left: 140,
                     }}>
-                        <Text style={{color:'white', textAlign:'center'}}>{item.eventDate}</Text>
+                        <Text style={{ color: 'white', textAlign: 'center' }}>{item.eventDate}</Text>
                     </View>
 
                     <View style={{
@@ -51,9 +51,9 @@ const renderItemEvents = ({ item }) => (
                     }}>
                         <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{item.placeName}</Text>
 
-                        <View style={{ position: 'absolute', left: 0, top: 30, flexDirection:'row',}}>
-                            <Text style={{ color: 'white', fontSize: 16,  }}>{item.eventLocation}</Text>
-                            <Text style={{ color: 'white', fontSize: 16, marginLeft:20, fontWeight:'bold' }}>{item.eventHour}</Text>
+                        <View style={{ position: 'absolute', left: 0, top: 30, flexDirection: 'row', }}>
+                            <Text style={{ color: 'white', fontSize: 16, }}>{item.eventLocation}</Text>
+                            <Text style={{ color: 'white', fontSize: 16, marginLeft: 20, fontWeight: 'bold' }}>{item.eventHour}</Text>
                         </View>
                     </View>
                 </ImageBackground>
@@ -62,8 +62,32 @@ const renderItemEvents = ({ item }) => (
 
     </>
 )
+
 export default function HomeScreen({ navigation }) {
-    const { userEmail } = useContext(AuthContext)
+
+    const { userName, userEmail } = useContext(AuthContext)
+
+    // const fetchUser = () => {
+    //     firebase
+    //         .firestore()
+    //         .collection('users')
+    //         .where('userEmail', '==', userEmail)
+    //         .get()
+    //         .then(querySnapshot => {
+
+    //             console.log('Total users: ', querySnapshot.size);
+    //             querySnapshot.forEach(documentSnapshot => {
+    //                 console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+    //             });
+
+    //         })
+    // }
+
+    useEffect(() => {
+        console.log('Email', userEmail);
+        //fetchUser()
+    }, [])
+
     return (
         <>
 
@@ -71,7 +95,7 @@ export default function HomeScreen({ navigation }) {
                 animation="fadeInUp"
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.welcomeText}>Tekrar Hoşgeldin, <Text style={{ color: 'green' }}>Yasin!</Text></Text>
+                    <Text style={styles.welcomeText}>Hoşgeldin <Text style={{ color: 'green' }}>{userName}</Text></Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AddEvent')}
                         style={{ position: 'absolute', right: 10, top: 10 }}

@@ -15,11 +15,9 @@ import LottieView from 'lottie-react-native';
 import { Checkbox } from 'react-native-paper'
 
 export default function RegisterScreen({ navigation }) {
-    const [mail, setMail] = useState('')
     const [name, setName] = useState('')
+    const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-    const [checked, setChecked] = useState(false);
-
     const { register, loading } = useContext(AuthContext)
 
     return (
@@ -52,10 +50,13 @@ export default function RegisterScreen({ navigation }) {
                     <Text style={styles.loginText}>Kayıt ol</Text>
 
                     <Formik
-                        initialValues={{ mail, password }}
-                        onSubmit={values => { register(values.mail, values.password) }}
+                        initialValues={{name, mail, password }}
+                        onSubmit={values => { register(values.name, values.mail, values.password) }}
                         validationSchema={
                             Yup.object().shape({
+                                name: Yup.string()
+                                .required('İsim gerekli!'),
+
                                 mail: Yup.string()
                                     .email('Lütfen geçerli bir email adresi girin!')
                                     .required('Email gerekli!'),
@@ -70,12 +71,17 @@ export default function RegisterScreen({ navigation }) {
                             <>
                                 <View style={{ margin: 10 }}>
 
-                                    {/* <FormInput
-                                     value={name}
-                                     placeholder="Ad Soyad"
-                                      onChangeText={value => setName(value)}
-                                         iconType="user"
-                                    /> */}
+                                    <FormInput
+                                        onBlur={() => setFieldTouched('name')}
+                                        value={values.name}
+                                        placeholder="Ad Soyad"
+                                        onChangeText={handleChange('name')}
+                                        iconType="user"
+                                    />
+
+                                    {(errors.name && touched.name) &&
+                                        <Text style={styles.errors}>{errors.name} </Text>
+                                    }
 
                                     <FormInput
                                         onBlur={() => setFieldTouched('mail')}
