@@ -6,7 +6,6 @@ import { AuthContext } from '../../navigation/AuthProvider'
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../constants/mainEvents'
-import firebase from 'firebase'
 
 const renderItemEvents = ({ item }) => (
     <>
@@ -25,41 +24,21 @@ const renderItemEvents = ({ item }) => (
                         <Text style={styles.type}>{item.eventType}</Text>
                     </View>
 
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-
-                        backgroundColor: 'gray',
-                        borderRadius: 10,
-                        width: 55,
-                        height: 50,
-                        position: 'absolute',
-                        top: 15,
-                        left: 140,
-                    }}>
-                        <Text style={{ color: 'white', textAlign: 'center' }}>{item.eventDate}</Text>
+                    <View style={styles.eventDate}>
+                        <Text style={styles.eventDateText}>{item.eventDate}</Text>
                     </View>
 
-                    <View style={{
-                        flexDirection: 'column',
-                        position: 'absolute',
-                        bottom: 30,
-                        left: 10,
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                    <View style={styles.placeName}>
+                        <Text style={styles.placeNameText}>{item.placeName}</Text>
 
-                    }}>
-                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}>{item.placeName}</Text>
-
-                        <View style={{ position: 'absolute', left: 0, top: 30, flexDirection: 'row', }}>
-                            <Text style={{ color: 'white', fontSize: 16, }}>{item.eventLocation}</Text>
-                            <Text style={{ color: 'white', fontSize: 16, marginLeft: 20, fontWeight: 'bold' }}>{item.eventHour}</Text>
+                        <View style={styles.eventTabInfo}>
+                            <Text style={styles.eventTabLocationText}>{item.eventLocation}</Text>
+                            <Text style={styles.eventTabHourText}>{item.eventHour}</Text>
                         </View>
                     </View>
                 </ImageBackground>
             </TouchableOpacity>
         </View>
-
     </>
 )
 
@@ -67,38 +46,20 @@ export default function HomeScreen({ navigation }) {
 
     const { userName, userEmail } = useContext(AuthContext)
 
-    // const fetchUser = () => {
-    //     firebase
-    //         .firestore()
-    //         .collection('users')
-    //         .where('userEmail', '==', userEmail)
-    //         .get()
-    //         .then(querySnapshot => {
-
-    //             console.log('Total users: ', querySnapshot.size);
-    //             querySnapshot.forEach(documentSnapshot => {
-    //                 console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-    //             });
-
-    //         })
-    // }
-
     useEffect(() => {
         console.log('Email', userEmail);
-        //fetchUser()
     }, [])
 
     return (
         <>
-
             <Animatable.View
                 animation="fadeInUp"
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.welcomeText}>Hoşgeldin! <Text style={{ color: 'green' }}>{userName}</Text></Text>
+                    <Text style={styles.welcomeText}>Hoşgeldin! <Text style={styles.welcomeUserText}>{userName}</Text></Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('AddEvent')}
-                        style={{ position: 'absolute', right: 10, top: 10 }}
+                        style={styles.addEvent}
                     >
                         <Feather
                             name='plus'
@@ -141,6 +102,14 @@ const styles = StyleSheet.create({
         paddingBottom: 35,
         fontSize: 24
     },
+    welcomeUserText: {
+        color: 'green',
+    },
+    addEvent: {
+        position: 'absolute',
+        right: 10,
+        top: 10
+    },
     randomEvents: {
         width: 200,
         height: 300
@@ -170,5 +139,50 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#fff',
         fontWeight: 'bold',
+    },
+    eventDate: {
+        justifyContent: 'center',
+        alignItems: 'center',
+
+        backgroundColor: 'gray',
+        borderRadius: 10,
+        width: 55,
+        height: 50,
+        position: 'absolute',
+        top: 15,
+        left: 140,
+    },
+    eventDateText: {
+        color: 'white',
+        textAlign: 'center'
+    },
+    placeName: {
+        flexDirection: 'column',
+        position: 'absolute',
+        bottom: 30,
+        left: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    placeNameText: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    eventTabInfo: {
+        position: 'absolute',
+        left: 0,
+        top: 30,
+        flexDirection: 'row',
+    },
+    eventTabLocationText: {
+        color: 'white',
+        fontSize: 16,
+    },
+    eventTabHourText: {
+        color: 'white',
+        fontSize: 16,
+        marginLeft: 20,
+        fontWeight: 'bold'
     }
 })
