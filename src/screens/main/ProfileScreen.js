@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CustomHeader from '../../components/CustomHeader';
 import {
     View,
@@ -14,9 +14,24 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SIZES } from '../../constants/theme';
 import * as Animatable from 'react-native-animatable';
 import firebase from 'firebase'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function ProfileScreen({ navigation }) {
     const { logout, userEmail } = useContext(AuthContext)
+    const [name, setName] = useState()
+    const [email, setEmail] = useState()
+
+    AsyncStorage.getItem('cUsername').then(name => {
+        setName(name)
+    }).catch(e =>
+        console.log(e)
+    )
+
+    AsyncStorage.getItem('cUseremail').then(email => {
+        setEmail(email)
+    }).catch(e =>
+        console.log(e)
+    )
 
     // const fetchUser = () => {
     //     firebase
@@ -45,7 +60,7 @@ export default function ProfileScreen({ navigation }) {
                 style={styles.container}
             >
                 <LinearGradient
-                    colors={['#4c669f', '#3b5998', COLORS.gray]}
+                    colors={['#42275a', '#734b6d', COLORS.gray]}
                     style={styles.background}
                 />
 
@@ -59,7 +74,8 @@ export default function ProfileScreen({ navigation }) {
                 </View>
 
                 <View style={styles.userBio}>
-                    <Text style={styles.userBioText}>{userEmail}</Text>
+                    <Text style={styles.userBioNameText}>{name}</Text>
+                    <Text style={styles.userBioMailText}>{email}</Text>
                 </View>
 
 
@@ -80,12 +96,13 @@ export default function ProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1 / 2,
+        flex: 1 / 2.2,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
     },
     userImg: {
+        marginTop: 20,
         borderRadius: 100,
         borderWidth: 2,
         borderColor: 'white',
@@ -95,19 +112,21 @@ const styles = StyleSheet.create({
     userBio: {
         marginTop: 5,
     },
-    userBioText: {
+    userBioNameText: {
+        textAlign: 'center',
         fontSize: 20,
         color: 'white',
         fontWeight: 'bold'
     },
+    userBioMailText: {
+        fontSize: 15,
+        color: 'white',
+    },
     userInfo: {
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        marginTop: 5,
+        borderTopLeftRadius: 35,
+        borderTopRightRadius: 35,
         backgroundColor: 'white',
-        width: SIZES.width,
-        height: SIZES.height / 3,
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
