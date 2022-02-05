@@ -12,6 +12,7 @@ import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from 'firebase'
 
 export default function ProfileScreen({ navigation }) {
@@ -83,7 +84,9 @@ export default function ProfileScreen({ navigation }) {
             >
                 <Text style={styles.accountText}>Hesap</Text>
 
-                <TouchableOpacity style={styles.profile}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('EditProfile')}
+                    style={styles.profile}>
                     <TouchableOpacity style={styles.profileBtn}>
                         <SimpleLineIcons
                             color="#6abce9"
@@ -94,7 +97,9 @@ export default function ProfileScreen({ navigation }) {
                     <Text style={styles.btnText}>Profil Bilgilerim</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.profile}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('UserEventsBookmark')}
+                    style={styles.profile}>
                     <TouchableOpacity style={styles.bookmarkBtn}>
                         <Ionicons
                             color="#6ac26d"
@@ -105,22 +110,26 @@ export default function ProfileScreen({ navigation }) {
                     <Text style={styles.btnText}>Mekan Başvurularım</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.profile}>
-                    <TouchableOpacity style={styles.bookmarkBtn}>
-                        <Ionicons
-                            color="#6ac26d"
-                            name="md-bookmark-outline"
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('ChangePassword')}
+                    style={styles.profile}>
+                    <TouchableOpacity style={styles.passwordBtn}>
+                        <MaterialCommunityIcons
+                            color="#8069f3"
+                            name="lock"
                             size={24}
                         />
                     </TouchableOpacity>
                     <Text style={styles.btnText}>Şifre Değiştir</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.profile}>
-                    <TouchableOpacity style={styles.bookmarkBtn}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Settings')}
+                    style={styles.profile}>
+                    <TouchableOpacity style={styles.settingsBtn}>
                         <Ionicons
-                            color="#6ac26d"
-                            name="md-bookmark-outline"
+                            color="#ee905f"
+                            name="settings"
                             size={24}
                         />
                     </TouchableOpacity>
@@ -181,7 +190,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     profile: {
-        marginBottom:30,
+        marginBottom: 30,
         flexDirection: 'row'
     },
     profileBtn: {
@@ -198,6 +207,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 30,
         backgroundColor: '#daf4de',
+        width: 50,
+        height: 50,
+        borderRadius: 30
+    },
+    passwordBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        backgroundColor: '#e1e0f6',
+        width: 50,
+        height: 50,
+        borderRadius: 30
+    },
+    settingsBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        backgroundColor: '#f2e5e0',
         width: 50,
         height: 50,
         borderRadius: 30

@@ -6,6 +6,9 @@ import EventScreen from '../screens/main/EventScreen'
 import MessageScreen from '../screens/main/MessageScreen'
 import ProfileScreen from '../screens/main/ProfileScreen'
 import EditProfileScreen from '../screens/main/EditProfileScreen'
+import UserEventsBookmarksScreen from '../screens/main/UserEventsBookmarksScreen'
+import UserChangePasswordScreen from '../screens/main/UserChangePasswordScreen'
+import UserSettingsScreen from '../screens/main/UserSettingsScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -49,6 +52,9 @@ function ProfileStack() {
         <Stack.Navigator initialRouteName="Profile">
             <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserEventsBookmark" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Settings" component={UserSettingsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
