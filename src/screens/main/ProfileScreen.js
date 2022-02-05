@@ -1,20 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
-import CustomHeader from '../../components/CustomHeader';
 import {
     View,
-    Button,
     Text,
     StyleSheet,
     TouchableOpacity,
-    Image,
-    ImageBackground
 } from 'react-native'
 import { AuthContext } from '../../navigation/AuthProvider'
 import { LinearGradient } from 'expo-linear-gradient';
 import { COLORS, SIZES } from '../../constants/theme';
 import * as Animatable from 'react-native-animatable';
-import firebase from 'firebase'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import firebase from 'firebase'
 
 export default function ProfileScreen({ navigation }) {
     const { logout, userEmail } = useContext(AuthContext)
@@ -59,36 +57,76 @@ export default function ProfileScreen({ navigation }) {
                 animation="fadeInDown"
                 style={styles.container}
             >
+                {/* Arkaplan */}
                 <LinearGradient
                     colors={['#42275a', '#734b6d', COLORS.gray]}
                     style={styles.background}
                 />
 
-                {/* <CustomHeader
-                    title="Profil"
-                    navigation={navigation}
-                /> */}
-
+                {/*Kullanıcı Resim*/}
                 <View style={styles.userImg}>
 
                 </View>
 
+                {/* İsim & Email */}
                 <View style={styles.userBio}>
                     <Text style={styles.userBioNameText}>{name}</Text>
                     <Text style={styles.userBioMailText}>{email}</Text>
                 </View>
 
-
             </Animatable.View>
 
+            {/* Bilgiler */}
             <Animatable.View
                 animation="fadeInUp"
                 style={styles.userInfo}
             >
-                <Button
-                    onPress={logout}
-                    title='Çıkış'
-                />
+                <Text style={styles.accountText}>Hesap</Text>
+
+                <TouchableOpacity style={styles.profile}>
+                    <TouchableOpacity style={styles.profileBtn}>
+                        <SimpleLineIcons
+                            color="#6abce9"
+                            name="user"
+                            size={24}
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.btnText}>Profil Bilgilerim</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.profile}>
+                    <TouchableOpacity style={styles.bookmarkBtn}>
+                        <Ionicons
+                            color="#6ac26d"
+                            name="md-bookmark-outline"
+                            size={24}
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.btnText}>Mekan Başvurularım</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.profile}>
+                    <TouchableOpacity style={styles.bookmarkBtn}>
+                        <Ionicons
+                            color="#6ac26d"
+                            name="md-bookmark-outline"
+                            size={24}
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.btnText}>Şifre Değiştir</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.profile}>
+                    <TouchableOpacity style={styles.bookmarkBtn}>
+                        <Ionicons
+                            color="#6ac26d"
+                            name="md-bookmark-outline"
+                            size={24}
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.btnText}>Ayarlar</Text>
+                </TouchableOpacity>
+
             </Animatable.View>
         </>
     );
@@ -128,8 +166,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 35,
         backgroundColor: 'white',
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'column'
     },
     background: {
         position: 'absolute',
@@ -138,4 +175,36 @@ const styles = StyleSheet.create({
         top: 0,
         height: 300,
     },
+    accountText: {
+        margin: 35,
+        // fontWeight: 'bold',
+        fontSize: 25,
+    },
+    profile: {
+        marginBottom:30,
+        flexDirection: 'row'
+    },
+    profileBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        backgroundColor: '#ddecf7',
+        width: 50,
+        height: 50,
+        borderRadius: 30
+    },
+    bookmarkBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        backgroundColor: '#daf4de',
+        width: 50,
+        height: 50,
+        borderRadius: 30
+    },
+    btnText: {
+        margin: 15,
+        fontSize: 15,
+        fontWeight: 'bold'
+    }
 });
