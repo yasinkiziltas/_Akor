@@ -136,6 +136,19 @@ export default function ProfileScreen({ navigation }) {
                     <Text style={styles.btnText}>Ayarlar</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity
+                    onPress={logout}
+                    style={styles.profile}>
+                    <TouchableOpacity style={styles.outBtn}>
+                        <Ionicons
+                            color="#60936A"
+                            name="exit-outline"
+                            size={24}
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.btnText}>Çıkış Yap</Text>
+                </TouchableOpacity>
+
             </Animatable.View>
         </>
     );
@@ -166,6 +179,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     userBioMailText: {
+        textAlign:'center',
         fontSize: 15,
         color: 'white',
     },
@@ -225,6 +239,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 30,
         backgroundColor: '#f2e5e0',
+        width: 50,
+        height: 50,
+        borderRadius: 30
+    },
+    outBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        backgroundColor: '#E3FAF5',
         width: 50,
         height: 50,
         borderRadius: 30

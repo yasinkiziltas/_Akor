@@ -67,13 +67,14 @@ export default function AppStack() {
                     tabBarActiveTintColor: COLORS.appColor,
                     tabBarShowLabel: false,
                     tabBarStyle: {
-                        borderRadius: 25,
-                        position: 'absolute',
-                        bottom: 20,
-                        left: 20,
-                        right: 20,
-                        elevation: 0,
-                        height: 80
+
+                        // borderRadius: 25,
+                        // position: 'absolute',
+                        // bottom: 20,
+                        // left: 20,
+                        // right: 20,
+                        // elevation: 0,
+                        // height: 80
                     }
                 }}>
                 <Tab.Screen
@@ -86,7 +87,7 @@ export default function AppStack() {
                             <MaterialCommunityIcons
                                 name="home-outline"
                                 color={color}
-                                size={36}
+                                size={26}
                             />
                         ),
                     })}
@@ -101,7 +102,7 @@ export default function AppStack() {
                                 // view-grid-outline
                                 name="place"
                                 color={color}
-                                size={36}
+                                size={26}
                             />
                         ),
                     })}
@@ -115,7 +116,7 @@ export default function AppStack() {
                             <Feather
                                 name="message-circle"
                                 color={color}
-                                size={36}
+                                size={26}
                             />
                         ),
                     })}
@@ -129,7 +130,7 @@ export default function AppStack() {
                             <MaterialCommunityIcons
                                 name="account"
                                 color={color}
-                                size={36}
+                                size={26}
                             />
                         ),
                     }}
