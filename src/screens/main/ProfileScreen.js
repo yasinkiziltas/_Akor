@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
+    ScrollView
 } from 'react-native'
 import { AuthContext } from '../../navigation/AuthProvider'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -84,7 +85,8 @@ export default function ProfileScreen({ navigation }) {
             >
                 <Text style={styles.accountText}>Hesap</Text>
 
-                <TouchableOpacity
+            <ScrollView>
+                    <TouchableOpacity
                     onPress={() => navigation.navigate('EditProfile')}
                     style={styles.profile}>
                     <TouchableOpacity style={styles.profileBtn}>
@@ -148,6 +150,7 @@ export default function ProfileScreen({ navigation }) {
                     </TouchableOpacity>
                     <Text style={styles.btnText}>Çıkış Yap</Text>
                 </TouchableOpacity>
+            </ScrollView>
 
             </Animatable.View>
         </>
@@ -162,12 +165,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     userImg: {
-        marginTop: 20,
+        marginTop: 15,
         borderRadius: 100,
         borderWidth: 2,
         borderColor: 'white',
-        width: 150,
-        height: 150,
+        width: 120,
+        height: 120,
     },
     userBio: {
         marginTop: 5,
@@ -204,7 +207,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     profile: {
-        marginBottom: 30,
+        marginBottom: 17,
         flexDirection: 'row'
     },
     profileBtn: {

@@ -11,7 +11,7 @@ import UserChangePasswordScreen from '../screens/main/UserChangePasswordScreen'
 import UserSettingsScreen from '../screens/main/UserSettingsScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../constants';
@@ -19,7 +19,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 function MainStack() {
     return (
@@ -80,28 +80,32 @@ export default function AppStack() {
                     name="Ana"
                     component={MainStack}
                     options={({ route }) => ({
+                        tabBarLabel: false,
+                        tabBarColor:'#92C19C',
                         headerShown: false,
                         // tabBarVisible: route.state && route.state.index === 0,
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons
                                 name="home-outline"
                                 color={color}
-                                size={35}
+                                size={30}
                             />
                         ),
                     })}
                 />
                 <Tab.Screen
-                    name="Takvim"
+                    name="Mekanlar"
                     component={EventStack}
                     options={({ route }) => ({
+                        tabBarLabel: false,
+                        tabBarColor:'#C1A892',
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
                             <MaterialIcons
                                 // view-grid-outline
                                 name="place"
                                 color={color}
-                                size={35}
+                                size={25}
                             />
                         ),
                     })}
@@ -111,11 +115,13 @@ export default function AppStack() {
                     component={MessageStack}
                     options={({ route }) => ({
                         headerShown: false,
+                        tabBarLabel: false,
+                        tabBarColor:'#92BFC1',
                         tabBarIcon: ({ color, size }) => (
                             <Feather
                                 name="message-circle"
                                 color={color}
-                                size={35}
+                                size={25}
                             />
                         ),
                     })}
@@ -125,11 +131,13 @@ export default function AppStack() {
                     component={ProfileStack}
                     options={{
                         headerShown: false,
+                        tabBarColor:'#964AB3',
+                        tabBarLabel: false,
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons
                                 name="account"
                                 color={color}
-                                size={35}
+                                size={25}
                             />
                         ),
                     }}
