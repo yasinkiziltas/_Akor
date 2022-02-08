@@ -16,7 +16,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import firebase from 'firebase'
 
-export default function ProfileScreen({ navigation }) {
+export default function UserProfileScreen({ navigation }) {
     const { logout, userEmail } = useContext(AuthContext)
     const [name, setName] = useState()
     const [email, setEmail] = useState()
@@ -87,7 +87,7 @@ export default function ProfileScreen({ navigation }) {
 
             <ScrollView>
                     <TouchableOpacity
-                    onPress={() => navigation.navigate('EditProfile')}
+                    onPress={() => navigation.navigate('EditUserProfile')}
                     style={styles.profile}>
                     <TouchableOpacity style={styles.profileBtn}>
                         <SimpleLineIcons
@@ -113,7 +113,7 @@ export default function ProfileScreen({ navigation }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('ChangePassword')}
+                    onPress={() => navigation.navigate('UserChangePassword')}
                     style={styles.profile}>
                     <TouchableOpacity style={styles.passwordBtn}>
                         <MaterialCommunityIcons
@@ -126,7 +126,7 @@ export default function ProfileScreen({ navigation }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Settings')}
+                    onPress={() => navigation.navigate('UserSettings')}
                     style={styles.profile}>
                     <TouchableOpacity style={styles.settingsBtn}>
                         <Ionicons

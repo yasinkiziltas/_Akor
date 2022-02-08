@@ -1,11 +1,11 @@
 import React from 'react'
-import HomeScreen from '../screens/main/HomeScreen';
+import UserHomeScreen from '../screens/main/UserHomeScreen';
 import NotificationScreen from '../screens/main/NotificationScreen';
 import EventAddScreen from '../screens/main/EventAddScreen';
 import EventScreen from '../screens/main/EventScreen'
 import MessageScreen from '../screens/main/MessageScreen'
-import ProfileScreen from '../screens/main/ProfileScreen'
-import EditProfileScreen from '../screens/main/EditProfileScreen'
+import UserProfileScreen from '../screens/main/UserProfileScreen'
+import EditUserProfileScreen from '../screens/main/EditUserProfileScreen'
 import UserEventsBookmarksScreen from '../screens/main/UserEventsBookmarksScreen'
 import UserChangePasswordScreen from '../screens/main/UserChangePasswordScreen'
 import UserSettingsScreen from '../screens/main/UserSettingsScreen'
@@ -24,7 +24,7 @@ const Tab = createBottomTabNavigator();
 function MainStack() {
     return (
         <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={UserHomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="AddEvent" component={EventAddScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
@@ -50,11 +50,11 @@ function MessageStack() {
 function ProfileStack() {
     return (
         <Stack.Navigator initialRouteName="Profile">
-            <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Profile" component={UserProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="EditUserProfile" component={EditUserProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserEventsBookmark" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="ChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Settings" component={UserSettingsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserSettings" component={UserSettingsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
@@ -124,6 +124,7 @@ export default function AppStack() {
                     name="Profil"
                     component={ProfileStack}
                     options={{
+                        // tabBarStyle: { display: "none" },
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
                             <MaterialCommunityIcons

@@ -43,7 +43,7 @@ const renderItemEvents = ({ item }) => (
     </>
 )
 
-export default function HomeScreen({ navigation }) {
+export default function UserHomeScreen({ navigation }) {
 
     const { userName, userEmail } = useContext(AuthContext)
     const [currentUserName, setCurrentUserName] = useState()
