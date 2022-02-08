@@ -4,6 +4,7 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
+    Button
 } from 'react-native'
 import CustomHeader from '../../components/CustomHeader';
 import { SIZES } from '../../constants/index'
@@ -54,12 +55,14 @@ export default function EditUserProfileScreen({ navigation }) {
                         placeholder="Yaş..."
                         value={userAge}
                     /> */}
+                    <Button title="Open" onPress={() => setOpen(true)} />
                     <DatePicker
                         modal
                         open={open}
                         date={date}
                         onConfirm={(date) => {
-                            setUserAge(date)
+                            setOpen(false)
+                            setDate(date)
                         }}
                         onCancel={() => {
                             setOpen(false)
