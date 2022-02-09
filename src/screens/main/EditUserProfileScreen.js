@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import {
+    View,
     StyleSheet,
     TextInput,
     TouchableOpacity,
     Image,
-    Button
+    Button,
+    Text,
+    Platform
 } from 'react-native'
 import CustomHeader from '../../components/CustomHeader';
 import { SIZES } from '../../constants/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Animatable from 'react-native-animatable';
-import DatePicker from 'react-native-date-picker'
+import { Jiro } from 'react-native-textinput-effects';
+import CustomDatePicker from '../../components/DatePicker'
+import RNPickerSelect from 'react-native-picker-select';
 
 export default function EditUserProfileScreen({ navigation }) {
     const [userName, setUserName] = useState('')
@@ -21,18 +26,26 @@ export default function EditUserProfileScreen({ navigation }) {
     const [userGender, setUserGender] = useState('')
     const [userPhoto, setUserPhoto] = useState(null)
     const [userPhone, setUserPhone] = useState(null)
-    const [open, setOpen] = useState(false)
-    const [date, setDate] = useState(new Date())
 
     return (
         <>
-            <CustomHeader
-                title="Profili Düzenle"
-                navigation={navigation}
-            />
+            {
+                Platform.OS == 'ios' ?
+                    <View style={{ marginTop: 10 }}>
+                        <CustomHeader
+                            title="Profili Düzenle"
+                            navigation={navigation}
+                        />
+                    </View>
+                    :
+                    <CustomHeader
+                        title="Profili Düzenle"
+                        navigation={navigation}
+                    />
+            }
 
             <Animatable.View
-                animation="fadeInLeft"
+                animation="slideInDown"
                 style={styles.imageContainer}>
                 <TouchableOpacity
                     onPress={() => { }}
@@ -45,41 +58,67 @@ export default function EditUserProfileScreen({ navigation }) {
                     animation="fadeInUp"
                     style={styles.inputContainer}>
 
-                    <TextInput
-                        style={styles.inputs}
-                        placeholder="Ad Soyad..."
-                        value={userName}
-                    />
-                    {/* <TextInput
-                        style={styles.inputs}
-                        placeholder="Yaş..."
-                        value={userAge}
-                    /> */}
-                    <Button title="Open" onPress={() => setOpen(true)} />
-                    <DatePicker
-                        modal
-                        open={open}
-                        date={date}
-                        onConfirm={(date) => {
-                            setOpen(false)
-                            setDate(date)
-                        }}
-                        onCancel={() => {
-                            setOpen(false)
-                        }}
-                    />
-                    <TextInput
-                        keyboardType="numeric"
-                        style={styles.inputs}
-                        placeholder="Yaş..."
-                        value={userAge}
+                    <Jiro
+                        label={'Ad Soyad'}
+                        borderColor={'#154c79'}
+                        inputPadding={10}
+                        inputStyle={{ color: 'white' }}
                     />
 
-                    <TextInput
-                        style={styles.inputs}
-                        placeholder="Cinsiyet..."
-                        value={userGender}
+                    <Jiro
+                        label={'E-Mail'}
+                        borderColor={'#154c79'}
+                        inputPadding={10}
+                        inputStyle={{ color: 'white' }}
                     />
+
+                    <CustomDatePicker />
+
+                    <RNPickerSelect
+                        value={userGender}
+                        style={{ inputAndroid: { color: 'black' } }}
+                        onValueChange={(value) => setUserGender(value)}
+                        placeholder={{ label: "Cinsiyetinizi Seçiniz", value: "", color: 'gray' }}
+                        textInputProps={{
+                            textAlign: 'center',
+                            fontSize: 24,
+                        }}
+
+                        items={[
+                            { label: 'Erkek', value: 'Erkek' },
+                            { label: 'Kadın', value: 'Kadın' },
+                        ]}
+                    />
+
+                    <Jiro
+                        keyboardType='numeric'
+                        label={'Telefon'}
+                        borderColor={'#154c79'}
+                        inputPadding={10}
+                        inputStyle={{ color: 'white' }}
+                    />
+
+                    <Jiro
+                        label={'Meslek'}
+                        borderColor={'#154c79'}
+                        inputPadding={10}
+                        inputStyle={{ color: 'white' }}
+                    />
+
+                    <Jiro
+                        label={'Adres'}
+                        borderColor={'#154c79'}
+                        inputPadding={10}
+                        inputStyle={{ color: 'white' }}
+                    />
+
+                    <Jiro
+                        label={'Biyografi'}
+                        borderColor={'#154c79'}
+                        inputPadding={10}
+                        inputStyle={{ color: 'white' }}
+                    />
+
                 </Animatable.View>
             </KeyboardAwareScrollView>
         </>
@@ -88,19 +127,20 @@ export default function EditUserProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        flex: 1 / 2,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
+        marginTop: 30,
         borderWidth: 2,
         borderRadius: 50,
         width: 100,
         height: 100,
     },
     inputContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center',
         flexDirection: 'column',
         margin: 20,
     },
@@ -113,3 +153,11 @@ const styles = StyleSheet.create({
         marginBottom: 15
     }
 })
+
+{/* 9b537a */ }
+
+{/* <TextInput
+                        style={styles.inputs}
+                        placeholder="Ad Soyad..."
+                        value={userName}
+                    /> */}

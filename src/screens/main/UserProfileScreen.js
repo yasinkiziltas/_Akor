@@ -91,6 +91,7 @@ export default function UserProfileScreen({ navigation }) {
                     style={styles.profile}>
                     <TouchableOpacity style={styles.profileBtn}>
                         <SimpleLineIcons
+                             onPress={() => navigation.navigate('EditUserProfile')}
                             color="#6abce9"
                             name="user"
                             size={24}

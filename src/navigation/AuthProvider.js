@@ -73,7 +73,6 @@ export const AuthProvider = ({ children, navigation }) => {
                                     userName: name,
                                     userEmail: email,
                                     userPhone: null,
-                                    userAge: null,
                                     userJob: null,
                                     userDateOfBirth: null,
                                     userPhoto: null,
