@@ -8,9 +8,9 @@ const CustomDatePicker = (props) => {
         <TouchableHighlight
             style={{marginTop:35}}
             activeOpacity={0}
-            onPress={() => console.log('datepicker')}
+            // onPress={() => console.log('datepicker')}
         >
-            <Text style={{color:'gray'}}>{moment().format('MM-DD-YYYY')}</Text>
+            <Text style={{color:'gray'}}>{moment().format('DD-MM-YYYY')}</Text>
         </TouchableHighlight>
     )
 }

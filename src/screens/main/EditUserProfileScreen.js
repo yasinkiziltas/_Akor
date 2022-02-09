@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react'
 import {
     View,
     StyleSheet,
-    TextInput,
     TouchableOpacity,
-    Image,
-    Button,
+    Platform,
     Text,
-    Platform
 } from 'react-native'
 import CustomHeader from '../../components/CustomHeader';
 import { SIZES } from '../../constants/index'
@@ -16,6 +13,7 @@ import * as Animatable from 'react-native-animatable';
 import { Jiro } from 'react-native-textinput-effects';
 import CustomDatePicker from '../../components/DatePicker'
 import RNPickerSelect from 'react-native-picker-select';
+import FormButtonProfile from '../../components/FormButtonProfile'
 
 export default function EditUserProfileScreen({ navigation }) {
     const [userName, setUserName] = useState('')
@@ -26,6 +24,7 @@ export default function EditUserProfileScreen({ navigation }) {
     const [userGender, setUserGender] = useState('')
     const [userPhoto, setUserPhoto] = useState(null)
     const [userPhone, setUserPhone] = useState(null)
+    const [imageShow, setImageShow] = useState(true)
 
     return (
         <>
@@ -44,21 +43,31 @@ export default function EditUserProfileScreen({ navigation }) {
                     />
             }
 
-            <Animatable.View
-                animation="slideInDown"
-                style={styles.imageContainer}>
-                <TouchableOpacity
-                    onPress={() => { }}
-                    style={styles.image}>
-                </TouchableOpacity>
-            </Animatable.View>
+            {
+                imageShow ? (
+                    <Animatable.View
+
+                        style={styles.imageContainer}>
+                        <TouchableOpacity
+                            onPress={() => { }}
+                            style={styles.image}>
+                        </TouchableOpacity>
+                    </Animatable.View>
+                ) : (
+                    null
+                )
+            }
 
             <KeyboardAwareScrollView>
+
                 <Animatable.View
                     animation="fadeInUp"
                     style={styles.inputContainer}>
+                    <Text style={{ color: 'gray', fontSize: 12, textAlign: 'left', fontWeight: 'bold', fontStyle: 'italic' }}>Bilgilerinizi doldurmak mekan sahiplerine daha çok bilgi vermenize olanaks sağlar..</Text>
 
                     <Jiro
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
                         label={'Ad Soyad'}
                         borderColor={'#154c79'}
                         inputPadding={10}
@@ -66,8 +75,11 @@ export default function EditUserProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        keyboardType='email-address'
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
                         label={'E-Mail'}
-                        borderColor={'#154c79'}
+                        borderColor={'#9b537a'}
                         inputPadding={10}
                         inputStyle={{ color: 'white' }}
                     />
@@ -91,6 +103,9 @@ export default function EditUserProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        returnKeyType={'done'}
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
                         keyboardType='numeric'
                         label={'Telefon'}
                         borderColor={'#154c79'}
@@ -99,13 +114,17 @@ export default function EditUserProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
                         label={'Meslek'}
-                        borderColor={'#154c79'}
+                        borderColor={'#9b537a'}
                         inputPadding={10}
                         inputStyle={{ color: 'white' }}
                     />
 
                     <Jiro
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
                         label={'Adres'}
                         borderColor={'#154c79'}
                         inputPadding={10}
@@ -113,10 +132,17 @@ export default function EditUserProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
                         label={'Biyografi'}
-                        borderColor={'#154c79'}
+                        borderColor={'#9b537a'}
                         inputPadding={10}
                         inputStyle={{ color: 'white' }}
+                    />
+
+                    <FormButtonProfile
+                        onPress={() => alert('Güncelleme yapsın!')}
+                        text="Güncelle"
                     />
 
                 </Animatable.View>
@@ -127,20 +153,18 @@ export default function EditUserProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        flex: 1,
+        // flex:1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
-        marginTop: 30,
+        marginTop: Platform.OS == 'ios' ? 15 : null,
         borderWidth: 2,
         borderRadius: 50,
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
     },
     inputContainer: {
-        // justifyContent: 'center',
-        // alignItems: 'center',
         flexDirection: 'column',
         margin: 20,
     },
@@ -156,8 +180,3 @@ const styles = StyleSheet.create({
 
 {/* 9b537a */ }
 
-{/* <TextInput
-                        style={styles.inputs}
-                        placeholder="Ad Soyad..."
-                        value={userName}
-                    /> */}
