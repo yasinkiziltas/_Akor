@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
     View,
     StyleSheet,
+    Button,
     TouchableOpacity,
     Platform,
     Text,
@@ -11,7 +12,10 @@ import { SIZES } from '../../constants/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Animatable from 'react-native-animatable';
 import { Jiro } from 'react-native-textinput-effects';
+
 import CustomDatePicker from '../../components/DatePicker'
+import DateTimePicker from '@react-native-community/datetimepicker'
+
 import RNPickerSelect from 'react-native-picker-select';
 import FormButtonProfile from '../../components/FormButtonProfile'
 
@@ -25,6 +29,26 @@ export default function EditUserProfileScreen({ navigation }) {
     const [userPhoto, setUserPhoto] = useState(null)
     const [userPhone, setUserPhone] = useState(null)
     const [imageShow, setImageShow] = useState(true)
+
+    const [date, setDate] = useState(new Date())
+    const [mode, setMode] = useState('date')
+    const [show, setShow] = useState(false)
+    const [text, setText] = useState('')
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS == 'ios');
+        setDate(currentDate)
+
+        let tempDate = new Date(currentDate)
+        let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear()
+        setText(fDate)
+    }
+
+    const showMode = (currentMode) => {
+        setShow(true)
+        setMode(currentMode)
+    }
 
     return (
         <>
@@ -63,7 +87,7 @@ export default function EditUserProfileScreen({ navigation }) {
                 <Animatable.View
                     animation="fadeInUp"
                     style={styles.inputContainer}>
-                    <Text style={{ color: 'gray', fontSize: 12, textAlign: 'left', fontWeight: 'bold', fontStyle: 'italic' }}>Bilgilerinizi doldurmak mekan sahiplerine daha çok bilgi vermenize olanaks sağlar..</Text>
+                    <Text style={{ color: 'gray', fontSize: 12, textAlign: 'left', fontWeight: 'bold', fontStyle: 'italic' }}>Bilgilerinizi dolu tutmak mekan sahiplerine daha çok bilgi vermenize olanaks sağlar..</Text>
 
                     <Jiro
                         onFocus={() => setImageShow(false)}
@@ -84,7 +108,35 @@ export default function EditUserProfileScreen({ navigation }) {
                         inputStyle={{ color: 'white' }}
                     />
 
-                    <CustomDatePicker />
+                    <TouchableOpacity
+                        onPress={() => showMode('date')}
+                        style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                        <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
+                        {
+                            Platform.OS == 'android' ? (
+                                <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{text}</Text>
+                            ) : (
+                                null
+                            )
+                        }
+                    </TouchableOpacity>
+
+                    {show && (
+                        <>
+                            <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
+                            <DateTimePicker
+                                style={{width:100, height:50}}
+                                testID='dateTimePicker'
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display='default'
+                                onChange={onChange}
+                            />
+                            </View>
+                        </>
+
+                    )}
 
                     <RNPickerSelect
                         value={userGender}
