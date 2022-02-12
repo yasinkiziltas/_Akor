@@ -61,7 +61,7 @@ export default function UserProfileScreen({ navigation }) {
             >
                 {/* Arkaplan */}
                 <LinearGradient
-                    colors={['#42275a', '#734b6d', COLORS.gray]}
+                    colors={[COLORS.gray,  COLORS.gray, '#4e4376',]}
                     style={styles.background}
                 />
 
@@ -86,7 +86,7 @@ export default function UserProfileScreen({ navigation }) {
                 <Text style={styles.accountText}>Hesap</Text>
 
                 <ScrollView>
-                    <View>
+                    <View style={{margin:15}}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('EditUserProfile')}
                             style={styles.profile}>
@@ -114,19 +114,6 @@ export default function UserProfileScreen({ navigation }) {
                             <Text style={styles.btnText}>Mekan Başvurularım</Text>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity
-                    onPress={() => navigation.navigate('UserChangePassword')}
-                    style={styles.profile}>
-                    <TouchableOpacity style={styles.passwordBtn}>
-                        <MaterialCommunityIcons
-                            color="#8069f3"
-                            name="lock"
-                            size={24}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.btnText}>Şifre Değiştir</Text>
-                </TouchableOpacity> */}
-
                         <TouchableOpacity
                             onPress={() => navigation.navigate('UserSettings')}
                             style={styles.profile}>
@@ -139,21 +126,6 @@ export default function UserProfileScreen({ navigation }) {
                             </TouchableOpacity>
                             <Text style={styles.btnText}>Ayarlar</Text>
                         </TouchableOpacity>
-
-                        {/* <TouchableOpacity
-                    onPress={logout}
-                    style={styles.profile}>
-                    <TouchableOpacity style={styles.outBtn}>
-                        <Ionicons
-                            color="#60936A"
-                            name="exit-outline"
-                            size={24}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.btnText}>Çıkış Yap</Text>
-                </TouchableOpacity> */}
-
-
                     </View>
                 </ScrollView>
 
@@ -215,11 +187,10 @@ const styles = StyleSheet.create({
     },
     accountText: {
         margin: 35,
-        // fontWeight: 'bold',
         fontSize: 25,
     },
     profile: {
-        margin:20,
+        margin: 20,
         flexDirection: 'row'
     },
     profileBtn: {
