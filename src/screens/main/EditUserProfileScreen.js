@@ -98,28 +98,32 @@ export default function EditUserProfileScreen({ navigation }) {
                         inputStyle={{ color: 'white' }}
                     />
 
-                    {/* <Jiro
-                        keyboardType='email-address'
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        label={'E-Mail'}
-                        borderColor={'#9b537a'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    /> */}
-
-                    <TouchableOpacity
-                        onPress={() => showMode('date')}
-                        style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
-                        <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
-                        {
-                            Platform.OS == 'android' ? (
-                                <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{text}</Text>
-                            ) : (
-                                null
-                            )
-                        }
-                    </TouchableOpacity>
+                    {text ? (
+                        <TouchableOpacity
+                            onPress={() => showMode('date')}
+                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                            {
+                                Platform.OS == 'android' ? (
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{text}</Text>
+                                ) : (
+                                    null
+                                )
+                            }
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity
+                            onPress={() => showMode('date')}
+                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                            <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
+                            {
+                                Platform.OS == 'android' ? (
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{text}</Text>
+                                ) : (
+                                    null
+                                )
+                            }
+                        </TouchableOpacity>
+                    )}
 
                     {show && (
                         <>

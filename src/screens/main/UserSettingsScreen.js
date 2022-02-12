@@ -42,7 +42,7 @@ export default function UserSettingsScreen({ navigation }) {
           <View style={{
             backgroundColor: '#fff',
             width: SIZES.width,
-            height: Platform.OS == 'ios' ? SIZES.height / 10 : SIZES.height / 8,
+            height: Platform.OS == 'ios' ? SIZES.height / 10 : SIZES.height / 7,
           }}>
 
             <TouchableOpacity
@@ -93,7 +93,7 @@ export default function UserSettingsScreen({ navigation }) {
           <View style={{
             backgroundColor: '#fff',
             width: SIZES.width,
-            height: Platform.OS == 'ios' ? SIZES.height / 10 : SIZES.height / 8,
+            height: Platform.OS == 'ios' ? SIZES.height / 10 : SIZES.height / 7,
           }}>
 
             <TouchableOpacity
@@ -143,7 +143,7 @@ export default function UserSettingsScreen({ navigation }) {
           <View style={{
             backgroundColor: '#fff',
             width: SIZES.width,
-            height: Platform.OS == 'ios' ? SIZES.height / 10 : SIZES.height / 8,
+            height: Platform.OS == 'ios' ? SIZES.height / 10 : SIZES.height / 7,
           }}>
 
             <TouchableOpacity
