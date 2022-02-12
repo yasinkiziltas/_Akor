@@ -123,16 +123,16 @@ export default function EditUserProfileScreen({ navigation }) {
 
                     {show && (
                         <>
-                            <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
-                            <DateTimePicker
-                                style={{width:100, height:50}}
-                                testID='dateTimePicker'
-                                value={date}
-                                mode={mode}
-                                is24Hour={true}
-                                display='default'
-                                onChange={onChange}
-                            />
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <DateTimePicker
+                                    style={{ width: 100, height: 50 }}
+                                    testID='dateTimePicker'
+                                    value={date}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    display='default'
+                                    onChange={onChange}
+                                />
                             </View>
                         </>
 
