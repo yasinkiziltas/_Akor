@@ -94,7 +94,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Ad Soyad'}
                         borderColor={'#154c79'}
-                        inputPadding={10}
+                        inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
 
@@ -104,7 +104,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         onSubmitEditing={() => setImageShow(true)}
                         label={'E-Mail'}
                         borderColor={'#9b537a'}
-                        inputPadding={10}
+                        inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
 
@@ -161,7 +161,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         keyboardType='numeric'
                         label={'Telefon'}
                         borderColor={'#154c79'}
-                        inputPadding={10}
+                        inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
 
@@ -170,7 +170,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Meslek'}
                         borderColor={'#9b537a'}
-                        inputPadding={10}
+                        inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
 
@@ -179,7 +179,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Adres'}
                         borderColor={'#154c79'}
-                        inputPadding={10}
+                        inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
 
@@ -188,7 +188,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Biyografi'}
                         borderColor={'#9b537a'}
-                        inputPadding={10}
+                        inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
 

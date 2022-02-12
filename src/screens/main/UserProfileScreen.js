@@ -85,35 +85,36 @@ export default function UserProfileScreen({ navigation }) {
             >
                 <Text style={styles.accountText}>Hesap</Text>
 
-            <ScrollView>
-                    <TouchableOpacity
-                    onPress={() => navigation.navigate('EditUserProfile')}
-                    style={styles.profile}>
-                    <TouchableOpacity style={styles.profileBtn}>
-                        <SimpleLineIcons
-                             onPress={() => navigation.navigate('EditUserProfile')}
-                            color="#6abce9"
-                            name="user"
-                            size={24}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.btnText}>Profil Bilgilerim</Text>
-                </TouchableOpacity>
+                <ScrollView>
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('EditUserProfile')}
+                            style={styles.profile}>
+                            <TouchableOpacity style={styles.profileBtn}>
+                                <SimpleLineIcons
+                                    onPress={() => navigation.navigate('EditUserProfile')}
+                                    color="#6abce9"
+                                    name="user"
+                                    size={24}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.btnText}>Profil Bilgilerim</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('UserEventsBookmark')}
-                    style={styles.profile}>
-                    <TouchableOpacity style={styles.bookmarkBtn}>
-                        <Ionicons
-                            color="#6ac26d"
-                            name="md-bookmark-outline"
-                            size={24}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.btnText}>Mekan Başvurularım</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('UserEventsBookmark')}
+                            style={styles.profile}>
+                            <TouchableOpacity style={styles.bookmarkBtn}>
+                                <Ionicons
+                                    color="#6ac26d"
+                                    name="md-bookmark-outline"
+                                    size={24}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.btnText}>Mekan Başvurularım</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
+                        {/* <TouchableOpacity
                     onPress={() => navigation.navigate('UserChangePassword')}
                     style={styles.profile}>
                     <TouchableOpacity style={styles.passwordBtn}>
@@ -124,22 +125,22 @@ export default function UserProfileScreen({ navigation }) {
                         />
                     </TouchableOpacity>
                     <Text style={styles.btnText}>Şifre Değiştir</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('UserSettings')}
-                    style={styles.profile}>
-                    <TouchableOpacity style={styles.settingsBtn}>
-                        <Ionicons
-                            color="#ee905f"
-                            name="settings"
-                            size={24}
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.btnText}>Ayarlar</Text>
-                </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('UserSettings')}
+                            style={styles.profile}>
+                            <TouchableOpacity style={styles.settingsBtn}>
+                                <Ionicons
+                                    color="#ee905f"
+                                    name="settings"
+                                    size={24}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.btnText}>Ayarlar</Text>
+                        </TouchableOpacity>
 
-                <TouchableOpacity
+                        {/* <TouchableOpacity
                     onPress={logout}
                     style={styles.profile}>
                     <TouchableOpacity style={styles.outBtn}>
@@ -150,9 +151,19 @@ export default function UserProfileScreen({ navigation }) {
                         />
                     </TouchableOpacity>
                     <Text style={styles.btnText}>Çıkış Yap</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                </TouchableOpacity> */}
 
+
+                    </View>
+                </ScrollView>
+
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'flex-end',
+                    alignItems: 'center'
+                }}>
+                    <Text style={{ color: 'gray', fontSize: 14 }}>v0.1</Text>
+                </View>
             </Animatable.View>
         </>
     );
@@ -183,7 +194,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     userBioMailText: {
-        textAlign:'center',
+        textAlign: 'center',
         fontSize: 15,
         color: 'white',
     },
@@ -208,7 +219,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     profile: {
-        marginBottom: 17,
+        margin:20,
         flexDirection: 'row'
     },
     profileBtn: {
