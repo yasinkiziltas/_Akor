@@ -5,20 +5,20 @@ import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../constants';
 import FormButtonProfile from '../../components/FormButtonProfile';
 
-export default function UserChangePassword() {
+export default function UserChangeEmailScreen() {
   return (
     <>
       <CustomHeader title="" />
 
       <View style={styles.passTextView}>
-        <Text style={styles.passText}>Şifreni Değiştir</Text>
-        <Text style={styles.passAboutText}>Yeni şifren eski şifrenden farklı olmalıdır.</Text>
+        <Text style={styles.passText}>Email Değiştir</Text>
+        <Text style={styles.passAboutText}>Yeni mailin eski mailinden farklı olmalıdır.</Text>
       </View>
 
       <View style={styles.inputContainer}>
         <Jiro
           style={styles.input}
-          label={'Yeni Şifre'}
+          label={'Yeni Mail'}
           borderColor={'#154c79'}
           inputPadding={16}
           inputStyle={{ color: 'white' }}
@@ -26,7 +26,7 @@ export default function UserChangePassword() {
 
         <Jiro
           style={styles.input}
-          label={'Yeni Şifre Tekrar'}
+          label={'Yeni Mail Tekrar'}
           borderColor={'#9b537a'}
           inputPadding={16}
           inputStyle={{ color: 'white' }}

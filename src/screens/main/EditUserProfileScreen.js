@@ -98,7 +98,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         inputStyle={{ color: 'white' }}
                     />
 
-                    <Jiro
+                    {/* <Jiro
                         keyboardType='email-address'
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
@@ -106,7 +106,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         borderColor={'#9b537a'}
                         inputPadding={15}
                         inputStyle={{ color: 'white' }}
-                    />
+                    /> */}
 
                     <TouchableOpacity
                         onPress={() => showMode('date')}
@@ -160,7 +160,7 @@ export default function EditUserProfileScreen({ navigation }) {
                         onSubmitEditing={() => setImageShow(true)}
                         keyboardType='numeric'
                         label={'Telefon'}
-                        borderColor={'#154c79'}
+                        borderColor={'#9b537a'}
                         inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />
@@ -169,15 +169,6 @@ export default function EditUserProfileScreen({ navigation }) {
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Meslek'}
-                        borderColor={'#9b537a'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
-
-                    <Jiro
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        label={'Adres'}
                         borderColor={'#154c79'}
                         inputPadding={15}
                         inputStyle={{ color: 'white' }}
@@ -186,8 +177,17 @@ export default function EditUserProfileScreen({ navigation }) {
                     <Jiro
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
-                        label={'Biyografi'}
+                        label={'Adres'}
                         borderColor={'#9b537a'}
+                        inputPadding={15}
+                        inputStyle={{ color: 'white' }}
+                    />
+
+                    <Jiro
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
+                        label={'Biyografi'}
+                        borderColor={'#154c79'}
                         inputPadding={15}
                         inputStyle={{ color: 'white' }}
                     />

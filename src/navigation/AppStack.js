@@ -8,6 +8,7 @@ import UserProfileScreen from '../screens/main/UserProfileScreen'
 import EditUserProfileScreen from '../screens/main/EditUserProfileScreen'
 import UserEventsBookmarksScreen from '../screens/main/UserEventsBookmarksScreen'
 import UserChangePasswordScreen from '../screens/main/UserChangePasswordScreen'
+import UserChangeEmailScreen from '../screens/main/UserChangeEmailScreen'
 import UserSettingsScreen from '../screens/main/UserSettingsScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -54,6 +55,7 @@ function ProfileStack() {
             <Stack.Screen name="EditUserProfile" component={EditUserProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserEventsBookmark" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserChangeEmail" component={UserChangeEmailScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserSettings" component={UserSettingsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )

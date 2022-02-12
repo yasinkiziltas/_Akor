@@ -3,7 +3,7 @@ import CustomHeader from '../../components/CustomHeader'
 import { SIZES } from '../../constants/index'
 import React from 'react';
 
-export default function UserSettings() {
+export default function UserSettings({navigation}) {
   return (
     <>
       <CustomHeader title="Ayarlar" />
@@ -27,23 +27,23 @@ export default function UserSettings() {
 
             <TouchableOpacity
               style={{ margin: 15 }}
-              onPress={() => { }}>
+              onPress={() => navigation.navigate('UserChangePassword')}>
               <Text style={{ fontSize: 16 }}>Şifre Değiştir</Text>
             </TouchableOpacity>
 
             <View
               style={{
-                justifyContent:'center',
-                marginLeft:15,
+                justifyContent: 'center',
+                marginLeft: 15,
                 borderBottomColor: 'gray',
                 borderBottomWidth: 1,
               }}
             />
 
             <TouchableOpacity
-              style={{margin:15}}
-              onPress={() => { }}>
-              <Text style={{ fontSize: 16 }}>Şifre Değiştir</Text>
+              style={{ margin: 15 }}
+              onPress={() => navigation.navigate('UserChangeEmail')}>
+              <Text style={{ fontSize: 16 }}>Mail Değiştir</Text>
             </TouchableOpacity>
           </View>
 
