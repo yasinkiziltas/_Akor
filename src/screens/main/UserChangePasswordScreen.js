@@ -1,14 +1,20 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import CustomHeader from '../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../constants';
 import FormButtonProfile from '../../components/FormButtonProfile';
 
-export default function UserChangePassword() {
+export default function UserChangePassword({ navigation }) {
   return (
     <>
-      <CustomHeader title="" />
+      <View style={{ marginTop: 15 }}>
+        <CustomHeader
+          navigation={navigation}
+          title=""
+          isBack={true}
+        />
+      </View>
 
       <View style={styles.passTextView}>
         <Text style={styles.passText}>Şifreni Değiştir</Text>

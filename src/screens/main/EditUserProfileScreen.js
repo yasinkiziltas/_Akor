@@ -113,7 +113,7 @@ export default function EditUserProfileScreen({ navigation }) {
                     ) : (
                         <TouchableOpacity
                             onPress={() => showMode('date')}
-                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>+
                             <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
                             {
                                 Platform.OS == 'android' ? (

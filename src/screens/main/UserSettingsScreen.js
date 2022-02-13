@@ -1,8 +1,30 @@
-import React, {useState, useEffect} from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Share,
+  Linking,
+} from 'react-native';
 import CustomHeader from '../../components/CustomHeader'
 import { SIZES } from '../../constants/index'
 import Fontisto from 'react-native-vector-icons/Fontisto'
+
+const onShare = () => {
+  const result = Share.share({
+    title: 'App link',
+    message: 'Please install this app and stay safe , AppLink :https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en',
+    url: 'https://play.google.com/store/apps/details?id=nic.goi.aarogyasetu&hl=en'
+  });
+  if (result.action === Share.sharedAction) {
+    if (result.activityType) {
+    } else {
+
+    }
+  } else if (result.action === Share.dismissedAction) {
+  }
+}
 
 export default function UserSettingsScreen({ navigation }) {
   return (
@@ -13,7 +35,7 @@ export default function UserSettingsScreen({ navigation }) {
             <CustomHeader
               title="Ayarlar"
               navigation={navigation}
-              isBack={true}
+            // isBack={true}
             />
           </View>
           :
@@ -21,13 +43,13 @@ export default function UserSettingsScreen({ navigation }) {
             <CustomHeader
               title="Ayarlar"
               navigation={navigation}
-              isBack={true}
+            // isBack={true}
             />
           </View>
       }
 
       <View style={{
-        backgroundColor: '#e6e6e6',
+        backgroundColor: '#rgb(245,245,245)',
         flex: 1,
       }}>
 
@@ -50,8 +72,8 @@ export default function UserSettingsScreen({ navigation }) {
               onPress={() => navigation.navigate('UserChangePassword')}>
               <Text style={{ fontSize: 16 }}>Şifre Değiştir</Text>
 
-              <Fontisto 
-                style={{position:'absolute', right:0}}
+              <Fontisto
+                style={{ position: 'absolute', right: 0 }}
                 name='angle-right'
                 size={14}
               />
@@ -72,8 +94,8 @@ export default function UserSettingsScreen({ navigation }) {
               onPress={() => navigation.navigate('UserChangeEmail')}>
               <Text style={{ fontSize: 16 }}>Mail Değiştir</Text>
 
-              <Fontisto 
-                style={{position:'absolute', right:0}}
+              <Fontisto
+                style={{ position: 'absolute', right: 0 }}
                 name='angle-right'
                 size={14}
               />
@@ -98,11 +120,11 @@ export default function UserSettingsScreen({ navigation }) {
 
             <TouchableOpacity
               style={{ margin: 15 }}
-              onPress={() => { }}>
+              onPress={() => navigation.navigate('Notifications')}>
               <Text style={{ fontSize: 16 }}>Bildirimler</Text>
 
-              <Fontisto 
-                style={{position:'absolute', right:0}}
+              <Fontisto
+                style={{ position: 'absolute', right: 0 }}
                 name='angle-right'
                 size={14}
               />
@@ -120,10 +142,10 @@ export default function UserSettingsScreen({ navigation }) {
 
             <TouchableOpacity
               style={{ margin: 15 }}
-              onPress={() => { }}>
+              onPress={onShare}>
               <Text style={{ fontSize: 16 }}>Uygulamayı Paylaş</Text>
-              <Fontisto 
-                style={{position:'absolute', right:0}}
+              <Fontisto
+                style={{ position: 'absolute', right: 0 }}
                 name='angle-right'
                 size={14}
               />
@@ -148,11 +170,11 @@ export default function UserSettingsScreen({ navigation }) {
 
             <TouchableOpacity
               style={{ margin: 15 }}
-              onPress={() => { }}>
+              onPress={() => Linking.openURL('mailto:kzltasyasin@gmail.com?subject=Akor Hk.&body=Merhaba, ')}>
               <Text style={{ fontSize: 16 }}>Geri Bildirim</Text>
 
-              <Fontisto 
-                style={{position:'absolute', right:0}}
+              <Fontisto
+                style={{ position: 'absolute', right: 0 }}
                 name='angle-right'
                 size={14}
               />
@@ -173,8 +195,8 @@ export default function UserSettingsScreen({ navigation }) {
               onPress={() => { }}>
               <Text style={{ fontSize: 16 }}>Uygulamayı Değerlendir</Text>
 
-              <Fontisto 
-                style={{position:'absolute', right:0}}
+              <Fontisto
+                style={{ position: 'absolute', right: 0 }}
                 name='angle-right'
                 size={14}
               />

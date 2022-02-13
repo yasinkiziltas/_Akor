@@ -5,10 +5,16 @@ import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../constants';
 import FormButtonProfile from '../../components/FormButtonProfile';
 
-export default function UserChangeEmailScreen() {
+export default function UserChangeEmailScreen({navigation}) {
   return (
     <>
-      <CustomHeader title="" />
+     <View style={{ marginTop: 15 }}>
+        <CustomHeader
+          navigation={navigation}
+          title=""
+          isBack={true}
+        />
+      </View>
 
       <View style={styles.passTextView}>
         <Text style={styles.passText}>Email Değiştir</Text>
