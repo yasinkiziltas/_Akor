@@ -52,19 +52,17 @@ export default function UserHomeScreen({ navigation }) {
     useEffect(() => {
         AsyncStorage.getItem('cUsername').then(user => {
             setCurrentUserName(user)
-            console.log('Name: ', currentUserName)
+            // console.log('Name: ', currentUserName)
         }).catch(e =>
             console.log(e)
         )
 
         AsyncStorage.getItem('cUseremail').then(useremail => {
             setCurrentUserMail(useremail)
-            console.log('Mail: ', currentUserEmail)
+            // console.log('Mail: ', currentUserEmail)
         }).catch(e =>
             console.log(e)
         )
-
-        // console.log('Email', userEmail);
     }, [])
 
     return (

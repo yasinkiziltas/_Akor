@@ -1,0 +1,11 @@
+13.02.2021 
+-Tüm formları formik uygula
+-User için Mekan Listeleme ekranını oluştur
+-Mekan sahibi girişini kodla (UI / UX)
+-Profil güncelleme, ayarlarları güncelleme işlemleri hallet (firestore)
+-User anasayfayı düzenleyebilirsin.
+-Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
+-User mekan başvuru ekranını kodla (UI / UX)
+-Bildirim entegrasyonunu hallet
+  (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
+-login ve register eğer validation doğru değilse loading takılıyor giriş yaptırmıyor.

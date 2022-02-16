@@ -13,8 +13,6 @@ import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import firebase from 'firebase'
 
 export default function UserProfileScreen({ navigation }) {
     const { logout, userEmail } = useContext(AuthContext)

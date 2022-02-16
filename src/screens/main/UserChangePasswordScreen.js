@@ -1,11 +1,17 @@
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import React, { useState, useEffect } from 'react';
 import CustomHeader from '../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../constants';
 import FormButtonProfile from '../../components/FormButtonProfile';
+import { AuthContext } from '../../navigation/AuthProvider'
 
 export default function UserChangePassword({ navigation }) {
+  const { changePassword } = useContext(AuthContext)
+
+  const [currentPassword, setCurrentPassword] = useState()
+  const [newPassword, setNewPassword] = useState()
+
   return (
     <>
       <View style={{ marginTop: 15 }}>
@@ -22,17 +28,24 @@ export default function UserChangePassword({ navigation }) {
       </View>
 
       <View style={styles.inputContainer}>
+
         <Jiro
+          secureTextEntry={true}
+          value={currentPassword}
+          onChangeText={pass => setCurrentPassword(pass)}
           style={styles.input}
-          label={'Yeni Şifre'}
+          label={'Şifre'}
           borderColor={'#154c79'}
           inputPadding={16}
           inputStyle={{ color: 'white' }}
         />
 
         <Jiro
+          secureTextEntry={true}
+          value={newPassword}
+          onChangeText={value => setNewPassword(value)}
           style={styles.input}
-          label={'Yeni Şifre Tekrar'}
+          label={'Yeni Şifre'}
           borderColor={'#9b537a'}
           inputPadding={16}
           inputStyle={{ color: 'white' }}
@@ -40,7 +53,7 @@ export default function UserChangePassword({ navigation }) {
 
         <View style={styles.updateBtn}>
           <FormButtonProfile
-            onPress={() => alert('Güncelleme yapsın!')}
+            onPress={() => changePassword(currentPassword, newPassword)}
             text="Güncelle"
           />
         </View>

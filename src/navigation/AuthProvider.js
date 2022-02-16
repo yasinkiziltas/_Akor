@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import { Alert } from 'react-native'
 import firebase from 'firebase'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -23,6 +24,12 @@ export const AuthProvider = ({ children, navigation }) => {
     const [userName, setUserName] = useState(null)
     const [userEmail, setEmail] = useState(null)
     const [loading, setLoading] = useState(false)
+
+    const reAuth = (currentPassword) => {
+        var user = firebase.auth().currentUser;
+        var cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword)
+        return user.reauthenticateWithCredential(cred)
+    }
 
     return (
         <AuthContext.Provider
@@ -105,12 +112,14 @@ export const AuthProvider = ({ children, navigation }) => {
 
                 logout: async () => {
                     try {
-
-                        if (loading) {
-                            setLoading(false)
-                        }
-
-                        await firebase.auth().signOut()
+                        const timeout = setTimeout(() => {
+                            if (loading) {
+                                setLoading(false)
+                            }
+                            //   await firebase.auth().signOut()
+                             firebase.auth().signOut()
+                        }, 1000);
+                        return () => clearTimeout(timeout);
                     }
                     catch (e) {
                         alert(e)
@@ -124,6 +133,27 @@ export const AuthProvider = ({ children, navigation }) => {
                         }).catch(function (e) {
                             alert(e)
                         })
+                },
+
+                changePassword: (currentPassword, newPassword) => {
+                    reAuth(currentPassword).then(() => {
+
+                        var user = firebase.auth().currentUser;
+
+                        if (currentPassword == newPassword) {
+                            alert('Yeni şifreniz eskisi ile aynı olamaz..')
+                            return false;
+                        }
+                        else (
+                            user.updatePassword(newPassword).then(() => {
+                                Alert.alert("Şifre değiştirildi!")
+                            }).catch((error) => {
+                               alert(error)
+                            })
+                        )
+                    }).catch((error) => {
+                        alert(error)
+                    })
                 }
             }}
         >

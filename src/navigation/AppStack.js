@@ -18,6 +18,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { COLORS } from '../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -99,11 +100,11 @@ export default function AppStack() {
                     options={({ route }) => ({
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
-                            <MaterialIcons
+                            <FontAwesome
                                 // view-grid-outline
-                                name="place"
+                                name="map-o"
                                 color={color}
-                                size={35}
+                                size={30}
                             />
                         ),
                     })}

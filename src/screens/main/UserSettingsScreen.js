@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import CustomHeader from '../../components/CustomHeader'
 import { SIZES } from '../../constants/index'
 import Fontisto from 'react-native-vector-icons/Fontisto'
+import { AuthContext } from '../../navigation/AuthProvider'
 
 const onShare = () => {
   const result = Share.share({
@@ -27,6 +28,7 @@ const onShare = () => {
 }
 
 export default function UserSettingsScreen({ navigation }) {
+  const {logout} = useContext(AuthContext)
   return (
     <>
       {
@@ -207,6 +209,7 @@ export default function UserSettingsScreen({ navigation }) {
         </View>
 
         <TouchableOpacity
+          onPress={() => logout()}
           style={{ flex: 1, marginTop: 15, alignItems: 'center' }}
         >
           <Text style={{ fontSize: 17, color: 'blue' }}>Oturumu Kapat</Text>
