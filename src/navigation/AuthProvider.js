@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react'
 import { Alert } from 'react-native'
 import firebase from 'firebase'
+import { getAuth, updateEmail } from "firebase/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = createContext();
@@ -117,9 +118,15 @@ export const AuthProvider = ({ children, navigation }) => {
                                 setLoading(false)
                             }
                             //   await firebase.auth().signOut()
-                             firebase.auth().signOut()
+                            firebase.auth().signOut()
                         }, 1000);
                         return () => clearTimeout(timeout);
+
+                        //     if (loading) {
+                        //         setLoading(false)
+                        //     }
+                        //    firebase.auth().signOut()
+
                     }
                     catch (e) {
                         alert(e)
@@ -148,9 +155,23 @@ export const AuthProvider = ({ children, navigation }) => {
                             user.updatePassword(newPassword).then(() => {
                                 Alert.alert("Şifre değiştirildi!")
                             }).catch((error) => {
-                               alert(error)
+                                alert(error)
                             })
                         )
+                    }).catch((error) => {
+                        alert(error)
+                    })
+                },
+
+                changeEmail: (newEmail) => {
+                    reAuth(currentPassword).then(() => {
+                        var user = firebase.auth().currentUser;
+
+                        user.updateEmail(newEmail).then(() => {
+                            Alert.alert("Mail değiştirildi!")
+                        }).catch((error) => {
+                            alert(error)
+                        })
                     }).catch((error) => {
                         alert(error)
                     })

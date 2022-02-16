@@ -1,14 +1,18 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StyleSheet} from 'react-native';
 import CustomHeader from '../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../constants';
 import FormButtonProfile from '../../components/FormButtonProfile';
+import { AuthContext } from '../../navigation/AuthProvider'
 
-export default function UserChangeEmailScreen({navigation}) {
+export default function UserChangeEmailScreen({ navigation }) {
+  const { changeEmail } = useContext(AuthContext)
+  const [newEmail, setNewEmail] = useState()
+
   return (
     <>
-     <View style={{ marginTop: 15 }}>
+      <View style={{ marginTop: 15 }}>
         <CustomHeader
           navigation={navigation}
           title=""
@@ -23,6 +27,9 @@ export default function UserChangeEmailScreen({navigation}) {
 
       <View style={styles.inputContainer}>
         <Jiro
+          value={newEmail}
+          onChangeText={mail => setNewEmail(mail)}
+          keyboardType='email-address'
           style={styles.input}
           label={'Yeni Mail'}
           borderColor={'#154c79'}
@@ -30,19 +37,12 @@ export default function UserChangeEmailScreen({navigation}) {
           inputStyle={{ color: 'white' }}
         />
 
-        <Jiro
-          style={styles.input}
-          label={'Yeni Mail Tekrar'}
-          borderColor={'#9b537a'}
-          inputPadding={16}
-          inputStyle={{ color: 'white' }}
-        />
-
         <View style={styles.updateBtn}>
           <FormButtonProfile
-            onPress={() => alert('Güncelleme yapsın!')}
+            onPress={() => changeEmail()}
             text="Güncelle"
           />
+
         </View>
       </View>
     </>
@@ -72,5 +72,5 @@ const styles = StyleSheet.create({
   },
   updateBtn: {
     marginVertical: SIZES.height / 15
-  }
+  },
 })
