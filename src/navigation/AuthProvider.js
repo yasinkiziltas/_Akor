@@ -117,7 +117,6 @@ export const AuthProvider = ({ children, navigation }) => {
                             if (loading) {
                                 setLoading(false)
                             }
-                            //   await firebase.auth().signOut()
                             firebase.auth().signOut()
                         }, 1000);
                         return () => clearTimeout(timeout);
@@ -163,7 +162,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     })
                 },
 
-                changeEmail: (newEmail) => {
+                changeEmail: (newEmail, currentPassword) => {
                     reAuth(currentPassword).then(() => {
                         var user = firebase.auth().currentUser;
 

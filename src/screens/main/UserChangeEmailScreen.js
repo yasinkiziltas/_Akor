@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import CustomHeader from '../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../constants';
@@ -8,8 +8,9 @@ import { AuthContext } from '../../navigation/AuthProvider'
 
 export default function UserChangeEmailScreen({ navigation }) {
   const { changeEmail } = useContext(AuthContext)
+  const [currentPassword, setCurrentPassword] = useState()
   const [newEmail, setNewEmail] = useState()
-
+ 
   return (
     <>
       <View style={{ marginTop: 15 }}>
@@ -26,6 +27,18 @@ export default function UserChangeEmailScreen({ navigation }) {
       </View>
 
       <View style={styles.inputContainer}>
+
+      <Jiro
+          value={currentPassword}
+          onChangeText={pass => setCurrentPassword(pass)}
+          secureTextEntry={true}
+          style={styles.input}
+          label={'Şifreniz'}
+          borderColor={'#154c79'}
+          inputPadding={16}
+          inputStyle={{ color: 'white' }}
+        />
+
         <Jiro
           value={newEmail}
           onChangeText={mail => setNewEmail(mail)}
@@ -37,13 +50,11 @@ export default function UserChangeEmailScreen({ navigation }) {
           inputStyle={{ color: 'white' }}
         />
 
-        <View style={styles.updateBtn}>
-          <FormButtonProfile
-            onPress={() => changeEmail()}
-            text="Güncelle"
-          />
+        <FormButtonProfile
+          onPress={() => changeEmail(newEmail, currentPassword)}
+          text="Güncelle"
+        />
 
-        </View>
       </View>
     </>
   );

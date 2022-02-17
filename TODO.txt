@@ -10,4 +10,4 @@
   (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 -login ve register eğer validation doğru değilse loading takılıyor giriş yaptırmıyor.
 -şifre ve mail değişirken indicator koy
-*-mail değiştirirken popup şeklinde şifrenizi giriniz kısmı açılsın..
+*-mail değiştirirken modal şeklinde şifrenizi giriniz kısmı açılsın..
