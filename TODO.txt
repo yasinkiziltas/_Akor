@@ -3,11 +3,14 @@
 -User için Mekan Listeleme ekranını oluştur
 -Mekan sahibi girişini kodla (UI / UX)
 -Profil güncelleme, ayarlarları güncelleme işlemleri hallet (firestore)
--User anasayfayı düzenleyebilirsin.
+-UserHomeScreen UI hallet.
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
 -User mekan başvuru ekranını kodla (UI / UX)
 -Bildirim entegrasyonunu hallet
   (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
--login ve register eğer validation doğru değilse loading takılıyor giriş yaptırmıyor.
 -şifre ve mail değişirken indicator koy
-*-mail değiştirirken modal şeklinde şifrenizi giriniz kısmı açılsın..
+-Splash screen yap
+
+SETTINGS PAGE
+-Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
+-Uygulamayı değerlendir Android çalışmıyor

@@ -22,7 +22,7 @@ export default function UserChangeEmailScreen({ navigation }) {
       </View>
 
       <View style={styles.passTextView}>
-        <Text style={styles.passText}>Email Değiştir</Text>
+        <Text style={styles.passText}>Mail Değiştir</Text>
         <Text style={styles.passAboutText}>Yeni mailin eski mailinden farklı olmalıdır.</Text>
       </View>
 

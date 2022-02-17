@@ -6,6 +6,7 @@ export const forgotPasswordBackground = require('../../assets/images/forgotPassw
 export const onboard = require('../../assets/images/onboard.png')
 export const onboard2 = require('../../assets/images/onboard2.png')
 export const loadingAuth = require('../../assets/loadingAuth.json')
+export const result = require('../../assets/result.json')
 
 export default {
     logo,
@@ -16,4 +17,5 @@ export default {
     onboard,
     onboard2,
     loadingAuth,
+    result,
 }

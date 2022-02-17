@@ -63,6 +63,7 @@ export const AuthProvider = ({ children, navigation }) => {
 
                     }
                     catch (e) {
+                        setLoading(false)
                         alert(e)
                     }
                 },
@@ -107,6 +108,7 @@ export const AuthProvider = ({ children, navigation }) => {
                         }
                     }
                     catch (e) {
+                        setLoading(false)
                         alert(e)
                     }
                 },
