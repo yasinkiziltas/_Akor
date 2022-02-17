@@ -54,7 +54,7 @@ export default function UserProfileScreen({ navigation }) {
     return (
         <>
             <Animatable.View
-                animation="fadeInDown"
+                animation="fadeInUp"
                 style={styles.container}
             >
                 {/* Arkaplan */}
@@ -78,7 +78,7 @@ export default function UserProfileScreen({ navigation }) {
 
             {/* Bilgiler */}
             <Animatable.View
-                animation="fadeInUp"
+                  animation="fadeInUp"
                 style={styles.userInfo}
             >
                 <Text style={styles.accountText}>Hesap</Text>
