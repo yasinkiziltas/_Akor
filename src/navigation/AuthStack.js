@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import OnboardScreen from '../screens/auth/OnboardScreen'
-import UserLoginScreen from '../screens/auth/userPages/UserLoginScreen'
-import UserRegisterScreen from '../screens/auth/userPages/UserRegisterScreen';
-import UserForgotPassword from '../screens/auth/userPages/UserForgotPassword'
+import UserLoginScreen from '../screens/auth/userScreens/UserLoginScreen'
+import UserRegisterScreen from '../screens/auth/userScreens/UserRegisterScreen';
+import UserForgotPassword from '../screens/auth/userScreens/UserForgotPassword'
 
 const Stack = createNativeStackNavigator()
 
