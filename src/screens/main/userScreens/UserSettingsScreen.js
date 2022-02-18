@@ -7,10 +7,10 @@ import {
   Share,
   Linking,
 } from 'react-native';
-import CustomHeader from '../../components/CustomHeader'
-import { SIZES } from '../../constants/index'
+import CustomHeader from '../../../components/CustomHeader'
+import { SIZES } from '../../../constants/index'
 import Fontisto from 'react-native-vector-icons/Fontisto'
-import { AuthContext } from '../../navigation/AuthProvider'
+import { AuthContext } from '../../../navigation/AuthProvider'
 
 const onShare = () => {
   const result = Share.share({

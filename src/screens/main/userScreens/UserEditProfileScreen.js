@@ -7,19 +7,16 @@ import {
     Platform,
     Text,
 } from 'react-native'
-import CustomHeader from '../../components/CustomHeader';
-import { SIZES } from '../../constants/index'
+import CustomHeader from '../../../components/CustomHeader';
+import { SIZES } from '../../../constants/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Animatable from 'react-native-animatable';
 import { Jiro } from 'react-native-textinput-effects';
-
-import CustomDatePicker from '../../components/DatePicker'
 import DateTimePicker from '@react-native-community/datetimepicker'
-
 import RNPickerSelect from 'react-native-picker-select';
-import FormButtonProfile from '../../components/FormButtonProfile'
+import FormButtonProfile from '../../../components/FormButtonProfile'
 
-export default function EditUserProfileScreen({ navigation }) {
+export default function UserEditProfileScreen({ navigation }) {
     const [userName, setUserName] = useState('')
     const [userBio, setUserBio] = useState('')
     const [userDateOfBirth, setUserDateOfBirth] = useState('')

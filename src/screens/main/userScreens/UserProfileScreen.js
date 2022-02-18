@@ -6,9 +6,9 @@ import {
     TouchableOpacity,
     ScrollView
 } from 'react-native'
-import { AuthContext } from '../../navigation/AuthProvider'
+import { AuthContext } from '../../../navigation/AuthProvider'
 import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, SIZES } from '../../constants/theme';
+import { COLORS, SIZES } from '../../../constants/theme';
 import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -86,7 +86,7 @@ export default function UserProfileScreen({ navigation }) {
                 <ScrollView>
                     <View style={{margin:15}}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('EditUserProfile')}
+                            onPress={() => navigation.navigate('UserEditProfile')}
                             style={styles.profile}>
                             <TouchableOpacity style={styles.profileBtn}>
                                 <SimpleLineIcons

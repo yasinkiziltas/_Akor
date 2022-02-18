@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
-import CustomHeader from '../../components/CustomHeader'
+import React, { useContext, useState, useEffect } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import CustomHeader from '../../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
-import { SIZES } from '../../constants';
-import FormButtonProfile from '../../components/FormButtonProfile';
-import { AuthContext } from '../../navigation/AuthProvider'
+import { SIZES } from '../../../constants';
+import FormButtonProfile from '../../../components/FormButtonProfile';
+import { AuthContext } from '../../../navigation/AuthProvider'
 
-export default function UserChangeEmailScreen({ navigation }) {
-  const { changeEmail } = useContext(AuthContext)
+export default function UserChangePassword({ navigation }) {
+  const { changePassword } = useContext(AuthContext)
+
   const [currentPassword, setCurrentPassword] = useState()
-  const [newEmail, setNewEmail] = useState()
- 
+  const [newPassword, setNewPassword] = useState()
+
   return (
     <>
       <View style={{ marginTop: 15 }}>
@@ -22,39 +23,40 @@ export default function UserChangeEmailScreen({ navigation }) {
       </View>
 
       <View style={styles.passTextView}>
-        <Text style={styles.passText}>Mail Değiştir</Text>
-        <Text style={styles.passAboutText}>Yeni mailin eski mailinden farklı olmalıdır.</Text>
+        <Text style={styles.passText}>Şifreni Değiştir</Text>
+        <Text style={styles.passAboutText}>Yeni şifren eski şifrenden farklı olmalıdır.</Text>
       </View>
 
       <View style={styles.inputContainer}>
 
-      <Jiro
+        <Jiro
+          secureTextEntry={true}
           value={currentPassword}
           onChangeText={pass => setCurrentPassword(pass)}
-          secureTextEntry={true}
           style={styles.input}
-          label={'Şifreniz'}
+          label={'Şifre'}
           borderColor={'#154c79'}
           inputPadding={16}
           inputStyle={{ color: 'white' }}
         />
 
         <Jiro
-          value={newEmail}
-          onChangeText={mail => setNewEmail(mail)}
-          keyboardType='email-address'
+          secureTextEntry={true}
+          value={newPassword}
+          onChangeText={value => setNewPassword(value)}
           style={styles.input}
-          label={'Yeni Mail'}
-          borderColor={'#154c79'}
+          label={'Yeni Şifre'}
+          borderColor={'#9b537a'}
           inputPadding={16}
           inputStyle={{ color: 'white' }}
         />
 
-        <FormButtonProfile
-          onPress={() => changeEmail(newEmail, currentPassword)}
-          text="Güncelle"
-        />
-
+        <View style={styles.updateBtn}>
+          <FormButtonProfile
+            onPress={() => changePassword(currentPassword, newPassword)}
+            text="Güncelle"
+          />
+        </View>
       </View>
     </>
   );
@@ -83,5 +85,5 @@ const styles = StyleSheet.create({
   },
   updateBtn: {
     marginVertical: SIZES.height / 15
-  },
+  }
 })

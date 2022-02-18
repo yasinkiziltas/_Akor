@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ImageBackground, Image } from 'react-native'
 import { Searchbar } from 'react-native-paper';
-import { SIZES } from '../../constants/index';
-import { AuthContext } from '../../navigation/AuthProvider'
+import { SIZES } from '../../../constants/index';
+import { AuthContext } from '../../../navigation/AuthProvider'
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
-import { DATA } from '../../constants/mainEvents'
+import { DATA } from '../../../constants/mainEvents'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const renderItemEvents = ({ item }) => (
