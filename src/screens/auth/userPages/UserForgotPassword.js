@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react'
 import { ImageBackground, StyleSheet, View, Text, StatusBar } from 'react-native'
-import { forgotPasswordBackground } from '../../constants/images'
+import { forgotPasswordBackground } from '../../../constants/images'
 import * as Animatable from 'react-native-animatable';
-import FormInput from '../../components/FormInput'
-import FormButton from '../../components/FormButton'
-import { SIZES } from '../../constants'
+import FormInput from '../../../components/FormInput'
+import FormButton from '../../../components/FormButton'
+import { SIZES } from '../../../constants'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import CustomHeader from '../../components/CustomHeader';
-import { AuthContext } from '../../navigation/AuthProvider'
+import CustomHeader from '../../../components/CustomHeader';
+import { AuthContext } from '../../../navigation/AuthProvider'
 
-export default function ForgotPassword({ navigation }) {
+export default function UserForgotPassword({ navigation }) {
   const [mail, setMail] = useState('')
   const { forgotPass } = useContext(AuthContext)
 

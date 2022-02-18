@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import OnboardScreen from '../screens/auth/OnboardScreen'
-import LoginScreen from '../screens/auth/LoginScreen'
-import RegisterScreen from '../screens/auth/RegisterScreen';
-import ForgotPassword from '../screens/auth/ForgotPassword'
+import UserLoginScreen from '../screens/auth/userPages/UserLoginScreen'
+import UserRegisterScreen from '../screens/auth/userPages/UserRegisterScreen';
+import UserForgotPassword from '../screens/auth/userPages/UserForgotPassword'
 
 const Stack = createNativeStackNavigator()
 
@@ -41,9 +41,9 @@ export default function AuthStack() {
     return (
         <Stack.Navigator initialRouteName={routeName}>
             <Stack.Screen name="Onboarding" component={OnboardScreen} options={{ header: () => null }} />
-            <Stack.Screen name="Login" component={LoginScreen} options={{ header: () => null }} />
-            <Stack.Screen name="Register" component={RegisterScreen} options={{ header: () => null }} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} options={{ header: () => null }} />
+            <Stack.Screen name="Login" component={UserLoginScreen} options={{ header: () => null }} />
+            <Stack.Screen name="Register" component={UserRegisterScreen} options={{ header: () => null }} />
+            <Stack.Screen name="ForgotPassword" component={UserForgotPassword} options={{ header: () => null }} />
         </Stack.Navigator>
     );
 }

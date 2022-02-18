@@ -9,20 +9,20 @@ import {
     ActivityIndicator,
     ImageBackground,
 } from 'react-native'
-import { loginbackground2 } from '../../constants/images'
+import { loginbackground2 } from '../../../constants/images'
 import * as Animatable from 'react-native-animatable';
-import FormInput from '../../components/FormInput'
-import FormButton from '../../components/FormButton'
-import { SIZES } from '../../constants'
-import { loadingAuth } from '../../constants/images';
+import FormInput from '../../../components/FormInput'
+import FormButton from '../../../components/FormButton'
+import { SIZES } from '../../../constants'
+import { loadingAuth } from '../../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { AuthContext } from '../../navigation/AuthProvider'
+import { AuthContext } from '../../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import LottieView from 'lottie-react-native';
-import CustomHeader from '../../components/CustomHeader';
+import CustomHeader from '../../../components/CustomHeader';
 
-export default function LoginScreen({ navigation }) {
+export default function UserLoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')

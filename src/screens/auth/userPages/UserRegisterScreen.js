@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Image, StyleSheet, ImageBackground, View, Text, StatusBar, TouchableOpacity } from 'react-native'
-import { registerBackground } from '../../constants/images'
+import { registerBackground } from '../../../constants/images'
 import * as Animatable from 'react-native-animatable';
-import FormInput from '../../components/FormInput'
-import FormButton from '../../components/FormButton'
-import { SIZES } from '../../constants'
-import { loadingAuth } from '../../constants/images';
+import FormInput from '../../../components/FormInput'
+import FormButton from '../../../components/FormButton'
+import { SIZES } from '../../../constants'
+import { loadingAuth } from '../../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import CustomHeader from '../../components/CustomHeader';
-import { AuthContext } from '../../navigation/AuthProvider'
+import CustomHeader from '../../../components/CustomHeader';
+import { AuthContext } from '../../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import LottieView from 'lottie-react-native';
 import { Checkbox } from 'react-native-paper'
 
-export default function RegisterScreen({ navigation }) {
+export default function UserRegisterScreen({ navigation }) {
     const [name, setName] = useState('')
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
