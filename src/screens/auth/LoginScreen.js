@@ -9,7 +9,7 @@ import {
     ActivityIndicator,
     ImageBackground,
 } from 'react-native'
-import { loginBackground, loginbackground2 } from '../../constants/images'
+import { loginbackground2 } from '../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../components/FormInput'
 import FormButton from '../../components/FormButton'

@@ -1,14 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import CustomHeader from '../../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../../constants';
 import FormButtonProfile from '../../../components/FormButtonProfile';
 import { AuthContext } from '../../../navigation/AuthProvider'
+import * as Yup from 'yup'
+import { Formik } from 'formik';
 
 export default function UserChangePassword({ navigation }) {
   const { changePassword } = useContext(AuthContext)
-
   const [currentPassword, setCurrentPassword] = useState()
   const [newPassword, setNewPassword] = useState()
 
@@ -29,34 +30,67 @@ export default function UserChangePassword({ navigation }) {
 
       <View style={styles.inputContainer}>
 
-        <Jiro
-          secureTextEntry={true}
-          value={currentPassword}
-          onChangeText={pass => setCurrentPassword(pass)}
-          style={styles.input}
-          label={'Şifre'}
-          borderColor={'#154c79'}
-          inputPadding={16}
-          inputStyle={{ color: 'white' }}
-        />
+        <Formik
+          initialValues={{ currentPassword, newPassword }}
+          onSubmit={values => { changePassword(values.currentPassword, values.newPassword) }}
+          validationSchema={
+            Yup.object().shape({
+              currentPassword: Yup.string()
+                .min(6, 'Şifre çok kısa, minimum 6 karakter olmalı!')
+                .required('Şifre gerekli!'),
 
-        <Jiro
-          secureTextEntry={true}
-          value={newPassword}
-          onChangeText={value => setNewPassword(value)}
-          style={styles.input}
-          label={'Yeni Şifre'}
-          borderColor={'#9b537a'}
-          inputPadding={16}
-          inputStyle={{ color: 'white' }}
-        />
+              newPassword: Yup.string()
+                .min(6, 'Yeni şifreniz çok kısa, minimum 6 karakter olmalı!')
+                .required('Yeni Şifre gerekli!'),
+            })
+          }
+        >
+          {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
+            <>
+              <Jiro
+                value={values.currentPassword}
+                onChangeText={handleChange('currentPassword')}
+                onBlur={() => setFieldTouched('currentPassword')}
+                secureTextEntry={true}
+                style={styles.input}
+                label={'Şifre'}
+                borderColor={'#154c79'}
+                inputPadding={16}
+                inputStyle={{ color: 'white' }}
+              />
 
-        <View style={styles.updateBtn}>
-          <FormButtonProfile
-            onPress={() => changePassword(currentPassword, newPassword)}
-            text="Güncelle"
-          />
-        </View>
+
+              {(errors.currentPassword && touched.currentPassword) &&
+                <Text style={styles.errors}>{errors.currentPassword}</Text>
+              }
+
+              <Jiro
+                value={values.newPassword}
+                onChangeText={handleChange('newPassword')}
+                onBlur={() => setFieldTouched('newPassword')}
+                secureTextEntry={true}
+                style={styles.input}
+                label={'Yeni Şifre'}
+                borderColor={'#9b537a'}
+                inputPadding={16}
+                inputStyle={{ color: 'white' }}
+              />
+
+
+              {(errors.newPassword && touched.newPassword) &&
+                <Text style={styles.errors}>{errors.newPassword}</Text>
+              }
+
+              <View style={styles.updateBtn}>
+                <FormButtonProfile
+                   onPress={() => handleSubmit()}
+                  text="Güncelle"
+                />
+              </View>
+            </>
+
+          )}
+        </Formik>
       </View>
     </>
   );
@@ -85,5 +119,12 @@ const styles = StyleSheet.create({
   },
   updateBtn: {
     marginVertical: SIZES.height / 15
-  }
+  },
+  errors: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: 'red',
+    fontWeight: 'bold',
+    marginTop: 5
+  },
 })

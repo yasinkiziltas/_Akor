@@ -153,7 +153,8 @@ export const AuthProvider = ({ children, navigation }) => {
                             return false;
                         }
                         else (
-                            user.updatePassword(newPassword).then(() => {
+                            user.updatePassword(newPassword)
+                            .then(() => {
                                 Alert.alert("Şifre değiştirildi!")
                             }).catch((error) => {
                                 alert(error)
@@ -164,16 +165,18 @@ export const AuthProvider = ({ children, navigation }) => {
                     })
                 },
 
-                changeEmail: (newEmail, currentPassword) => {
-                    reAuth(currentPassword).then(() => {
+                changeEmail: (userPassword, newEmail) => {
+                    reAuth(userPassword).then(() => {
                         var user = firebase.auth().currentUser;
 
-                        user.updateEmail(newEmail).then(() => {
+                        user.updateEmail(newEmail)
+                        .then(() => {
                             Alert.alert("Mail değiştirildi!")
                         }).catch((error) => {
                             alert(error)
                         })
                     }).catch((error) => {
+                        console.log(error)
                         alert(error)
                     })
                 }

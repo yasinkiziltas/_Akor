@@ -9,7 +9,8 @@
 -Bildirim entegrasyonunu hallet
   (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 -şifre ve mail değişirken indicator koy
- 
+-auth klasörünü de userScreens adı altında klasöre taşı.
+
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
 -Uygulamayı değerlendir Android çalışmıyor
