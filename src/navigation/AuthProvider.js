@@ -1,7 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { Alert } from 'react-native'
 import firebase from 'firebase'
-import { getAuth, updateEmail } from "firebase/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = createContext();
@@ -25,6 +24,8 @@ export const AuthProvider = ({ children, navigation }) => {
     const [userName, setUserName] = useState(null)
     const [userEmail, setEmail] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [loadingEmail, setLoadingEmail] = useState(false)
+    const [loadingPass, setLoadingPass] = useState(false)
 
     const reAuth = (currentPassword) => {
         var user = firebase.auth().currentUser;
@@ -45,6 +46,8 @@ export const AuthProvider = ({ children, navigation }) => {
                 setUserId,
                 loading,
                 setLoading,
+                loadingEmail,
+                setLoadingEmail,
 
                 login: async (email, password) => {
                     try {
@@ -144,39 +147,52 @@ export const AuthProvider = ({ children, navigation }) => {
                 },
 
                 changePassword: (currentPassword, newPassword) => {
+
+                    if (!loading) {
+                        setLoading(true)
+                    }
+
                     reAuth(currentPassword).then(() => {
 
                         var user = firebase.auth().currentUser;
 
                         if (currentPassword == newPassword) {
                             alert('Yeni şifreniz eskisi ile aynı olamaz..')
+                            setLoading(false)
                             return false;
                         }
-                        else (
-                            user.updatePassword(newPassword)
+
+                        user.updatePassword(newPassword)
                             .then(() => {
                                 Alert.alert("Şifre değiştirildi!")
+                                setLoading(false)
                             }).catch((error) => {
                                 alert(error)
                             })
-                        )
                     }).catch((error) => {
+                        setLoading(false)
                         alert(error)
                     })
                 },
 
                 changeEmail: (userPassword, newEmail) => {
+
+                    if (!loadingEmail) {
+                        setLoadingEmail(true)
+                    }
+
                     reAuth(userPassword).then(() => {
                         var user = firebase.auth().currentUser;
 
                         user.updateEmail(newEmail)
-                        .then(() => {
-                            Alert.alert("Mail değiştirildi!")
-                        }).catch((error) => {
-                            alert(error)
-                        })
+                            .then(() => {
+                                Alert.alert("Mail değiştirildi!")
+                                setLoadingEmail(false)
+                            }).catch((error) => {
+                                alert(error)
+                            })
                     }).catch((error) => {
-                        console.log(error)
+                        setLoadingEmail(false)
                         alert(error)
                     })
                 }

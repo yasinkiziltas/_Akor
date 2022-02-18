@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import CustomHeader from '../../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../../constants/index'
@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 import { Formik } from 'formik';
 
 export default function UserChangeEmailScreen({ navigation }) {
-  const { changeEmail } = useContext(AuthContext)
+  const { changeEmail, loadingEmail } = useContext(AuthContext)
   const [userPassword, setUserPassword] = useState()
   const [newEmail, setNewEmail] = useState()
 
@@ -78,6 +78,18 @@ export default function UserChangeEmailScreen({ navigation }) {
               {(errors.newEmail && touched.newEmail) &&
                 <Text style={styles.errors}>{errors.newEmail}</Text>
               }
+
+              {loadingEmail ? (
+                <ActivityIndicator
+                  style={{ marginTop: 5 }}
+                  color='red'
+                  size={25}
+                />
+
+              ) : (
+                null
+              )}
+
 
               <FormButtonProfile
                 onPress={() => handleSubmit()}

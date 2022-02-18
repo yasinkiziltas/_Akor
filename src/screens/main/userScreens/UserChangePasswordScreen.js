@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import CustomHeader from '../../../components/CustomHeader'
 import { Jiro } from 'react-native-textinput-effects';
 import { SIZES } from '../../../constants';
@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 import { Formik } from 'formik';
 
 export default function UserChangePassword({ navigation }) {
-  const { changePassword } = useContext(AuthContext)
+  const { changePassword, loading } = useContext(AuthContext)
   const [currentPassword, setCurrentPassword] = useState()
   const [newPassword, setNewPassword] = useState()
 
@@ -81,9 +81,20 @@ export default function UserChangePassword({ navigation }) {
                 <Text style={styles.errors}>{errors.newPassword}</Text>
               }
 
+              {
+                loading ? (
+                  <ActivityIndicator
+                    size={24}
+                    color='red'
+                  />
+                ) : (
+                  null
+                )
+              }
+
               <View style={styles.updateBtn}>
                 <FormButtonProfile
-                   onPress={() => handleSubmit()}
+                  onPress={() => handleSubmit()}
                   text="Güncelle"
                 />
               </View>

@@ -1,15 +1,16 @@
 import React from 'react'
-import UserHomeScreen from '../screens/main/UserHomeScreen';
 import NotificationScreen from '../screens/main/NotificationScreen';
 import EventAddScreen from '../screens/main/EventAddScreen';
 import EventScreen from '../screens/main/EventScreen'
 import MessageScreen from '../screens/main/MessageScreen'
-import UserProfileScreen from '../screens/main/UserProfileScreen'
-import EditUserProfileScreen from '../screens/main/EditUserProfileScreen'
-import UserEventsBookmarksScreen from '../screens/main/UserEventsBookmarksScreen'
-import UserChangePasswordScreen from '../screens/main/UserChangePasswordScreen'
-import UserChangeEmailScreen from '../screens/main/UserChangeEmailScreen'
-import UserSettingsScreen from '../screens/main/UserSettingsScreen'
+
+import UserHomeScreen from '../screens/main/userScreens/UserHomeScreen';
+import UserProfileScreen from '../screens/main/userScreens/UserProfileScreen'
+import UserEditProfileScreen from '../screens/main/userScreens/UserEditProfileScreen'
+import UserEventsBookmarksScreen from '../screens/main/userScreens/UserEventsBookmarksScreen'
+import UserChangePasswordScreen from '../screens/main/userScreens/UserChangePasswordScreen'
+import UserChangeEmailScreen from '../screens/main/userScreens/UserChangeEmailScreen'
+import UserSettingsScreen from '../screens/main/userScreens/UserSettingsScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -18,6 +19,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { COLORS } from '../constants';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -52,7 +55,7 @@ function ProfileStack() {
     return (
         <Stack.Navigator initialRouteName="Profile">
             <Stack.Screen name="Profile" component={UserProfileScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="EditUserProfile" component={EditUserProfileScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserEditProfile" component={UserEditProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserEventsBookmark" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserChangeEmail" component={UserChangeEmailScreen} options={{ headerShown: false }} />

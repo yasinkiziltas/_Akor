@@ -1,16 +1,13 @@
 13.02.2021 
--Tüm formları formik uygula
 -User için Mekan Listeleme ekranını oluştur
 -Mekan sahibi girişini kodla (UI / UX)
--Profil güncelleme, ayarlarları güncelleme işlemleri hallet (firestore)
+-Profil güncelleme işlemleri hallet (firestore)
 -UserHomeScreen UI hallet.
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
 -User mekan başvuru ekranını kodla (UI / UX)
 -Bildirim entegrasyonunu hallet
-  (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
--şifre ve mail değişirken indicator koy
--auth klasörünü de userScreens adı altında klasöre taşı.
+  ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
--Uygulamayı değerlendir Android çalışmıyor
+-Uygulamayı değerlendir Android tarafında çalışmıyor
