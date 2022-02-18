@@ -9,8 +9,7 @@
 -Bildirim entegrasyonunu hallet
   (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 -şifre ve mail değişirken indicator koy
--Splash screen yap
-
+ 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
 -Uygulamayı değerlendir Android çalışmıyor
