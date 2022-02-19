@@ -18,7 +18,7 @@ export default function UserRegisterScreen({ navigation }) {
     const [name, setName] = useState('')
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-    const { register, loading } = useContext(AuthContext)
+    const { register, loadingRegister } = useContext(AuthContext)
 
     return (
         <>
@@ -130,7 +130,7 @@ export default function UserRegisterScreen({ navigation }) {
                                     />
                                 </View>
 
-                                {loading ? (
+                                {loadingRegister ? (
                                     <LottieView
                                         source={loadingAuth}
                                         style={{

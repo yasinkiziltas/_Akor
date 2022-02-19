@@ -9,7 +9,7 @@ import * as Yup from 'yup'
 import { Formik } from 'formik';
 
 export default function UserChangePassword({ navigation }) {
-  const { changePassword, loading } = useContext(AuthContext)
+  const { changePassword, loadingPassword } = useContext(AuthContext)
   const [currentPassword, setCurrentPassword] = useState()
   const [newPassword, setNewPassword] = useState()
 
@@ -82,7 +82,7 @@ export default function UserChangePassword({ navigation }) {
               }
 
               {
-                loading ? (
+                loadingPassword ? (
                   <ActivityIndicator
                     size={24}
                     color='red'

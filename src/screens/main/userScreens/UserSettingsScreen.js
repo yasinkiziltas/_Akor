@@ -11,6 +11,7 @@ import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants/index'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import { AuthContext } from '../../../navigation/AuthProvider'
+import { ActivityIndicator } from 'react-native-paper';
 
 const onShare = () => {
   const result = Share.share({
@@ -28,7 +29,7 @@ const onShare = () => {
 }
 
 export default function UserSettingsScreen({ navigation }) {
-  const {logout} = useContext(AuthContext)
+  const {logout, loadingLogout} = useContext(AuthContext)
   return (
     <>
       {
@@ -207,6 +208,15 @@ export default function UserSettingsScreen({ navigation }) {
 
           </View>
         </View>
+
+        {loadingLogout ? (
+          <ActivityIndicator
+            size={24}
+            color="red"
+          />
+        ) : (
+          null
+        )}
 
         <TouchableOpacity
           onPress={() => logout()}

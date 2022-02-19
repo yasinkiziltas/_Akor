@@ -24,8 +24,10 @@ export const AuthProvider = ({ children, navigation }) => {
     const [userName, setUserName] = useState(null)
     const [userEmail, setEmail] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [loadingRegister, setLoadingRegister] = useState(false)
     const [loadingEmail, setLoadingEmail] = useState(false)
-    const [loadingPass, setLoadingPass] = useState(false)
+    const [loadingPassword, setLoadingPassword] = useState(false)
+    const [loadingLogout, setLoadingLogout] = useState(false)
 
     const reAuth = (currentPassword) => {
         var user = firebase.auth().currentUser;
@@ -46,8 +48,14 @@ export const AuthProvider = ({ children, navigation }) => {
                 setUserId,
                 loading,
                 setLoading,
+                loadingRegister,
+                setLoadingRegister,
                 loadingEmail,
                 setLoadingEmail,
+                loadingPassword,
+                setLoadingPassword,
+                loadingLogout,
+                setLoadingLogout,
 
                 login: async (email, password) => {
                     try {
@@ -62,6 +70,7 @@ export const AuthProvider = ({ children, navigation }) => {
                             setUserId(user.uid);
                             setUserName(user.displayName);
                             setEmail(user.email);
+                            setLoading(false)
                         }
 
                     }
@@ -74,32 +83,35 @@ export const AuthProvider = ({ children, navigation }) => {
                 register: async (name, email, password) => {
                     try {
 
-                        if (!loading) {
-                            setLoading(true)
-                            await firebase.auth().createUserWithEmailAndPassword(email, password)
+                        if (!loadingRegister) {
+                            setLoadingRegister(true)
 
-                            await firebase
-                                .firestore()
-                                .collection('users')
-                                .add({
-                                    userName: name,
-                                    userEmail: email,
-                                    userPhone: null,
-                                    userJob: null,
-                                    userDateOfBirth: null,
-                                    userPhoto: null,
-                                    userAddress: null,
-                                    userBio: null,
-                                    userGender: null,
-
-                                })
-                                .then(() => {
-                                    console.log('Kayıt başarılı!');
-                                })
-                                .catch((error) => {
-                                    console.log('Hata!', error);
-                                })
                         }
+
+                        await firebase.auth().createUserWithEmailAndPassword(email, password)
+                        await firebase
+                            .firestore()
+                            .collection('users')
+                            .add({
+                                userName: name,
+                                userEmail: email,
+                                userPhone: null,
+                                userJob: null,
+                                userDateOfBirth: null,
+                                userPhoto: null,
+                                userAddress: null,
+                                userBio: null,
+                                userGender: null,
+
+                            })
+                            .then(() => {
+                                setLoadingRegister(false)
+                                console.log('Kayıt başarılı!');
+                            })
+                            .catch((error) => {
+                                setLoadingRegister(false)
+                                console.log('Hata!', error);
+                            })
 
                         const user = firebase.auth().currentUser;
                         if (user) {
@@ -111,28 +123,7 @@ export const AuthProvider = ({ children, navigation }) => {
                         }
                     }
                     catch (e) {
-                        setLoading(false)
-                        alert(e)
-                    }
-                },
-
-                logout: async () => {
-                    try {
-                        const timeout = setTimeout(() => {
-                            if (loading) {
-                                setLoading(false)
-                            }
-                            firebase.auth().signOut()
-                        }, 1000);
-                        return () => clearTimeout(timeout);
-
-                        //     if (loading) {
-                        //         setLoading(false)
-                        //     }
-                        //    firebase.auth().signOut()
-
-                    }
-                    catch (e) {
+                        setLoadingRegister(false)
                         alert(e)
                     }
                 },
@@ -148,8 +139,8 @@ export const AuthProvider = ({ children, navigation }) => {
 
                 changePassword: (currentPassword, newPassword) => {
 
-                    if (!loading) {
-                        setLoading(true)
+                    if (!loadingPassword) {
+                        setLoadingPassword(true)
                     }
 
                     reAuth(currentPassword).then(() => {
@@ -158,19 +149,19 @@ export const AuthProvider = ({ children, navigation }) => {
 
                         if (currentPassword == newPassword) {
                             alert('Yeni şifreniz eskisi ile aynı olamaz..')
-                            setLoading(false)
+                            setLoadingPassword(false)
                             return false;
                         }
 
                         user.updatePassword(newPassword)
                             .then(() => {
                                 Alert.alert("Şifre değiştirildi!")
-                                setLoading(false)
+                                setLoadingPassword(false)
                             }).catch((error) => {
                                 alert(error)
                             })
                     }).catch((error) => {
-                        setLoading(false)
+                        setLoadingPassword(false)
                         alert(error)
                     })
                 },
@@ -195,7 +186,28 @@ export const AuthProvider = ({ children, navigation }) => {
                         setLoadingEmail(false)
                         alert(error)
                     })
-                }
+                },
+
+                logout: async () => {
+
+                    if (!loadingLogout) {
+                        setLoadingLogout(true)
+                    }
+
+                    try {
+                        const timeout = setTimeout(() => {
+                            firebase.auth().signOut()
+                            setLoadingLogout(false)
+                        }, 1000);
+
+                        return () => clearTimeout(timeout);
+
+                    }
+                    catch (e) {
+                        setLoadingLogout(false)
+                        alert(e)
+                    }
+                },
             }}
         >
             {children}
