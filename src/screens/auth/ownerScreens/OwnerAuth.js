@@ -2,7 +2,7 @@ import React from 'react'
 import OwnerLogin from '../ownerScreens/OwnerLogin'
 import OwnerRegister from '../ownerScreens/OwnerRegister'
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-
+import CustomHeader from '../../../components/CustomHeader'
 import { View, Text, StyleSheet, ImageBackground } from 'react-native'
 import { ownerAuth, ownerAuth2 } from '../../../constants/images'
 import { SIZES } from '../../../constants/theme'
@@ -19,10 +19,11 @@ const SecondScreen = () => (
 const renderTabBar = props => (
   <TabBar
     labelStyle={{
+      fontSize: 18,
       fontWeight: 'bold'
     }}
     {...props}
-    indicatorStyle={{ backgroundColor: 'black' }}
+    indicatorStyle={{ backgroundColor: 'gray' }}
     style={{ backgroundColor: '#ff4f5a' }}
   />
 );
@@ -32,7 +33,7 @@ const renderScene = SceneMap({
   second: SecondScreen,
 });
 
-export default function OwnerAuth() {
+export default function OwnerAuth({ navigation }) {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -42,9 +43,17 @@ export default function OwnerAuth() {
 
   return (
     <>
+
+      <View style={{ marginTop: 15 }}>
+        <CustomHeader
+          navigation={navigation}
+          isBack={true}
+        />
+      </View>
+
       <Animatable.View
-      animation="slideInUp"
-      style={styles.container}>
+        animation="slideInUp"
+        style={styles.container}>
         <ImageBackground
           imageStyle={{
             borderRadius: 30,
@@ -53,8 +62,9 @@ export default function OwnerAuth() {
           style={styles.img}
         />
         <Text style={styles.titleText}>AKOR</Text>
-      </Animatable.View>
+        <Text style={styles.titleSubText}>Sahne arkadaşını bulmak için en uygun platform!</Text>
 
+      </Animatable.View>
 
       <TabView
         renderTabBar={renderTabBar}
@@ -69,18 +79,22 @@ export default function OwnerAuth() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1.5,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
   img: {
-    width: SIZES.width / 1.1,
-    height: SIZES.height / 2
+    width: SIZES.width / 1.10,
+    height: SIZES.height / 3
   },
   titleText: {
     marginTop: 15,
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  titleSubText: {
+    color: 'gray',
+    fontSize: 12
   }
 })

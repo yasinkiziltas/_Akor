@@ -4,7 +4,7 @@ import React from 'react'
 export default function OwnerLogin() {
   return (
     <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-      <Text>OwnerLogin</Text>
+      <Text>Login</Text>
     </View>
   )
 }
