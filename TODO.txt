@@ -1,10 +1,9 @@
 13.02.2021 
--User için Mekan Listeleme ekranını oluştur
+-User için Mekan başvuru ekranını oluştur
 -Mekan sahibi girişini kodla (UI / UX)
 -Profil güncelleme işlemleri hallet (firestore)
 -UserHomeScreen UI hallet.
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
--User mekan başvuru ekranını kodla (UI / UX)
 -Bildirim entegrasyonunu hallet
   ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 

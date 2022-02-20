@@ -38,7 +38,7 @@ export default function OnboardScreen({ navigation }) {
 
                     <FormButton
                         text="Mekan Sahibi Girişi"
-                        onPress={() => alert('Mekan sahibi girişi')}
+                        onPress={() =>  navigation.navigate('OwnerAuth')}
                     />
 
                     <TouchableOpacity
