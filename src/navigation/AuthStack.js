@@ -7,6 +7,10 @@ import UserLoginScreen from '../screens/auth/userScreens/UserLoginScreen'
 import UserRegisterScreen from '../screens/auth/userScreens/UserRegisterScreen';
 import UserForgotPassword from '../screens/auth/userScreens/UserForgotPassword'
 
+import OwnerAuth from '../screens/auth/ownerScreens/OwnerAuth'
+import OwnerLogin from '../screens/auth/ownerScreens/OwnerLogin'
+import OwnerRegister from '../screens/auth/ownerScreens/OwnerLogin'
+
 const Stack = createNativeStackNavigator()
 
 export default function AuthStack() {
@@ -44,6 +48,10 @@ export default function AuthStack() {
             <Stack.Screen name="Login" component={UserLoginScreen} options={{ header: () => null }} />
             <Stack.Screen name="Register" component={UserRegisterScreen} options={{ header: () => null }} />
             <Stack.Screen name="ForgotPassword" component={UserForgotPassword} options={{ header: () => null }} />
+
+            <Stack.Screen name="OwnerLogin" component={OwnerLogin} options={{ header: () => null }} />
+            <Stack.Screen name="OwnerRegister" component={OwnerRegister} options={{ header: () => null }} />
+            <Stack.Screen name="OwnerAuth" component={OwnerAuth} options={{ header: () => null }} />
         </Stack.Navigator>
     );
 }

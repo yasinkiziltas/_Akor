@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function OwnerRegister() {
   return (
-    <View>
+    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
       <Text>OwnerRegister</Text>
     </View>
   )
