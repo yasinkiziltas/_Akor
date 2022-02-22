@@ -43,7 +43,6 @@ export default function OwnerAuth({ navigation }) {
 
   return (
     <>
-
       <View style={{ marginTop: 15 }}>
         <CustomHeader
           navigation={navigation}
@@ -79,16 +78,16 @@ export default function OwnerAuth({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1 / 1.2,
     justifyContent: 'center',
     alignItems: 'center'
   },
   img: {
-    width: SIZES.width / 1.10,
+    width: SIZES.width / 1.15,
     height: SIZES.height / 3
   },
   titleText: {
-    marginTop: 15,
+    marginTop: 5,
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',

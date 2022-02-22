@@ -145,6 +145,7 @@ export default function UserLoginScreen({ navigation }) {
                                     <FormButton
                                         onPress={() => handleSubmit()}
                                         text="Giriş"
+                                        backgroundColor={"green"}
                                     />
                                 </View>
                             </>

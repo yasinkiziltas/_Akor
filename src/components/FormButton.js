@@ -1,17 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import React from 'react';
 import AwesomeButton from "react-native-really-awesome-button";
 import { COLORS } from '../constants';
 
-export default function FormButton({ text, ...rest }) {
+export default function FormButton({ text, backgroundColor, ...rest }) {
     return (
         <View style={styles.buttonContainer}>
             <AwesomeButton
-                style={{ marginTop: 20 }}
+                style={{ marginTop: 20,}}
                 borderRadius={8}
                 width={350}
                 height={45}
-                backgroundColor={COLORS.appColor}
+                backgroundColor={backgroundColor}
                 {...rest}
             >
                 <Text style={styles.buttonText}>{text}</Text>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        fontSize: 20,
+        fontSize: Platform.OS == 'ios' ? 22 : 20,
         color: 'white',
         fontWeight: 'bold'
     }

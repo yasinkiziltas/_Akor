@@ -64,6 +64,7 @@ export default function UserForgotPassword({ navigation }) {
           <FormButton
             text="Gönder"
             onPress={() => forgotPass(mail)}
+            backgroundColor={"green"}
           />
 
         </Animatable.View>

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, ImageBackground, TouchableOpacity, Text } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 import { onboard2 } from '../../constants/images';
-import { SIZES } from '../../constants/theme';
+import { SIZES, COLORS } from '../../constants/theme';
 import FormButton from '../../components/FormButton'
 
 export default function OnboardScreen({ navigation }) {
@@ -22,23 +22,26 @@ export default function OnboardScreen({ navigation }) {
                 animation="slideInUp"
                 style={{ flexDirection: 'column' }}
             >
-                <Text style={styles.onboardText}>Akor' a hoşgeldin!</Text>
+                <Text style={styles.onboardText}>HOŞGELDİN!</Text>
                 <Text style={styles.onboardTabText}>Sahneni veya sahne arkadaşını bulmak için en ideal yer!</Text>
 
                 <View style={styles.buttonContainer}>
                     <FormButton
                         text="Giriş"
                         onPress={() => navigation.navigate('Login')}
+                        backgroundColor={COLORS.appColor}
                     />
 
                     <FormButton
                         text="Kayıt Ol"
                         onPress={() => navigation.navigate('Register')}
+                        backgroundColor={COLORS.appColor}
                     />
 
                     <FormButton
                         text="Mekan Sahibi Girişi"
                         onPress={() =>  navigation.navigate('OwnerAuth')}
+                        backgroundColor={COLORS.appColor}
                     />
 
                     <TouchableOpacity
