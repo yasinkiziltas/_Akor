@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Kohana } from 'react-native-textinput-effects';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,25 +7,27 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import FormButton from '../../../components/FormButton'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
+import { AuthContext } from '../../../navigation/AuthProvider'
 
 export default function OwnerLogin({ navigation }) {
-  const [mail, setMail] = useState()
-  const [password, setPassword] = useState()
+  const { loginOwner } = useContext(AuthContext)
+  const [mailOwner, setMailOwner] = useState()
+  const [passwordOwner, setPasswordOwner] = useState()
 
   return (
     <KeyboardAwareScrollView>
       <View style={styles.inputsContainer}>
 
         <Formik
-          initialValues={{ mail, password }}
-          onSubmit={values => { login(values.mail, values.password) }}
+          initialValues={{ mailOwner, passwordOwner }}
+          onSubmit={values => { loginOwner(values.mailOwner, values.passwordOwner) }}
           validationSchema={
             Yup.object().shape({
-              mail: Yup.string()
+              mailOwner: Yup.string()
                 .email('Lütfen geçerli bir email adresi girin!')
                 .required('Email gerekli!'),
 
-              password: Yup.string()
+                passwordOwner: Yup.string()
                 .min(6, 'Şifre çok kısa, minimum 6 karakter olmalı!')
                 .required('Şifre gerekli!')
             })
@@ -34,9 +36,9 @@ export default function OwnerLogin({ navigation }) {
           {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
             <>
               <Kohana
-                onBlur={() => setFieldTouched('mail')}
-                value={values.mail}
-                onChangeText={handleChange('mail')}
+                onBlur={() => setFieldTouched('mailOwner')}
+                value={values.mailOwner}
+                onChangeText={handleChange('mailOwner')}
                 keyboardType="email-address"
                 style={{ backgroundColor: '#ffffff' }}
                 label={'Mail'}
@@ -51,14 +53,14 @@ export default function OwnerLogin({ navigation }) {
                 useNativeDriver
               />
 
-              {(errors.mail && touched.mail) &&
-                <Text style={styles.errors}>{errors.mail} </Text>
+              {(errors.mailOwner && touched.mailOwner) &&
+                <Text style={styles.errors}>{errors.mailOwner} </Text>
               }
 
               <Kohana
-                onBlur={() => setFieldTouched('password')}
-                value={values.password}
-                onChangeText={handleChange('password')}
+                onBlur={() => setFieldTouched('passwordOwner')}
+                value={values.passwordOwner}
+                onChangeText={handleChange('passwordOwner')}
                 secureTextEntry={true}
                 style={{ backgroundColor: '#ffffff', marginTop: 15 }}
                 label={'Şifre'}
@@ -73,8 +75,8 @@ export default function OwnerLogin({ navigation }) {
                 useNativeDriver
               />
 
-              {(errors.password && touched.password) &&
-                <Text style={styles.errors}>{errors.password} </Text>
+              {(errors.passwordOwner && touched.passwordOwner) &&
+                <Text style={styles.errors}>{errors.passwordOwner} </Text>
               }
 
               <TouchableOpacity

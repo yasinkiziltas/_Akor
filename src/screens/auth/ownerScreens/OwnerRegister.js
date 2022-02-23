@@ -10,9 +10,9 @@ import { Formik } from 'formik';
 import { AuthContext } from '../../../navigation/AuthProvider'
 
 export default function OwnerRegister({ navigation }) {
-  const { register } = useContext(AuthContext)
-  const [mail, setMail] = useState()
-  const [password, setPassword] = useState()
+  const { registerOwner } = useContext(AuthContext)
+  const [mailOwner, setMailOwner] = useState()
+  const [passwordOwner, setPasswordOwner] = useState()
   const [userType, setUserType] = useState(false)
 
   return (
@@ -20,15 +20,15 @@ export default function OwnerRegister({ navigation }) {
       <View style={styles.inputsContainer}>
 
         <Formik
-          initialValues={{ mail, password, userType}}
-          onSubmit={values => { register(values.mail, values.password, userType) }}
+          initialValues={{ mailOwner, passwordOwner}}
+          onSubmit={values => { registerOwner(values.mailOwner, values.passwordOwner) }}
           validationSchema={
             Yup.object().shape({
-              mail: Yup.string()
+              mailOwner: Yup.string()
                 .email('Lütfen geçerli bir email adresi girin!')
                 .required('Email gerekli!'),
 
-              password: Yup.string()
+                passwordOwner: Yup.string()
                 .min(6, 'Şifre çok kısa, minimum 6 karakter olmalı!')
                 .required('Şifre gerekli!')
             })
@@ -37,9 +37,9 @@ export default function OwnerRegister({ navigation }) {
           {({ values, handleChange, handleSubmit, errors, touched, setFieldTouched }) => (
             <>
               <Kohana
-                onBlur={() => setFieldTouched('mail')}
-                value={values.mail}
-                onChangeText={handleChange('mail')}
+                onBlur={() => setFieldTouched('mailOwner')}
+                value={values.mailOwner}
+                onChangeText={handleChange('mailOwner')}
                 keyboardType="email-address"
                 style={{ backgroundColor: '#ffffff' }}
                 label={'Mail'}
@@ -54,14 +54,14 @@ export default function OwnerRegister({ navigation }) {
                 useNativeDriver
               />
 
-              {(errors.mail && touched.mail) &&
-                <Text style={styles.errors}>{errors.mail} </Text>
+              {(errors.mailOwner && touched.mailOwner) &&
+                <Text style={styles.errors}>{errors.mailOwner} </Text>
               }
 
               <Kohana
-                onBlur={() => setFieldTouched('password')}
-                value={values.password}
-                onChangeText={handleChange('password')}
+                onBlur={() => setFieldTouched('passwordOwner')}
+                value={values.passwordOwner}
+                onChangeText={handleChange('passwordOwner')}
                 secureTextEntry={true}
                 style={{ backgroundColor: '#ffffff', marginTop: 15 }}
                 label={'Şifre'}
@@ -76,8 +76,8 @@ export default function OwnerRegister({ navigation }) {
                 useNativeDriver
               />
 
-              {(errors.password && touched.password) &&
-                <Text style={styles.errors}>{errors.password} </Text>
+              {(errors.passwordOwner && touched.passwordOwner) &&
+                <Text style={styles.errors}>{errors.passwordOwner} </Text>
               }
 
               <View style={{ marginVertical: 35 }}>

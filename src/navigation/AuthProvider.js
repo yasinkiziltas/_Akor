@@ -80,7 +80,31 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                 },
 
-                register: async (name, email, password, userType) => {
+                loginOwner: async (mailOwner, passwordOwner) => {
+                    try {
+
+                        await firebase.auth().signInWithEmailAndPassword(mailOwner, passwordOwner)
+                        // if (!loading) {
+                        //     setLoading(true)
+                        //     await firebase.auth().signInWithEmailAndPassword(email, password)
+                        // }
+
+                        const user = firebase.auth().currentUser;
+                        if (user) {
+                            setUserId(user.uid);
+                            setUserName(user.displayName);
+                            setEmail(user.email);
+                            setLoading(false)
+                        }
+
+                    }
+                    catch (e) {
+                        setLoading(false)
+                        alert(e)
+                    }
+                },
+
+                register: async (name, email, password) => {
                     try {
 
                         if (!loadingRegister) {
@@ -102,7 +126,7 @@ export const AuthProvider = ({ children, navigation }) => {
                                 userAddress: null,
                                 userBio: null,
                                 userGender: null,
-                                typeUser: userType ? 'User' : 'Owner'
+                                typeUser: 'User'
 
                             })
                             .then(() => {
@@ -121,6 +145,43 @@ export const AuthProvider = ({ children, navigation }) => {
                             // setUserId(user.uid);
                             // setUserName(name);
                             // setEmail(user.email);
+                        }
+                    }
+                    catch (e) {
+                        setLoadingRegister(false)
+                        alert(e)
+                    }
+                },
+
+                registerOwner: async (mailOwner, passwordOwner) => {
+                    try {
+
+                        if (!loadingRegister) {
+                            setLoadingRegister(true)
+
+                        }
+
+                        await firebase.auth().createUserWithEmailAndPassword(mailOwner, passwordOwner)
+                        await firebase
+                            .firestore()
+                            .collection('owners')
+                            .add({
+                                ownerEmail: mailOwner,
+                                typeUser: 'Owner'
+
+                            })
+                            .then(() => {
+                                setLoadingRegister(false)
+                                console.log('Kayıt başarılı!');
+                            })
+                            .catch((error) => {
+                                setLoadingRegister(false)
+                                console.log('Hata!', error);
+                            })
+
+                        const user = firebase.auth().currentUser;
+                        if (user) {
+                            AsyncStorage.setItem('cUseremail', mailOwner)
                         }
                     }
                     catch (e) {

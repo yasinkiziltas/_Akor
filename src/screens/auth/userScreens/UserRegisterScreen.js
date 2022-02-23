@@ -51,8 +51,8 @@ export default function UserRegisterScreen({ navigation }) {
                     <Text style={styles.loginText}>Kayıt ol</Text>
 
                     <Formik
-                        initialValues={{name, mail, password, userType }}
-                        onSubmit={values => { register(values.name, values.mail, values.password, values.userType ) }}
+                        initialValues={{name, mail, password }}
+                        onSubmit={values => { register(values.name, values.mail, values.password ) }}
                         validationSchema={
                             Yup.object().shape({
                                 name: Yup.string()
