@@ -8,31 +8,6 @@ import { ownerAuth, ownerAuth2 } from '../../../constants/images'
 import { SIZES } from '../../../constants/theme'
 import * as Animatable from 'react-native-animatable';
 
-const FirstScreen = () => (
-  <OwnerLogin />
-);
-
-const SecondScreen = () => (
-  <OwnerRegister />
-);
-
-const renderTabBar = props => (
-  <TabBar
-    labelStyle={{
-      fontSize: 18,
-      fontWeight: 'bold'
-    }}
-    {...props}
-    indicatorStyle={{ backgroundColor: 'gray' }}
-    style={{ backgroundColor: '#ff4f5a' }}
-  />
-);
-
-const renderScene = SceneMap({
-  first: FirstScreen,
-  second: SecondScreen,
-});
-
 export default function OwnerAuth({ navigation }) {
 
   const [index, setIndex] = React.useState(0);
@@ -40,6 +15,31 @@ export default function OwnerAuth({ navigation }) {
     { key: 'first', title: 'Giriş' },
     { key: 'second', title: 'Kayıt Ol' },
   ]);
+
+  const FirstScreen = () => (
+    <OwnerLogin navigation={navigation} />
+  );
+
+  const SecondScreen = () => (
+    <OwnerRegister navigation={navigation} />
+  );
+
+  const renderTabBar = props => (
+    <TabBar
+      labelStyle={{
+        fontSize: 18,
+        fontWeight: 'bold'
+      }}
+      {...props}
+      indicatorStyle={{ backgroundColor: 'gray' }}
+      style={{ backgroundColor: '#ff4f5a' }}
+    />
+  );
+
+  const renderScene = SceneMap({
+    first: FirstScreen,
+    second: SecondScreen,
+  });
 
   return (
     <>

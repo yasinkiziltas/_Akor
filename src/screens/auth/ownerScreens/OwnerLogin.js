@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FormButton from '../../../components/FormButton'
 
-export default function OwnerLogin() {
+export default function OwnerLogin({ navigation }) {
   return (
     <KeyboardAwareScrollView>
       <View style={styles.inputsContainer}>
@@ -38,6 +38,19 @@ export default function OwnerLogin() {
           iconContainerStyle={{ padding: 15 }}
           useNativeDriver
         />
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ForgotPassword')}
+          style={{
+            position: 'absolute',
+            right: 5,
+            bottom: 100
+          }}>
+          <Text style={{
+            fontSize: 16,
+            color: 'gray'
+          }}>Şifremi Unuttum</Text>
+        </TouchableOpacity>
 
         <View style={{ marginVertical: 35 }}>
           <FormButton
