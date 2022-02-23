@@ -1,4 +1,5 @@
 import React from 'react'
+import {Platform} from 'react-native'
 import NotificationScreen from '../screens/main/NotificationScreen';
 import EventAddScreen from '../screens/main/EventAddScreen';
 import EventScreen from '../screens/main/EventScreen'
@@ -14,6 +15,7 @@ import UserSettingsScreen from '../screens/main/userScreens/UserSettingsScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../constants';
@@ -23,6 +25,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const TabMaterial = createMaterialBottomTabNavigator();
 
 function MainStack() {
     return (
@@ -66,7 +69,90 @@ function ProfileStack() {
 export default function AppStack() {
     return (
         <>
-            <Tab.Navigator
+            {Platform.OS == "ios" ? (
+                 <TabMaterial.Navigator
+                 screenOptions={{
+                     tabBarActiveTintColor: COLORS.appColor,
+                     tabBarShowLabel: false,
+                     tabBarStyle: {
+                         // borderRadius: 25,
+                         // position: 'absolute',
+                         // bottom: 20,
+                         // left: 20,
+                         // right: 20,
+                         // elevation: 0,
+                         // height: 80
+                     }
+                 }}>
+                 <TabMaterial.Screen
+                     name="Ana"
+                     component={MainStack}
+                     options={({ route }) => ({
+                         tabBarLabel: false,
+                         tabBarColor:'#92C19C',
+                         headerShown: false,
+                         // tabBarVisible: route.state && route.state.index === 0,
+                         tabBarIcon: ({ color, size }) => (
+                             <MaterialCommunityIcons
+                                 name="home-outline"
+                                 color={color}
+                                 size={30}
+                             />
+                         ),
+                     })}
+                 />
+                 <TabMaterial.Screen
+                     name="Mekanlar"
+                     component={EventStack}
+                     options={({ route }) => ({
+                         tabBarLabel: false,
+                         tabBarColor:'#C1A892',
+                         headerShown: false,
+                         tabBarIcon: ({ color, size }) => (
+                             <MaterialIcons
+                                 // view-grid-outline
+                                 name="place"
+                                 color={color}
+                                 size={25}
+                             />
+                         ),
+                     })}
+                 />
+                 <TabMaterial.Screen
+                     name="Mesajlar"
+                     component={MessageStack}
+                     options={({ route }) => ({
+                         headerShown: false,
+                         tabBarLabel: false,
+                         tabBarColor:'#92BFC1',
+                         tabBarIcon: ({ color, size }) => (
+                             <Feather
+                                 name="message-circle"
+                                 color={color}
+                                 size={25}
+                             />
+                         ),
+                     })}
+                 />
+                 <TabMaterial.Screen
+                     name="Profil"
+                     component={ProfileStack}
+                     options={{
+                         headerShown: false,
+                         tabBarColor:'#B9BFDA',
+                         tabBarLabel: false,
+                         tabBarIcon: ({ color, size }) => (
+                             <MaterialCommunityIcons
+                                 name="account"
+                                 color={color}
+                                 size={25}
+                             />
+                         ),
+                     }}
+                 />
+             </TabMaterial.Navigator>
+            ) : (
+                <Tab.Navigator
                 screenOptions={{
                     tabBarActiveTintColor: COLORS.appColor,
                     tabBarShowLabel: false,
@@ -140,6 +226,7 @@ export default function AppStack() {
                     }}
                 />
             </Tab.Navigator>
+            )}
         </>
     );
 };

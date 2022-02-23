@@ -222,7 +222,7 @@ export default function UserSettingsScreen({ navigation }) {
           onPress={() => logout()}
           style={{ flex: 1, marginTop: 15, alignItems: 'center' }}
         >
-          <Text style={{ fontSize: 17, color: 'blue' }}>Oturumu Kapat</Text>
+          <Text style={{ fontSize: 17, color: 'blue' }}>Çıkış Yap</Text>
         </TouchableOpacity>
       </View>
     </>
