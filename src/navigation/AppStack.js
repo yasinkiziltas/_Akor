@@ -1,8 +1,9 @@
 import React from 'react'
 import {Platform} from 'react-native'
 import NotificationScreen from '../screens/main/NotificationScreen';
-import EventAddScreen from '../screens/main/EventAddScreen';
-import EventScreen from '../screens/main/EventScreen'
+
+import EventAddScreen from '../screens/main/ownerScreens/EventAddScreen';
+import EventHomeScreen from '../screens/main/ownerScreens/EventHomeScreen'
 import MessageScreen from '../screens/main/MessageScreen'
 
 import UserHomeScreen from '../screens/main/userScreens/UserHomeScreen';
@@ -36,15 +37,7 @@ function MainStack() {
         </Stack.Navigator>
     )
 }
-
-function EventStack() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="Events" component={EventScreen} options={{ headerShown: false }} />
-        </Stack.Navigator>
-    )
-}
-
+ 
 function MessageStack() {
     return (
         <Stack.Navigator>
@@ -101,7 +94,7 @@ export default function AppStack() {
                          ),
                      })}
                  />
-                 <TabMaterial.Screen
+                 {/* <TabMaterial.Screen
                      name="Mekanlar"
                      component={EventStack}
                      options={({ route }) => ({
@@ -117,7 +110,7 @@ export default function AppStack() {
                              />
                          ),
                      })}
-                 />
+                 /> */}
                  <TabMaterial.Screen
                      name="Mesajlar"
                      component={MessageStack}
@@ -181,7 +174,7 @@ export default function AppStack() {
                         ),
                     })}
                 />
-                <Tab.Screen
+                {/* <Tab.Screen
                     name="Takvim"
                     component={EventStack}
                     options={({ route }) => ({
@@ -195,7 +188,7 @@ export default function AppStack() {
                             />
                         ),
                     })}
-                />
+                /> */}
                 <Tab.Screen
                     name="Mesajlar"
                     component={MessageStack}

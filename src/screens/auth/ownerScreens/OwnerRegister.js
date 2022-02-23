@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Kohana } from 'react-native-textinput-effects';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -7,18 +7,21 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import FormButton from '../../../components/FormButton'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
+import { AuthContext } from '../../../navigation/AuthProvider'
 
 export default function OwnerRegister({ navigation }) {
+  const { register } = useContext(AuthContext)
   const [mail, setMail] = useState()
   const [password, setPassword] = useState()
+  const [userType, setUserType] = useState(false)
 
   return (
     <KeyboardAwareScrollView>
       <View style={styles.inputsContainer}>
 
         <Formik
-          initialValues={{ mail, password }}
-          onSubmit={values => { register(values.mail, values.password) }}
+          initialValues={{ mail, password, userType}}
+          onSubmit={values => { register(values.mail, values.password, userType) }}
           validationSchema={
             Yup.object().shape({
               mail: Yup.string()

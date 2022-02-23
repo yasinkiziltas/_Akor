@@ -80,7 +80,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                 },
 
-                register: async (name, email, password) => {
+                register: async (name, email, password, userType) => {
                     try {
 
                         if (!loadingRegister) {
@@ -102,6 +102,7 @@ export const AuthProvider = ({ children, navigation }) => {
                                 userAddress: null,
                                 userBio: null,
                                 userGender: null,
+                                typeUser: userType ? 'User' : 'Owner'
 
                             })
                             .then(() => {
