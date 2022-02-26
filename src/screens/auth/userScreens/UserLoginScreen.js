@@ -26,7 +26,7 @@ export default function UserLoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [userType, setUserType] = useState('User')
     const { login, loading } = useContext(AuthContext)
 
     return (
@@ -65,8 +65,8 @@ export default function UserLoginScreen({ navigation }) {
                     <Text style={styles.loginText}>Giriş</Text>
 
                     <Formik
-                        initialValues={{ mail, password }}
-                        onSubmit={values => { login(values.mail, values.password) }}
+                        initialValues={{ mail, password, userType}}
+                        onSubmit={values => { login(values.mail, values.password, values.userType) }}
                         validationSchema={
                             Yup.object().shape({
                                 mail: Yup.string()

@@ -6,6 +6,7 @@
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
 -Bildirim entegrasyonunu hallet
   ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
+-AppStack mobx ile yapılacak (giren kişinin user veya owner oldugu anlasılmıyor)
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)

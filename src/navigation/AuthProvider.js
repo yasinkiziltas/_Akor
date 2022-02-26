@@ -57,7 +57,7 @@ export const AuthProvider = ({ children, navigation }) => {
                 loadingLogout,
                 setLoadingLogout,
 
-                login: async (email, password) => {
+                login: async (email, password, userType) => {
                     try {
 
                         if (!loading) {
@@ -71,6 +71,7 @@ export const AuthProvider = ({ children, navigation }) => {
                             setUserName(user.displayName);
                             setEmail(user.email);
                             setLoading(false)
+                            AsyncStorage.setItem('cUsertype', userType)
                         }
 
                     }
@@ -80,7 +81,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                 },
 
-                loginOwner: async (mailOwner, passwordOwner) => {
+                loginOwner: async (mailOwner, passwordOwner, userType) => {
                     try {
 
                         await firebase.auth().signInWithEmailAndPassword(mailOwner, passwordOwner)
@@ -95,6 +96,7 @@ export const AuthProvider = ({ children, navigation }) => {
                             setUserName(user.displayName);
                             setEmail(user.email);
                             setLoading(false)
+                            AsyncStorage.setItem('cUsertype', userType)
                         }
 
                     }
@@ -104,7 +106,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                 },
 
-                register: async (name, email, password) => {
+                register: async (name, email, password, userType) => {
                     try {
 
                         if (!loadingRegister) {
@@ -142,6 +144,7 @@ export const AuthProvider = ({ children, navigation }) => {
                         if (user) {
                             AsyncStorage.setItem('cUsername', name)
                             AsyncStorage.setItem('cUseremail', email)
+                            AsyncStorage.setItem('cUsertype', userType)
                             // setUserId(user.uid);
                             // setUserName(name);
                             // setEmail(user.email);
@@ -153,7 +156,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                 },
 
-                registerOwner: async (mailOwner, passwordOwner) => {
+                registerOwner: async (mailOwner, passwordOwner, userType) => {
                     try {
 
                         if (!loadingRegister) {
@@ -164,7 +167,8 @@ export const AuthProvider = ({ children, navigation }) => {
                         await firebase.auth().createUserWithEmailAndPassword(mailOwner, passwordOwner)
                         await firebase
                             .firestore()
-                            .collection('owners')
+                            // collection('owners')
+                            .collection('users')
                             .add({
                                 ownerEmail: mailOwner,
                                 typeUser: 'Owner'
@@ -181,7 +185,8 @@ export const AuthProvider = ({ children, navigation }) => {
 
                         const user = firebase.auth().currentUser;
                         if (user) {
-                            AsyncStorage.setItem('cUseremail', mailOwner)
+                            AsyncStorage.setItem('cOwneremail', mailOwner)
+                            AsyncStorage.setItem('cUsertype', userType)
                         }
                     }
                     catch (e) {

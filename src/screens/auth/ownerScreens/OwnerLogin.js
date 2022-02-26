@@ -13,14 +13,15 @@ export default function OwnerLogin({ navigation }) {
   const { loginOwner } = useContext(AuthContext)
   const [mailOwner, setMailOwner] = useState()
   const [passwordOwner, setPasswordOwner] = useState()
+  const [userType, setUserType] = useState('Owner')
 
   return (
     <KeyboardAwareScrollView>
       <View style={styles.inputsContainer}>
 
         <Formik
-          initialValues={{ mailOwner, passwordOwner }}
-          onSubmit={values => { loginOwner(values.mailOwner, values.passwordOwner) }}
+          initialValues={{ mailOwner, passwordOwner, userType }}
+          onSubmit={values => { loginOwner(values.mailOwner, values.passwordOwner, values.userType) }}
           validationSchema={
             Yup.object().shape({
               mailOwner: Yup.string()

@@ -18,7 +18,7 @@ export default function UserRegisterScreen({ navigation }) {
     const [name, setName] = useState('')
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
-    const [userType, setUserType] = useState(true)
+    const [userType, setUserType] = useState('User')
     const { register, loadingRegister } = useContext(AuthContext)
 
     return (
@@ -51,8 +51,8 @@ export default function UserRegisterScreen({ navigation }) {
                     <Text style={styles.loginText}>Kayıt ol</Text>
 
                     <Formik
-                        initialValues={{name, mail, password }}
-                        onSubmit={values => { register(values.name, values.mail, values.password ) }}
+                        initialValues={{name, mail, password, userType }}
+                        onSubmit={values => { register(values.name, values.mail, values.password, values.userType) }}
                         validationSchema={
                             Yup.object().shape({
                                 name: Yup.string()
