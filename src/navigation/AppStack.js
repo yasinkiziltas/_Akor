@@ -4,6 +4,7 @@ import { Platform } from 'react-native'
 import EventAddScreen from '../screens/main/ownerScreens/EventAddScreen';
 import EventHomeScreen from '../screens/main/ownerScreens/EventHomeScreen'
 import EventProfileScreen from '../screens/main/ownerScreens/EventProfileScreen'
+import EventDetailsScreen from '../screens/main/ownerScreens/EventDetailsScreen'
 
 import UserHomeScreen from '../screens/main/userScreens/UserHomeScreen';
 import UserEventsScreen from '../screens/main/userScreens/UserEventsScreen';
@@ -68,6 +69,8 @@ function ListEventsStackUsers() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="ListEvents" component={UserEventsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserEventsBookmarks" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="EventDetail" component={EventDetailsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

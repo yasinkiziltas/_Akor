@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import CustomHeader from '../../../components/CustomHeader'
-import { View, Text, StyleSheet, TouchableOpacity, Animated, StatusBar, TouchableHighlight, Image } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Animated,
+    StatusBar,
+    TouchableHighlight,
+    Image,
+    ScrollView
+} from 'react-native'
 import { SwipeListView } from 'react-native-swipe-list-view';
 import EventsList from '../../../constants/EventsList'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,6 +27,8 @@ export default function UserEventsScreen({ navigation }) {
             key: `${index}`,
             title: EventItem.title,
             placeName: EventItem.placeName,
+            eventType: EventItem.eventType,
+            eventHour: EventItem.eventHour,
             img: EventItem.img
         })),
     );
@@ -80,30 +92,30 @@ export default function UserEventsScreen({ navigation }) {
                     style={[styles.rowFront, { height: rowHeightAnimatedValue }]}>
                     <TouchableHighlight
                         style={styles.rowFrontVisible}
-                        onPress={() => alert('Mekan detayına gidilecek')}
+                        onPress={() => navigation.navigate('EventDetail', data)}
                         underlayColor={'#aaa'}>
                         <>
                             <View style={{ position: 'absolute', right: 10, top: 5 }}>
                                 <Image
-                                    style={{
-                                        borderRadius:100, 
-                                        width: 50, 
-                                        height: 50,
-                                        borderColor:'gray',
-                                        borderWidth:1
-                                    }}
+                                    style={styles.itemImg}
                                     source={data.item.img}
                                 />
                             </View>
 
-                            <View>
+                            <Text style={styles.eventTypeTxt}>{data.item.eventType} </Text>
+
+                            <View style={{ flexDirection: 'row' }}>
                                 <Text style={styles.title} numberOfLines={1}>
                                     {data.item.title}
                                 </Text>
-                                <Text style={styles.details}>
-                                    {data.item.placeName}
+                                <Text style={styles.subInfo} numberOfLines={1}>
+                                    {data.item.eventHour}
                                 </Text>
                             </View>
+
+                            <Text style={styles.placeName}>
+                                {data.item.placeName}
+                            </Text>
                         </>
                     </TouchableHighlight>
                 </Animated.View>
@@ -232,23 +244,15 @@ export default function UserEventsScreen({ navigation }) {
 
                 <View style={{ flexDirection: 'row' }}>
                     <Searchbar
-                        style={{ marginLeft: 5, marginBottom: 10, width: SIZES.width / 1.2 }}
+                        style={styles.searchBar}
                         placeholder="Mekan Ara.."
                         onChangeText={onChangeSearch}
                         value={searchQuery}
                     />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('UserEventsBookmark')}
-                        style={{
-                            marginLeft: 10,
-                            borderWidth: 1,
-                            borderColor: 'gray',
-                            borderRadius: 30,
-                            width: 40,
-                            height: 40,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
+                        onPress={() => navigation.navigate('UserEventsBookmarks')}
+                        style={styles.bookmarkBtn}>
+
                         <AntDesign
                             style={{ fontWeight: 'bold' }}
                             name="hearto"
@@ -259,23 +263,26 @@ export default function UserEventsScreen({ navigation }) {
 
                 </View>
 
-                <SwipeListView
-                    data={listData}
-                    renderItem={renderItem}
-                    renderHiddenItem={renderHiddenItem}
-                    leftOpenValue={75}
-                    rightOpenValue={-150}
-                    disableRightSwipe
-                    onRowDidOpen={onRowDidOpen}
-                    leftActivationValue={100}
-                    rightActivationValue={-200}
-                    leftActionValue={0}
-                    rightActionValue={-500}
-                    onLeftAction={onLeftAction}
-                    onRightAction={onRightAction}
-                    onLeftActionStatusChange={onLeftActionStatusChange}
-                    onRightActionStatusChange={onRightActionStatusChange}
-                />
+                <ScrollView>
+                    <SwipeListView
+                        data={listData}
+                        renderItem={renderItem}
+                        renderHiddenItem={renderHiddenItem}
+                        leftOpenValue={75}
+                        rightOpenValue={-150}
+                        disableRightSwipe
+                        onRowDidOpen={onRowDidOpen}
+                        leftActivationValue={100}
+                        rightActivationValue={-200}
+                        leftActionValue={0}
+                        rightActionValue={-500}
+                        onLeftAction={onLeftAction}
+                        onRightAction={onRightAction}
+                        onLeftActionStatusChange={onLeftActionStatusChange}
+                        onRightActionStatusChange={onRightActionStatusChange}
+                    />
+                </ScrollView>
+
             </View>
         </>
     );
@@ -309,6 +316,11 @@ const styles = StyleSheet.create({
         height: 60,
         padding: 10,
         marginBottom: 15,
+    },
+    searchBar: {
+        marginLeft: 5,
+        marginBottom: 10,
+        width: SIZES.width / 1.2
     },
     rowBack: {
         alignItems: 'center',
@@ -351,7 +363,38 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         color: 'green',
     },
-    details: {
+    subInfo: {
+        textDecorationLine: 'underline',
+        fontSize: 12,
+        // fontWeight: 'bold',
+        marginBottom: 5,
+        marginLeft: 5,
+        color: 'green',
+    },
+    itemImg: {
+        borderRadius: 100,
+        width: 50,
+        height: 50,
+        borderColor: 'gray',
+        borderWidth: 1
+    },
+    bookmarkBtn: {
+        marginLeft: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 30,
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    eventTypeTxt: {
+        position: 'absolute',
+        top: 30,
+        color: 'gray',
+        right: 70,
+    },
+    placeName: {
         fontSize: 12,
         color: '#999',
     },
