@@ -279,23 +279,29 @@ export default function UserEventsScreen({ navigation }) {
                 </View>
 
                 <ScrollView>
-                    <SwipeListView
-                        data={filterData}
-                        renderItem={renderItem}
-                        renderHiddenItem={renderHiddenItem}
-                        leftOpenValue={75}
-                        rightOpenValue={-150}
-                        disableRightSwipe
-                        onRowDidOpen={onRowDidOpen}
-                        leftActivationValue={100}
-                        rightActivationValue={-200}
-                        leftActionValue={0}
-                        rightActionValue={-500}
-                        onLeftAction={onLeftAction}
-                        onRightAction={onRightAction}
-                        onLeftActionStatusChange={onLeftActionStatusChange}
-                        onRightActionStatusChange={onRightActionStatusChange}
-                    />
+                    {listData.length > 0 ? (
+                        <SwipeListView
+                            data={filterData}
+                            renderItem={renderItem}
+                            renderHiddenItem={renderHiddenItem}
+                            leftOpenValue={75}
+                            rightOpenValue={-150}
+                            disableRightSwipe
+                            onRowDidOpen={onRowDidOpen}
+                            leftActivationValue={100}
+                            rightActivationValue={-200}
+                            leftActionValue={0}
+                            rightActionValue={-500}
+                            onLeftAction={onLeftAction}
+                            onRightAction={onRightAction}
+                            onLeftActionStatusChange={onLeftActionStatusChange}
+                            onRightActionStatusChange={onRightActionStatusChange}
+                        />
+                   ) : (
+                    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                        <Text style={{color:'gray', fontWeight:'bold'}}>Hiç etkinlik bulunamadı..</Text>
+                    </View>
+                   )}
                 </ScrollView>
 
             </View>
@@ -376,7 +382,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: 'green',
+        // color: 'green',
     },
     subInfo: {
         textDecorationLine: 'underline',
