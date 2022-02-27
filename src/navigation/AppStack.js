@@ -15,7 +15,7 @@ import UserChangePasswordScreen from '../screens/main/userScreens/UserChangePass
 import UserChangeEmailScreen from '../screens/main/userScreens/UserChangeEmailScreen'
 import UserSettingsScreen from '../screens/main/userScreens/UserSettingsScreen'
 import MessageScreen from '../screens/main/MessageScreen'
-import NotificationScreen from '../screens/main/NotificationScreen';
+import UserNotificationsScreen from '../screens/main/UserNotificationsScreen';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -60,7 +60,7 @@ function MainStackUsers() {
     return (
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={UserHomeScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="Notifications" component={NotificationScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Notifications" component={UserNotificationsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

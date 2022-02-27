@@ -12,7 +12,7 @@ import {
     ScrollView
 } from 'react-native'
 import { SwipeListView } from 'react-native-swipe-list-view';
-import EventsList from '../../../constants/EventsList'
+import { DATA } from '../../../constants/mainEvents'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Searchbar } from 'react-native-paper';
@@ -21,10 +21,10 @@ import { SIZES } from '../../../constants';
 export default function UserEventsScreen({ navigation }) {
 
     const [listData, setListData] = useState(
-        EventsList.map((EventItem, index) => ({
+        DATA.map((EventItem, index) => ({
             key: `${index}`,
-            title: EventItem.title,
             placeName: EventItem.placeName,
+            eventLocation: EventItem.eventLocation,
             eventType: EventItem.eventType,
             eventHour: EventItem.eventHour,
             img: EventItem.img
@@ -37,8 +37,8 @@ export default function UserEventsScreen({ navigation }) {
     const searchFilter = (text) => {
         if (text) {
             const newData = masterData.filter((item) => {
-                const itemData = item.title ?
-                    item.title.toUpperCase()
+                const itemData = item.placeName ?
+                    item.placeName.toUpperCase()
                     : ''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf(textData) > - 1;
@@ -124,16 +124,16 @@ export default function UserEventsScreen({ navigation }) {
                             <Text style={styles.eventTypeTxt}>{data.item.eventType} </Text>
 
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={styles.title} numberOfLines={1}>
-                                    {data.item.title}
+                                <Text style={styles.placeName} numberOfLines={1}>
+                                    {data.item.placeName}
                                 </Text>
                                 <Text style={styles.subInfo} numberOfLines={1}>
                                     {data.item.eventHour}
                                 </Text>
                             </View>
 
-                            <Text style={styles.placeName}>
-                                {data.item.placeName}
+                            <Text style={styles.eventLocation}>
+                                {data.item.eventLocation}
                             </Text>
                         </>
                     </TouchableHighlight>
@@ -297,11 +297,11 @@ export default function UserEventsScreen({ navigation }) {
                             onLeftActionStatusChange={onLeftActionStatusChange}
                             onRightActionStatusChange={onRightActionStatusChange}
                         />
-                   ) : (
-                    <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                        <Text style={{color:'gray', fontWeight:'bold'}}>Hiç etkinlik bulunamadı..</Text>
-                    </View>
-                   )}
+                    ) : (
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                        </View>
+                    )}
                 </ScrollView>
 
             </View>
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
         width: 25,
         marginRight: 7,
     },
-    title: {
+    placeName: {
         fontSize: 14,
         fontWeight: 'bold',
         marginBottom: 5,
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
         color: 'gray',
         right: 70,
     },
-    placeName: {
+    eventLocation: {
         fontSize: 12,
         color: '#999',
     },

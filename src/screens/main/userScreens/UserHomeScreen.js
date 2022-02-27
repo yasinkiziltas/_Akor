@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, ImageBackground, Im
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants/index';
 import { AuthContext } from '../../../navigation/AuthProvider'
-import Feather from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../../constants/mainEvents'
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -12,7 +12,7 @@ const renderItemEvents = ({ item }) => (
     <>
         <View>
             <TouchableOpacity
-                style={{ padding: 5, }}
+                style={{ padding: 5 }}
                 onPress={() => alert('Detaya Git')}
             >
                 <ImageBackground
@@ -72,6 +72,15 @@ export default function UserHomeScreen({ navigation }) {
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.welcomeText}>Hoşgeldin! <Text style={styles.welcomeUserText}>{currentUserName}</Text></Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Notifications')}
+                        style={styles.addEvent}
+                    >
+                        <Ionicons
+                            name='notifications-outline'
+                            size={30}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <Searchbar
                     style={styles.bar}

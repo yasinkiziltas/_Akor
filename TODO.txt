@@ -1,14 +1,10 @@
 13.02.2021 
--User için Mekan başvuru ekranını oluştur
--Mekan sahibi girişini kodla (UI / UX)
 -Profil güncelleme işlemleri hallet (firestore)
--UserHomeScreen UI hallet.
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
 -Bildirim entegrasyonunu hallet
   ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
--AppStack mobx ile yapılacak (giren kişinin user veya owner oldugu anlasılmıyor)
+-AppStack mobx ile yapılacak (giren kişinin user veya owner oldugu karışıyor)
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
--UserEventList ekranına mekan arama butonu yapılacak
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
