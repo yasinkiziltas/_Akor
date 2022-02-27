@@ -23,6 +23,7 @@ export default function CustomHeader({ title, navigation, isBack, filter, editPr
                         <View>
                             <TouchableOpacity onPress={() => navigation.goBack()}>
                             <MaterialCommunityIcons
+                                    color={'gray'}
                                     name="arrow-left"
                                     size={35}
                                     style={{

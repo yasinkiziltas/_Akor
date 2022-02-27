@@ -253,7 +253,12 @@ export default function UserEventsScreen({ navigation }) {
 
     return (
         <>
-            <CustomHeader title="Mekanlar" />
+            <CustomHeader
+                title="Mekanlar"
+                navigation={navigation}
+                isBack={true}
+            />
+
             <View style={styles.container}>
                 <StatusBar barStyle="dark-content" />
 

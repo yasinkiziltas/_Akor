@@ -65,10 +65,13 @@ function MainStackUsers() {
     )
 }
 
-function ListEventsStackUsers() {
+function ListEventsStackUsers({ navigation }) {
+    navigation.setOptions({
+        tabBarStyle: { display: 'none' },
+    });
     return (
         <Stack.Navigator>
-            <Stack.Screen name="ListEvents" component={UserEventsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ListEvents" component={UserEventsScreen} options={{ headerShown: false, }} />
             <Stack.Screen name="UserEventsBookmarks" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
             <Stack.Screen name="EventDetail" component={EventDetailsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
