@@ -20,9 +20,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { COLORS } from '../constants';
 import Feather from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import firebase from 'firebase'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -114,7 +115,7 @@ export default function AppStack() {
                     querySnapshot.forEach(snapshot => {
                         let data = snapshot.data().typeUser
                         setCurrentUserType(data)
-                        console.log(currentUserType);
+                        // console.log currentUserType;
                     })
                 })
         } catch (error) {
@@ -161,8 +162,8 @@ export default function AppStack() {
                                 tabBarLabel: false,
                                 tabBarColor: '#92BFC1',
                                 tabBarIcon: ({ color, size }) => (
-                                    <Feather
-                                        name="home"
+                                    <MaterialIcons
+                                        name="receipt"
                                         color={color}
                                         size={25}
                                     />
@@ -284,27 +285,27 @@ export default function AppStack() {
                                         size={30}
                                     />
                                 ),
-                            })}
-                        />
+                                })}
+                            />
 
-                        <Tab.Screen
-                            name="ListAllEvents"
-                            component={ListEventsStackUsers}
-                            options={({ route }) => ({
-                                headerShown: false,
-                                tabBarLabel: false,
-                                tabBarColor: '#92BFC1',
-                                tabBarIcon: ({ color, size }) => (
-                                    <Feather
-                                        name="home"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            })}
-                        />
+                            <Tab.Screen
+                                name="ListAllEvents"
+                                component={ListEventsStackUsers}
+                                options={({ route }) => ({
+                                    headerShown: false,
+                                    tabBarLabel: false,
+                                    tabBarColor: '#92BFC1',
+                                    tabBarIcon: ({ color, size }) => (
+                                        <MaterialIcons
+                                            name="receipt"
+                                            color={color}
+                                            size={25}
+                                        />
+                                    ),
+                                })}
+                            />
 
-                        <Tab.Screen
+                            <Tab.Screen
                             name="UserMessages"
                             component={MessageStackUsers}
                             options={({ route }) => ({

@@ -72,15 +72,6 @@ export default function UserHomeScreen({ navigation }) {
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={styles.welcomeText}>Hoşgeldin! <Text style={styles.welcomeUserText}>{currentUserName}</Text></Text>
-                    <TouchableOpacity
-                        onPress={() => alert('Event için ekleme sayfası!!')}
-                        style={styles.addEvent}
-                    >
-                        <Feather
-                            name='plus'
-                            size={30}
-                        />
-                    </TouchableOpacity>
                 </View>
                 <Searchbar
                     style={styles.bar}

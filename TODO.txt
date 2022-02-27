@@ -7,6 +7,8 @@
 -Bildirim entegrasyonunu hallet
   ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 -AppStack mobx ile yapılacak (giren kişinin user veya owner oldugu anlasılmıyor)
+-UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
+-UserEventList ekranına mekan arama butonu yapılacak
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
