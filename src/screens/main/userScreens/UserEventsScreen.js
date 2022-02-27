@@ -19,8 +19,6 @@ import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants';
 
 export default function UserEventsScreen({ navigation }) {
-    const [searchQuery, setSearchQuery] = useState('');
-    const onChangeSearch = query => setSearchQuery(query);
 
     const [listData, setListData] = useState(
         EventsList.map((EventItem, index) => ({
@@ -32,6 +30,27 @@ export default function UserEventsScreen({ navigation }) {
             img: EventItem.img
         })),
     );
+    const [search, setSearch] = useState('')
+    const [filterData, setFilterData] = useState(listData)
+    const [masterData, setMasterData] = useState(listData)
+
+    const searchFilter = (text) => {
+        if (text) {
+            const newData = masterData.filter((item) => {
+                const itemData = item.title ?
+                    item.title.toUpperCase()
+                    : ''.toUpperCase();
+                const textData = text.toUpperCase();
+                return itemData.indexOf(textData) > - 1;
+            })
+            setFilterData(newData)
+            setSearch(text)
+        }
+        else {
+            setFilterData(masterData)
+            setSearch(text)
+        }
+    }
 
     const closeRow = (rowMap, rowKey) => {
         if (rowMap[rowKey]) {
@@ -232,10 +251,6 @@ export default function UserEventsScreen({ navigation }) {
         );
     };
 
-    useEffect(() => {
-        onRightAction()
-    }, [])
-
     return (
         <>
             <CustomHeader title="Mekanlar" />
@@ -246,8 +261,8 @@ export default function UserEventsScreen({ navigation }) {
                     <Searchbar
                         style={styles.searchBar}
                         placeholder="Mekan Ara.."
-                        onChangeText={onChangeSearch}
-                        value={searchQuery}
+                        onChangeText={(text) => searchFilter(text)}
+                        value={search}
                     />
                     <TouchableOpacity
                         onPress={() => navigation.navigate('UserEventsBookmarks')}
@@ -265,7 +280,7 @@ export default function UserEventsScreen({ navigation }) {
 
                 <ScrollView>
                     <SwipeListView
-                        data={listData}
+                        data={filterData}
                         renderItem={renderItem}
                         renderHiddenItem={renderHiddenItem}
                         leftOpenValue={75}
