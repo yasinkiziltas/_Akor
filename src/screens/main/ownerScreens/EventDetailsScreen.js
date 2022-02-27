@@ -5,10 +5,11 @@ import {
   TouchableHighlight,
   ImageBackground,
   StyleSheet,
-  Image,
+  TextInput,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants'
+import ReadMore from '@fawazahmed/react-native-read-more';
 
 export default function EventDetailsScreen({ navigation, route }) {
   const [data, setData] = useState([])
@@ -32,11 +33,53 @@ export default function EventDetailsScreen({ navigation, route }) {
         </ImageBackground>
       </View>
 
-      <Text style={{
-        fontWeight:'bold',
-        fontSize:24,
-        margin:20,
-      }}>{data.placeName}</Text>
+      <View style={{ flexDirection: 'column' }}>
+        <Text style={{
+          fontWeight: 'bold',
+          fontSize: 24,
+          marginTop: 20,
+          marginLeft: 20,
+        }}>{data.placeName}
+        </Text>
+
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={{
+            color: 'gray',
+            fontSize: 16,
+            marginTop: 10,
+            marginLeft: 20,
+          }}>{data.eventLocation}
+          </Text>
+
+          {/* #425af5 */}
+          <Text style={{
+            color: 'green',
+            fontSize: 16,
+            marginTop: 10,
+            marginLeft: 20,
+          }}>{data.eventDate}
+          </Text>
+
+          <Text style={{
+            color: 'green',
+            fontSize: 16,
+            marginTop: 10,
+            marginLeft: 5,
+          }}>{data.eventHour}
+          </Text>
+        </View>
+
+        <ReadMore
+          seeMoreText='Daha fazla..'
+          seeLessText='Daha az..'
+          animate='#92C19C'
+          numberOfLines={3} 
+          style={{margin:15}}>
+          {
+            data.eventDetail
+          }
+        </ReadMore>
+      </View>
 
     </>
 
