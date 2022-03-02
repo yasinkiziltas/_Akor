@@ -211,86 +211,86 @@ export default function AppStack() {
                         />
                     </TabMaterial.Navigator>
                 ) : (
-                    <TabMaterial.Navigator
-                        screenOptions={{
-                            tabBarActiveTintColor: COLORS.appColor,
-                            tabBarShowLabel: false,
-                        }}>
-                        <TabMaterial.Screen
-                            name="OwnerMain"
-                            component={MainStackEvents}
-                            options={({ route }) => ({
-                                tabBarLabel: false,
-                                tabBarColor: '#92C19C',
-                                headerShown: false,
-                                // tabBarVisible: route.state && route.state.index === 0,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="home-outline"
-                                        color={color}
-                                        size={30}
-                                    />
-                                ),
-                            })}
-                        />
+                        <TabMaterial.Navigator
+                            screenOptions={{
+                                tabBarActiveTintColor: COLORS.appColor,
+                                tabBarShowLabel: false,
+                            }}>
+                            <TabMaterial.Screen
+                                name="OwnerMain"
+                                component={MainStackEvents}
+                                options={({ route }) => ({
+                                    tabBarLabel: false,
+                                    tabBarColor: '#92C19C',
+                                    headerShown: false,
+                                    // tabBarVisible: route.state && route.state.index === 0,
+                                    tabBarIcon: ({ color, size }) => (
+                                        <MaterialCommunityIcons
+                                            name="home-outline"
+                                            color={color}
+                                            size={30}
+                                        />
+                                    ),
+                                })}
+                            />
 
-                        <TabMaterial.Screen
-                            name="AddEvent"
-                            component={AddEventStack}
-                            options={({ route }) => ({
-                                headerShown: false,
-                                tabBarLabel: false,
-                                tabBarColor: '#92BFC1',
-                                tabBarIcon: ({ color, size }) => (
-                                    <Feather
-                                        name="plus"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            })}
-                        />
-                        <TabMaterial.Screen
-                            name="Profil"
-                            component={ProfileEventStack}
-                            options={{
-                                headerShown: false,
-                                tabBarColor: '#B9BFDA',
-                                tabBarLabel: false,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="account"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            }}
-                        />
-                    </TabMaterial.Navigator>
-                )
+                            <TabMaterial.Screen
+                                name="AddEvent"
+                                component={AddEventStack}
+                                options={({ route }) => ({
+                                    headerShown: false,
+                                    tabBarLabel: false,
+                                    tabBarColor: '#92BFC1',
+                                    tabBarIcon: ({ color, size }) => (
+                                        <Feather
+                                            name="plus"
+                                            color={color}
+                                            size={25}
+                                        />
+                                    ),
+                                })}
+                            />
+                            <TabMaterial.Screen
+                                name="Profil"
+                                component={ProfileEventStack}
+                                options={{
+                                    headerShown: false,
+                                    tabBarColor: '#B9BFDA',
+                                    tabBarLabel: false,
+                                    tabBarIcon: ({ color, size }) => (
+                                        <MaterialCommunityIcons
+                                            name="account"
+                                            color={color}
+                                            size={25}
+                                        />
+                                    ),
+                                }}
+                            />
+                        </TabMaterial.Navigator>
+                    )
 
             ) : (
-                currentUserType == 'User' ? (
-                    <Tab.Navigator
-                        screenOptions={{
-                            tabBarActiveTintColor: COLORS.appColor,
-                            tabBarShowLabel: false,
-                        }}>
-                        <Tab.Screen
-                            name="UserMain"
-                            component={MainStackUsers}
-                            options={({ route }) => ({
-                                tabBarLabel: false,
-                                tabBarColor: '#92C19C',
-                                headerShown: false,
-                                // tabBarVisible: route.state && route.state.index === 0,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="home-outline"
-                                        color={color}
-                                        size={30}
-                                    />
-                                ),
+                    currentUserType == 'User' ? (
+                        <Tab.Navigator
+                            screenOptions={{
+                                tabBarActiveTintColor: COLORS.appColor,
+                                tabBarShowLabel: false,
+                            }}>
+                            <Tab.Screen
+                                name="UserMain"
+                                component={MainStackUsers}
+                                options={({ route }) => ({
+                                    tabBarLabel: false,
+                                    tabBarColor: '#92C19C',
+                                    headerShown: false,
+                                    // tabBarVisible: route.state && route.state.index === 0,
+                                    tabBarIcon: ({ color, size }) => (
+                                        <MaterialCommunityIcons
+                                            name="home-outline"
+                                            color={color}
+                                            size={30}
+                                        />
+                                    ),
                                 })}
                             />
 
@@ -312,98 +312,98 @@ export default function AppStack() {
                             />
 
                             <Tab.Screen
-                            name="UserMessages"
-                            component={MessageStackUsers}
-                            options={({ route }) => ({
-                                headerShown: false,
-                                tabBarLabel: false,
-                                tabBarColor: '#92BFC1',
-                                tabBarIcon: ({ color, size }) => (
-                                    <Feather
-                                        name="message-circle"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            })}
-                        />
+                                name="UserMessages"
+                                component={MessageStackUsers}
+                                options={({ route }) => ({
+                                    headerShown: false,
+                                    tabBarLabel: false,
+                                    tabBarColor: '#92BFC1',
+                                    tabBarIcon: ({ color, size }) => (
+                                        <Feather
+                                            name="message-circle"
+                                            color={color}
+                                            size={25}
+                                        />
+                                    ),
+                                })}
+                            />
 
-                        <Tab.Screen
-                            name="UserProfile"
-                            component={ProfileStackUsers}
-                            options={{
-                                headerShown: false,
-                                tabBarColor: '#B9BFDA',
-                                tabBarLabel: false,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="account"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            }}
-                        />
-                    </Tab.Navigator>
-                ) : (
-                    <Tab.Navigator
-                        screenOptions={{
-                            tabBarActiveTintColor: COLORS.appColor,
-                            tabBarShowLabel: false,
-                        }}>
-                        <Tab.Screen
-                            name="OwnerMain"
-                            component={MainStackEvents}
-                            options={({ route }) => ({
-                                tabBarLabel: false,
-                                tabBarColor: '#92C19C',
-                                headerShown: false,
-                                // tabBarVisible: route.state && route.state.index === 0,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="home-outline"
-                                        color={color}
-                                        size={30}
-                                    />
-                                ),
-                            })}
-                        />
+                            <Tab.Screen
+                                name="UserProfile"
+                                component={ProfileStackUsers}
+                                options={{
+                                    headerShown: false,
+                                    tabBarColor: '#B9BFDA',
+                                    tabBarLabel: false,
+                                    tabBarIcon: ({ color, size }) => (
+                                        <MaterialCommunityIcons
+                                            name="account"
+                                            color={color}
+                                            size={25}
+                                        />
+                                    ),
+                                }}
+                            />
+                        </Tab.Navigator>
+                    ) : (
+                            <Tab.Navigator
+                                screenOptions={{
+                                    tabBarActiveTintColor: COLORS.appColor,
+                                    tabBarShowLabel: false,
+                                }}>
+                                <Tab.Screen
+                                    name="OwnerMain"
+                                    component={MainStackEvents}
+                                    options={({ route }) => ({
+                                        tabBarLabel: false,
+                                        tabBarColor: '#92C19C',
+                                        headerShown: false,
+                                        // tabBarVisible: route.state && route.state.index === 0,
+                                        tabBarIcon: ({ color, size }) => (
+                                            <MaterialCommunityIcons
+                                                name="home-outline"
+                                                color={color}
+                                                size={30}
+                                            />
+                                        ),
+                                    })}
+                                />
 
-                        <Tab.Screen
-                            name="AddEvent"
-                            component={AddEventStack}
-                            options={({ route }) => ({
-                                headerShown: false,
-                                tabBarLabel: false,
-                                tabBarColor: '#92BFC1',
-                                tabBarIcon: ({ color, size }) => (
-                                    <Feather
-                                        name="plus"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            })}
-                        />
-                        <Tab.Screen
-                            name="Profil"
-                            component={ProfileEventStack}
-                            options={{
-                                headerShown: false,
-                                tabBarColor: '#B9BFDA',
-                                tabBarLabel: false,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="account"
-                                        color={color}
-                                        size={25}
-                                    />
-                                ),
-                            }}
-                        />
-                    </Tab.Navigator>
-                )
-            )}
+                                <Tab.Screen
+                                    name="AddEvent"
+                                    component={AddEventStack}
+                                    options={({ route }) => ({
+                                        headerShown: false,
+                                        tabBarLabel: false,
+                                        tabBarColor: '#92BFC1',
+                                        tabBarIcon: ({ color, size }) => (
+                                            <Feather
+                                                name="plus"
+                                                color={color}
+                                                size={25}
+                                            />
+                                        ),
+                                    })}
+                                />
+                                <Tab.Screen
+                                    name="Profil"
+                                    component={ProfileEventStack}
+                                    options={{
+                                        headerShown: false,
+                                        tabBarColor: '#B9BFDA',
+                                        tabBarLabel: false,
+                                        tabBarIcon: ({ color, size }) => (
+                                            <MaterialCommunityIcons
+                                                name="account"
+                                                color={color}
+                                                size={25}
+                                            />
+                                        ),
+                                    }}
+                                />
+                            </Tab.Navigator>
+                        )
+                )}
         </>
     );
 };

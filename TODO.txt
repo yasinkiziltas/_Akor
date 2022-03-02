@@ -6,6 +6,7 @@
 -AppStack mobx ile yapılacak (giren kişinin user veya owner oldugu karışıyor)
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
 -Animatad öğren
+-EventDetail teklif gönder ve mesaj at butonu ekle
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
