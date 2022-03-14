@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import {
   View,
   Text,
-  TouchableHighlight,
   ImageBackground,
+  TouchableOpacity,
   StyleSheet,
-  TextInput,
+  ScrollView,
+  Platform,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants'
 import ReadMore from '@fawazahmed/react-native-read-more';
-import AwesomeButton from "react-native-really-awesome-button";
-import { Button } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
 
 export default function EventDetailsScreen({ navigation, route }) {
   const [data, setData] = useState([])
@@ -31,6 +32,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           <CustomHeader
             navigation={navigation}
             isBack={true}
+            isFavorite={true}
           />
         </ImageBackground>
       </View>
@@ -71,50 +73,81 @@ export default function EventDetailsScreen({ navigation, route }) {
           </Text>
         </View>
 
-        <ReadMore
-          seeMoreText='Daha fazla..'
-          seeLessText='Daha az..'
-          animate='#92C19C'
-          numberOfLines={3}
-          style={{ margin: 15 }}>
-          {
-            data.eventDetail
-          }
-        </ReadMore>
+        <ScrollView>
+          <ReadMore
+            seeMoreText='Daha fazla..'
+            seeLessText='Daha az..'
+            animate='#92C19C'
+            numberOfLines={10}
+            style={{ margin: 15 }}>
+            {
+              data.eventDetail
+            }
+          </ReadMore>
+        </ScrollView>
       </View>
 
-      <View>
-        <Button color="blue" icon="send" onPress={() => alert('Pressed')}>
-          Başvur
-      </Button>
+      <View style={styles.btnView}>
 
-        <Button icon="message" color="blue" onPress={() => alert('Pressed')} style={{ marginTop: 15 }}>
-          Mesaj Gönder
-      </Button>
+        <TouchableOpacity style={styles.btn}>
+          <View style={styles.btnContainer}>
+            <Entypo
+              style={{ marginRight: 5, marginTop: 5 }}
+              color={"white"}
+              size={18}
+              name="check"
+            />
+            <Text style={styles.btnText}>Başvur</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.btn, { marginTop: 20 }]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <MaterialCommunityIcons
+              style={{ marginRight: 5, marginTop: 5 }}
+              color={"white"}
+              size={18}
+              name="message"
+            />
+            <Text style={styles.btnText}>Mesaj Gönder</Text>
+          </View>
+        </TouchableOpacity>
+
       </View>
-
-      {/* <View style={{
-        margin: 20,
-        flexDirection: 'row'
-      }}>
-        <AwesomeButton>
-          <Text>Teklif Gönder</Text>
-        </AwesomeButton>
-
-        <AwesomeButton style={{ marginLeft: 15 }}>
-          <Text>Mesaj</Text>
-        </AwesomeButton>
-      </View> */}
 
     </>
 
   )
 }
-
 const styles = StyleSheet.create({
   contentImg: {
     borderRadius: 10,
     width: SIZES.width,
     height: SIZES.height / 3
+  },
+  btnView: {
+    // flex: 1,
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
+  },
+  btn: {
+    backgroundColor: '#00b1b1',
+    borderRadius: 5,
+    width: 290,
+    height: 35,
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  btnText: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: Platform.OS == 'ios' ? 6 : 4
   },
 })

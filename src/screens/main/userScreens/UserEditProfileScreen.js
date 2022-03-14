@@ -15,6 +15,7 @@ import { Jiro } from 'react-native-textinput-effects';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import RNPickerSelect from 'react-native-picker-select';
 import FormButtonProfile from '../../../components/FormButtonProfile'
+import firebase from 'firebase'
 
 export default function UserEditProfileScreen({ navigation }) {
     const [userName, setUserName] = useState('')
@@ -22,6 +23,7 @@ export default function UserEditProfileScreen({ navigation }) {
     const [userDateOfBirth, setUserDateOfBirth] = useState('')
     const [userAge, setUserAge] = useState(null)
     const [userAddress, setUserAddress] = useState('')
+    const [userJob, setUserJob] = useState('')
     const [userGender, setUserGender] = useState('')
     const [userPhoto, setUserPhoto] = useState(null)
     const [userPhone, setUserPhone] = useState(null)
@@ -30,7 +32,30 @@ export default function UserEditProfileScreen({ navigation }) {
     const [date, setDate] = useState(new Date())
     const [mode, setMode] = useState('date')
     const [show, setShow] = useState(false)
-    const [text, setText] = useState('')
+
+    const handleUpdate = () => {
+        const cUser = firebase.auth().currentUser;
+        try {
+            firebase
+                .firestore()
+                .collection('users')
+                .doc(cUser.uid)
+                .update({
+                    userName: userName,
+                    userBio: userBio,
+                    userDateOfBirth: userDateOfBirth,
+                    userAge: userAge,
+                    userJob: userJob,
+                    userAddress: userAddress,
+                    userGender: userGender,
+                    userPhoto: userPhoto,
+                    userPhone: userPhone,
+                })
+                .then(alert('Güncelleme başarılı!'))
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -38,8 +63,10 @@ export default function UserEditProfileScreen({ navigation }) {
         setDate(currentDate)
 
         let tempDate = new Date(currentDate)
-        let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear()
-        setText(fDate)
+        let fDate = tempDate.getDate() + '/'
+            + (tempDate.getMonth() + 1) + '/'
+            + tempDate.getFullYear()
+        setUserDateOfBirth(fDate)
     }
 
     const showMode = (currentMode) => {
@@ -87,6 +114,8 @@ export default function UserEditProfileScreen({ navigation }) {
                     <Text style={{ color: 'gray', fontSize: 12, textAlign: 'left', fontWeight: 'bold', fontStyle: 'italic' }}>Bilgilerinizi dolu tutmak mekan sahiplerine daha çok bilgi vermenize olanaks sağlar..</Text>
 
                     <Jiro
+                        value={userName}
+                        onChangeText={value => setUserName(value)}
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Ad Soyad'}
@@ -95,13 +124,13 @@ export default function UserEditProfileScreen({ navigation }) {
                         inputStyle={{ color: 'white' }}
                     />
 
-                    {text ? (
+                    {userDateOfBirth ? (
                         <TouchableOpacity
                             onPress={() => showMode('date')}
                             style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
                             {
                                 Platform.OS == 'android' ? (
-                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{text}</Text>
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
                                 ) : (
                                     null
                                 )
@@ -114,7 +143,7 @@ export default function UserEditProfileScreen({ navigation }) {
                             <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
                             {
                                 Platform.OS == 'android' ? (
-                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{text}</Text>
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
                                 ) : (
                                     null
                                 )
@@ -156,6 +185,21 @@ export default function UserEditProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        value={userAge}
+                        onChangeText={value => setUserAge(value)}
+                        returnKeyType={'done'}
+                        onFocus={() => setImageShow(false)}
+                        onSubmitEditing={() => setImageShow(true)}
+                        keyboardType='numeric'
+                        label={'Yaş'}
+                        borderColor={'#9b537a'}
+                        inputPadding={15}
+                        inputStyle={{ color: 'white' }}
+                    />
+
+                    <Jiro
+                        value={userPhone}
+                        onChangeText={value => setUserPhone(value)}
                         returnKeyType={'done'}
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
@@ -167,6 +211,8 @@ export default function UserEditProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        value={userJob}
+                        onChangeText={value => setUserJob(value)}
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Meslek'}
@@ -176,6 +222,8 @@ export default function UserEditProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        value={userAddress}
+                        onChangeText={value => setUserAddress(value)}
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Adres'}
@@ -185,6 +233,8 @@ export default function UserEditProfileScreen({ navigation }) {
                     />
 
                     <Jiro
+                        value={userBio}
+                        onChangeText={value => setUserBio(value)}
                         onFocus={() => setImageShow(false)}
                         onSubmitEditing={() => setImageShow(true)}
                         label={'Biyografi'}
@@ -194,7 +244,7 @@ export default function UserEditProfileScreen({ navigation }) {
                     />
 
                     <FormButtonProfile
-                        onPress={() => alert('Güncelleme yapsın!')}
+                        onPress={() => handleUpdate()}
                         text="Güncelle"
                     />
 

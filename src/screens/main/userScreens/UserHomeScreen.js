@@ -13,7 +13,7 @@ const renderItemEvents = ({ item }) => (
         <View>
             <TouchableOpacity
                 style={{ padding: 5 }}
-                onPress={() => alert('Detaya Git')}
+                onPress={() => alert('Detay')}
             >
                 <ImageBackground
                     imageStyle={{ borderRadius: 20 }}

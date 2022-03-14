@@ -1,15 +1,12 @@
 import React from 'react'
 import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native'
 import { useTheme } from '@react-navigation/native'
-
 import { images, COLORS } from '../constants'
 const { goBack, menu2 } = images;
-
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function CustomHeader({ title, navigation, isBack, filter, editProfile }) {
+export default function CustomHeader({ title, navigation, isBack, isFavorite }) {
 
     const { container, contentHeader } = styles;
     const { colors } = useTheme()
@@ -22,8 +19,8 @@ export default function CustomHeader({ title, navigation, isBack, filter, editPr
                         ?
                         <View>
                             <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <MaterialCommunityIcons
-                                    color={'gray'}
+                                <MaterialCommunityIcons
+                                    color={'white'}
                                     name="arrow-left"
                                     size={35}
                                     style={{
@@ -55,9 +52,29 @@ export default function CustomHeader({ title, navigation, isBack, filter, editPr
                 </Text>
             </View>
 
-
             <View style={contentHeader}>
-               
+
+            </View>
+
+            <View>
+                {
+                    isFavorite
+                        ?
+                        <View>
+                            <TouchableOpacity onPress={() => alert('Favlara ekle')}>
+                                <AntDesign
+                                    color={'#FA3930'}
+                                    name="heart"
+                                    size={25}
+                                    style={{ marginRight: 15 }}
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        :
+
+                        null
+                }
             </View>
 
         </SafeAreaView >

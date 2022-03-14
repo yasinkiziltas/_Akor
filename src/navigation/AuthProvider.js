@@ -5,14 +5,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthContext = createContext();
 
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDrDBEoOY1b6iZnD0_yAw9EcYtvhhINy40",
+//     authDomain: "akorapp-3ae3a.firebaseapp.com",
+//     projectId: "akorapp-3ae3a",
+//     storageBucket: "akorapp-3ae3a.appspot.com",
+//     messagingSenderId: "272488545583",
+//     appId: "1:272488545583:web:a5d39e91d88739edae75da"
+// };
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDrDBEoOY1b6iZnD0_yAw9EcYtvhhINy40",
-    authDomain: "akorapp-3ae3a.firebaseapp.com",
-    projectId: "akorapp-3ae3a",
-    storageBucket: "akorapp-3ae3a.appspot.com",
-    messagingSenderId: "272488545583",
-    appId: "1:272488545583:web:a5d39e91d88739edae75da"
-};
+    apiKey: "AIzaSyCFSQYRQu9bpsmPpU_LlLtp_rPAYCEoqgo",
+    authDomain: "akormusicapp.firebaseapp.com",
+    projectId: "akormusicapp",
+    storageBucket: "akormusicapp.appspot.com",
+    messagingSenderId: "252792251070",
+    appId: "1:252792251070:web:ac8cb0453eef83359374ef"
+  };
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -118,12 +127,14 @@ export const AuthProvider = ({ children, navigation }) => {
                         await firebase
                             .firestore()
                             .collection('users')
-                            .add({
+                            .doc(firebase.auth().currentUser.uid)
+                            .set({
                                 userName: name,
                                 userEmail: email,
                                 userPhone: null,
                                 userJob: null,
                                 userDateOfBirth: null,
+                                userJob: null,
                                 userPhoto: null,
                                 userAddress: null,
                                 userBio: null,
@@ -152,7 +163,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                     catch (e) {
                         setLoadingRegister(false)
-                        alert(e)
+                        console.log(e)
                     }
                 },
 
@@ -191,7 +202,7 @@ export const AuthProvider = ({ children, navigation }) => {
                     }
                     catch (e) {
                         setLoadingRegister(false)
-                        alert(e)
+                        console.log(e)
                     }
                 },
 
