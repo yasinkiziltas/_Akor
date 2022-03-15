@@ -9,6 +9,7 @@ export const loadingAuth = require('../../assets/loadingAuth.json')
 export const result = require('../../assets/result.json')
 export const ownerAuth = require('../../assets/images/ownerAuth.jpg')
 export const ownerAuth2 = require('../../assets/images/ownerAuth2.jpg')
+export const user = require('../../assets/images/user.png')
 
 export default {
     logo,
@@ -22,4 +23,5 @@ export default {
     result,
     ownerAuth,
     ownerAuth2,
+    user
 }

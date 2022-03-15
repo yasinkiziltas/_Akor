@@ -1,12 +1,21 @@
 import React from 'react'
-import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native'
+import { 
+    SafeAreaView, 
+    View, 
+    Text, 
+    StyleSheet, 
+    TouchableOpacity, 
+    Image, 
+    Platform,
+    StatusBar
+ } from 'react-native'
 import { useTheme } from '@react-navigation/native'
 import { images, COLORS } from '../constants'
 const { goBack, menu2 } = images;
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-export default function CustomHeader({ title, navigation, isBack, isFavorite }) {
+export default function CustomHeader({ title, navigation, isBack, isFavorite}) {
 
     const { container, contentHeader } = styles;
     const { colors } = useTheme()
@@ -38,7 +47,6 @@ export default function CustomHeader({ title, navigation, isBack, isFavorite }) 
                 }
 
             </View>
-
 
             <View style={contentHeader}>
                 <Text style={{

@@ -6,6 +6,9 @@ import {
     TouchableOpacity,
     Platform,
     Text,
+    StatusBar,
+    TextInput,
+    Image,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader';
 import { SIZES } from '../../../constants/index'
@@ -16,6 +19,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import RNPickerSelect from 'react-native-picker-select';
 import FormButtonProfile from '../../../components/FormButtonProfile'
 import firebase from 'firebase'
+import { user } from '../../../constants/images'
 
 export default function UserEditProfileScreen({ navigation }) {
     const [userName, setUserName] = useState('')
@@ -76,6 +80,8 @@ export default function UserEditProfileScreen({ navigation }) {
 
     return (
         <>
+            <StatusBar hidden={true} />
+
             {
                 Platform.OS == 'ios' ?
                     <View style={{ marginTop: 10 }}>
@@ -83,23 +89,58 @@ export default function UserEditProfileScreen({ navigation }) {
                             title="Profili Düzenle"
                             navigation={navigation}
                         />
+                        <TouchableOpacity
+                            style={{ position: 'absolute', left: 15, right: 10, top: 35 }}
+                            onPress={() => alert('İptal')}
+                        >
+                            <Text style={{ color: '#0a0a0a', fontSize: 18 }}>İptal</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{ position: 'absolute', right: 10, top: 35 }}
+                            onPress={() => alert('Kaydet')}
+                        >
+                            <Text style={{ color: '#0793e3', fontWeight: 'bold', fontSize: 18 }}>Kaydet</Text>
+                        </TouchableOpacity>
+
                     </View>
                     :
-                    <CustomHeader
-                        title="Profili Düzenle"
-                        navigation={navigation}
-                    />
-            }
+                    <View>
+                        <CustomHeader
+                            title="Profili Düzenle"
+                            navigation={navigation}
+                        />
+                        <TouchableOpacity
+                            style={{ position: 'absolute', left: 15, right: 10, top: 20 }}
+                            onPress={() => alert('İptal')}
+                        >
+                            <Text style={{ color: '#0a0a0a', fontSize: 18 }}>İptal</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={{ position: 'absolute', right: 10, top: 25 }}
+                            onPress={() => alert('Kaydet')}
+                        >
+                            <Text style={{ color: '#0793e3', fontWeight: 'bold', fontSize: 18 }}>Kaydet</Text>
+                        </TouchableOpacity>
+                    </View>
 
+
+            }
+             <View style={styles.dot} />
             {
                 imageShow ? (
-                    <Animatable.View
-
-                        style={styles.imageContainer}>
-                        <TouchableOpacity
-                            onPress={() => { }}
-                            style={styles.image}>
+                    <Animatable.View style={styles.imageContainer}>
+                        <TouchableOpacity onPress={() => alert('Resim değiş')}>
+                            <Image
+                                source={user}
+                                style={styles.image}
+                            />
                         </TouchableOpacity>
+
+                        <TouchableOpacity>
+                            <Text style={styles.imgText}>Profil resmini değiştir</Text>
+                        </TouchableOpacity>
+
                     </Animatable.View>
                 ) : (
                     null
@@ -107,148 +148,58 @@ export default function UserEditProfileScreen({ navigation }) {
             }
 
             <KeyboardAwareScrollView>
+                <View style={{ flexDirection: 'column', }}>
+                    <View style={{ flexDirection: 'row', margin: 15 }}>
+                        <Text style={{ marginTop: 6, fontWeight:'bold'}}>Ad Soyad</Text>
+                        <TextInput
+                            value={userName}
+                            onChangeText={value => setUserName(value)}
+                            style={{ paddingLeft: 25, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
+                            placeholder='Ad Soyad'
+                        />
 
-                <Animatable.View
-                    animation="fadeInUp"
-                    style={styles.inputContainer}>
-                    <Text style={{ color: 'gray', fontSize: 12, textAlign: 'left', fontWeight: 'bold', fontStyle: 'italic' }}>Bilgilerinizi dolu tutmak mekan sahiplerine daha çok bilgi vermenize olanaks sağlar..</Text>
+                    </View>
 
-                    <Jiro
-                        value={userName}
-                        onChangeText={value => setUserName(value)}
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        label={'Ad Soyad'}
-                        borderColor={'#154c79'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
 
-                    {userDateOfBirth ? (
-                        <TouchableOpacity
-                            onPress={() => showMode('date')}
-                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
-                            {
-                                Platform.OS == 'android' ? (
-                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
-                                ) : (
-                                    null
-                                )
-                            }
-                        </TouchableOpacity>
-                    ) : (
-                        <TouchableOpacity
-                            onPress={() => showMode('date')}
-                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
-                            <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
-                            {
-                                Platform.OS == 'android' ? (
-                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
-                                ) : (
-                                    null
-                                )
-                            }
-                        </TouchableOpacity>
-                    )}
+                    <Text style={{ color: 'gray', opacity: 0.5 }}>                           ________________________________________________</Text>
 
-                    {show && (
-                        <>
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <DateTimePicker
-                                    style={{ width: 100, height: 50 }}
-                                    testID='dateTimePicker'
-                                    value={date}
-                                    mode={mode}
-                                    is24Hour={true}
-                                    display='default'
-                                    onChange={onChange}
-                                />
-                            </View>
-                        </>
+                    <View style={{ flexDirection: 'row', margin: 15 }}>
+                        <Text style={{ marginTop: 6, fontWeight:'bold'}}>Telefon</Text>
+                        <TextInput
+                            value={userPhone}
+                            keyboardType='number-pad'
+                            onChangeText={value => setUserPhone(value)}
+                            style={{ paddingLeft: 35, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
+                            placeholder='Telefon'
+                        />
+                    </View>
 
-                    )}
+                    <Text style={{ color: 'gray', opacity: 0.5 }}>                            ________________________________________________</Text>
 
-                    <RNPickerSelect
-                        value={userGender}
-                        style={{ inputAndroid: { color: 'black' } }}
-                        onValueChange={(value) => setUserGender(value)}
-                        placeholder={{ label: "Cinsiyetinizi Seçiniz", value: "", color: 'gray' }}
-                        textInputProps={{
-                            textAlign: 'center',
-                            fontSize: 24,
-                        }}
+                    <View style={{ flexDirection: 'row', margin: 15 }}>
+                        <Text style={{ marginTop: 6, fontWeight:'bold'}}>Yaş</Text>
+                        <TextInput
+                            value={userAge}
+                            keyboardType='number-pad'
+                            onChangeText={value => setUserAge(value)}
+                            style={{ paddingLeft: 60, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
+                            placeholder='Yaş'
+                        />
+                    </View>
 
-                        items={[
-                            { label: 'Erkek', value: 'Erkek' },
-                            { label: 'Kadın', value: 'Kadın' },
-                        ]}
-                    />
+                    <Text style={{ color: 'gray', opacity: 0.5 }}>                            _______________________________________________</Text>
 
-                    <Jiro
-                        value={userAge}
-                        onChangeText={value => setUserAge(value)}
-                        returnKeyType={'done'}
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        keyboardType='numeric'
-                        label={'Yaş'}
-                        borderColor={'#9b537a'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
+                    <View style={{ flexDirection: 'row', margin: 15 }}>
+                        <Text style={{ marginTop: 6, fontWeight:'bold' }}>Meslek</Text>
+                        <TextInput
+                            value={userJob}
+                            onChangeText={value => setUserJob(value)}
+                            style={{ paddingLeft: 37, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
+                            placeholder='Meslek'
+                        />
+                    </View>
 
-                    <Jiro
-                        value={userPhone}
-                        onChangeText={value => setUserPhone(value)}
-                        returnKeyType={'done'}
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        keyboardType='numeric'
-                        label={'Telefon'}
-                        borderColor={'#9b537a'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
-
-                    <Jiro
-                        value={userJob}
-                        onChangeText={value => setUserJob(value)}
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        label={'Meslek'}
-                        borderColor={'#154c79'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
-
-                    <Jiro
-                        value={userAddress}
-                        onChangeText={value => setUserAddress(value)}
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        label={'Adres'}
-                        borderColor={'#9b537a'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
-
-                    <Jiro
-                        value={userBio}
-                        onChangeText={value => setUserBio(value)}
-                        onFocus={() => setImageShow(false)}
-                        onSubmitEditing={() => setImageShow(true)}
-                        label={'Biyografi'}
-                        borderColor={'#154c79'}
-                        inputPadding={15}
-                        inputStyle={{ color: 'white' }}
-                    />
-
-                    <FormButtonProfile
-                        onPress={() => handleUpdate()}
-                        text="Güncelle"
-                    />
-
-                </Animatable.View>
+                </View>
             </KeyboardAwareScrollView>
         </>
     )
@@ -256,30 +207,27 @@ export default function UserEditProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        // flex:1,
+        flex: 1 / 2,
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
-        marginTop: Platform.OS == 'ios' ? 15 : null,
-        borderWidth: 2,
+        marginTop: 15,
         borderRadius: 50,
-        width: 80,
-        height: 80,
+        width: 90,
+        height: 90,
     },
-    inputContainer: {
-        flexDirection: 'column',
-        margin: 20,
+    imgText: {
+        color: '#0793e3',
+        marginVertical: 10,
+        fontWeight: 'bold'
     },
-    inputs: {
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 6,
-        width: SIZES.width / 1.2,
-        height: 30,
-        marginBottom: 15
-    }
+    dot: {
+        paddingTop: 20,
+        borderBottomColor: 'gray',
+        borderBottomWidth: 0.3,
+    },
 })
 
-{/* 9b537a */ }
+
 
