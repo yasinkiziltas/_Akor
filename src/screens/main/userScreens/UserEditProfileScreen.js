@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     View,
     StyleSheet,
-    Button,
     TouchableOpacity,
     Platform,
     Text,
@@ -11,15 +10,14 @@ import {
     Image,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader';
-import { SIZES } from '../../../constants/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as Animatable from 'react-native-animatable';
-import { Jiro } from 'react-native-textinput-effects';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import RNPickerSelect from 'react-native-picker-select';
-import FormButtonProfile from '../../../components/FormButtonProfile'
 import firebase from 'firebase'
 import { user } from '../../../constants/images'
+import * as ImagePicker from 'expo-image-picker';
+import { Jiro } from 'react-native-textinput-effects';
 
 export default function UserEditProfileScreen({ navigation }) {
     const [userName, setUserName] = useState('')
@@ -31,16 +29,18 @@ export default function UserEditProfileScreen({ navigation }) {
     const [userGender, setUserGender] = useState('')
     const [userPhoto, setUserPhoto] = useState(null)
     const [userPhone, setUserPhone] = useState(null)
+    const [userImg, setUserImg] = useState('')
+    const [userImgPath, setUserImgPath] = useState('')
     const [imageShow, setImageShow] = useState(true)
 
     const [date, setDate] = useState(new Date())
     const [mode, setMode] = useState('date')
     const [show, setShow] = useState(false)
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
         const cUser = firebase.auth().currentUser;
         try {
-            firebase
+            await firebase
                 .firestore()
                 .collection('users')
                 .doc(cUser.uid)
@@ -52,12 +52,37 @@ export default function UserEditProfileScreen({ navigation }) {
                     userJob: userJob,
                     userAddress: userAddress,
                     userGender: userGender,
-                    userPhoto: userPhoto,
                     userPhone: userPhone,
+                    userPhoto: userImgPath
                 })
                 .then(alert('Güncelleme başarılı!'))
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    const allowPhotoRequests = async () => {
+        if (Platform.OS !== 'web') {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            if (status !== 'granted') {
+                alert('Permission denied!')
+            }
+        }
+    }
+
+    const PickImage = async () => {
+        allowPhotoRequests()
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            base64: true,
+        })
+
+        if (!result.cancelled) {
+           setUserImgPath(result.base64)
+           setUserImg(result.uri)
         }
     }
 
@@ -98,7 +123,7 @@ export default function UserEditProfileScreen({ navigation }) {
 
                         <TouchableOpacity
                             style={{ position: 'absolute', right: 10, top: 35 }}
-                            onPress={() => alert('Kaydet')}
+                            onPress={() => handleUpdate()}
                         >
                             <Text style={{ color: '#0793e3', fontWeight: 'bold', fontSize: 18 }}>Kaydet</Text>
                         </TouchableOpacity>
@@ -118,7 +143,7 @@ export default function UserEditProfileScreen({ navigation }) {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{ position: 'absolute', right: 10, top: 25 }}
-                            onPress={() => alert('Kaydet')}
+                            onPress={() => handleUpdate()}
                         >
                             <Text style={{ color: '#0793e3', fontWeight: 'bold', fontSize: 18 }}>Kaydet</Text>
                         </TouchableOpacity>
@@ -126,18 +151,20 @@ export default function UserEditProfileScreen({ navigation }) {
 
 
             }
-             <View style={styles.dot} />
+            <View style={styles.dot} />
             {
                 imageShow ? (
                     <Animatable.View style={styles.imageContainer}>
-                        <TouchableOpacity onPress={() => alert('Resim değiş')}>
+                        <TouchableOpacity onPress={() => PickImage()}>
                             <Image
-                                source={user}
+                                // source={{uri: userImg ? userImg : null}}
+                                source={userImg ? {uri: userImg} : user}
+                                // source={user}
                                 style={styles.image}
                             />
                         </TouchableOpacity>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => PickImage()}>
                             <Text style={styles.imgText}>Profil resmini değiştir</Text>
                         </TouchableOpacity>
 
@@ -149,9 +176,11 @@ export default function UserEditProfileScreen({ navigation }) {
 
             <KeyboardAwareScrollView>
                 <View style={{ flexDirection: 'column', }}>
-                    <View style={{ flexDirection: 'row', margin: 15 }}>
-                        <Text style={{ marginTop: 6, fontWeight:'bold'}}>Ad Soyad</Text>
+                    <View style={{ flexDirection: 'row', margin: 15, marginTop: Platform.OS == 'android' ? 35 : 0 }}>
+                        <Text style={{ marginTop: 6, fontWeight: 'bold' }}>Ad Soyad</Text>
                         <TextInput
+                            onFocus={() => setImageShow(false)}
+                            onSubmitEditing={() => setImageShow(true)}
                             value={userName}
                             onChangeText={value => setUserName(value)}
                             style={{ paddingLeft: 25, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
@@ -160,12 +189,13 @@ export default function UserEditProfileScreen({ navigation }) {
 
                     </View>
 
-
                     <Text style={{ color: 'gray', opacity: 0.5 }}>                           ________________________________________________</Text>
 
                     <View style={{ flexDirection: 'row', margin: 15 }}>
-                        <Text style={{ marginTop: 6, fontWeight:'bold'}}>Telefon</Text>
+                        <Text style={{ marginTop: 6, fontWeight: 'bold' }}>Telefon</Text>
                         <TextInput
+                            onFocus={() => setImageShow(false)}
+                            onSubmitEditing={() => setImageShow(true)}
                             value={userPhone}
                             keyboardType='number-pad'
                             onChangeText={value => setUserPhone(value)}
@@ -177,8 +207,10 @@ export default function UserEditProfileScreen({ navigation }) {
                     <Text style={{ color: 'gray', opacity: 0.5 }}>                            ________________________________________________</Text>
 
                     <View style={{ flexDirection: 'row', margin: 15 }}>
-                        <Text style={{ marginTop: 6, fontWeight:'bold'}}>Yaş</Text>
+                        <Text style={{ marginTop: 6, fontWeight: 'bold' }}>Yaş</Text>
                         <TextInput
+                            onFocus={() => setImageShow(false)}
+                            onSubmitEditing={() => setImageShow(true)}
                             value={userAge}
                             keyboardType='number-pad'
                             onChangeText={value => setUserAge(value)}
@@ -190,8 +222,10 @@ export default function UserEditProfileScreen({ navigation }) {
                     <Text style={{ color: 'gray', opacity: 0.5 }}>                            _______________________________________________</Text>
 
                     <View style={{ flexDirection: 'row', margin: 15 }}>
-                        <Text style={{ marginTop: 6, fontWeight:'bold' }}>Meslek</Text>
+                        <Text style={{ marginTop: 6, fontWeight: 'bold' }}>Meslek</Text>
                         <TextInput
+                            onFocus={() => setImageShow(false)}
+                            onSubmitEditing={() => setImageShow(true)}
                             value={userJob}
                             onChangeText={value => setUserJob(value)}
                             style={{ paddingLeft: 37, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
@@ -199,6 +233,95 @@ export default function UserEditProfileScreen({ navigation }) {
                         />
                     </View>
 
+                    <Text style={{ color: 'gray', opacity: 0.5 }}>                            _______________________________________________</Text>
+
+                    <View style={{ flexDirection: 'row', margin: 15 }}>
+                        <Text style={{ marginTop: 6, fontWeight: 'bold' }}>Adres</Text>
+                        <TextInput
+                            onFocus={() => setImageShow(false)}
+                            onSubmitEditing={() => setImageShow(true)}
+                            value={userAddress}
+                            onChangeText={value => setUserAddress(value)}
+                            style={{ paddingLeft: 50, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
+                            placeholder='Adres'
+                        />
+                    </View>
+
+                    <Text style={{ color: 'gray', opacity: 0.5 }}>                            _______________________________________________</Text>
+
+                    <View style={{ flexDirection: 'row', margin: 15 }}>
+                        <Text style={{ marginTop: 6, fontWeight: 'bold' }}>Biyografi</Text>
+                        <TextInput
+                            onFocus={() => setImageShow(false)}
+                            onSubmitEditing={() => setImageShow(true)}
+                            value={userBio}
+                            onChangeText={value => setUserBio(value)}
+                            style={{ paddingLeft: 30, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
+                            placeholder='Biyografi'
+                        />
+                    </View>
+
+                    <Text style={{ color: 'gray', opacity: 0.5 }}>                            _______________________________________________</Text>
+
+                    {userDateOfBirth ? (
+                        <TouchableOpacity
+                            onPress={() => showMode('date')}
+                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                            {
+                                Platform.OS == 'android' ? (
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
+                                ) : (
+                                    null
+                                )
+                            }
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity
+                            onPress={() => showMode('date')}
+                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                            <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
+                            {
+                                Platform.OS == 'android' ? (
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
+                                ) : (
+                                    null
+                                )
+                            }
+                        </TouchableOpacity>
+                    )}
+
+                    {show && (
+                        <>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <DateTimePicker
+                                    style={{ width: 100, height: 50 }}
+                                    testID='dateTimePicker'
+                                    value={date}
+                                    mode={mode}
+                                    is24Hour={true}
+                                    display='default'
+                                    onChange={onChange}
+                                />
+                            </View>
+                        </>
+
+                    )}
+
+                    <RNPickerSelect
+                        value={userGender}
+                        style={{ inputAndroid: { color: 'black' } }}
+                        onValueChange={(value) => setUserGender(value)}
+                        placeholder={{ label: "Cinsiyetinizi Seçiniz", value: "", color: 'gray' }}
+                        textInputProps={{
+                            textAlign: 'center',
+                            fontSize: 24,
+                        }}
+
+                        items={[
+                            { label: 'Erkek', value: 'Erkek' },
+                            { label: 'Kadın', value: 'Kadın' },
+                        ]}
+                    />
                 </View>
             </KeyboardAwareScrollView>
         </>
@@ -207,13 +330,12 @@ export default function UserEditProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        flex: 1 / 2,
+        // flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     image: {
-        marginTop: 15,
-        borderRadius: 50,
+        borderRadius:50,
         width: 90,
         height: 90,
     },
