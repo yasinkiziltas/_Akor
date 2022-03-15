@@ -8,6 +8,7 @@ import {
     StatusBar,
     TextInput,
     Image,
+    Alert,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -55,9 +56,15 @@ export default function UserEditProfileScreen({ navigation }) {
                     userPhone: userPhone,
                     userPhoto: userImgPath
                 })
-                .then(alert('Güncelleme başarılı!'))
+                .then(() => {
+                    console.log('User Updated!');
+                    Alert.alert(
+                        'Profil Güncellendi!',
+                        'Bilgilerin başarıyla güncellendi.'
+                    );
+                })
         } catch (error) {
-            console.log(error)
+            alert(error)
         }
     }
 
@@ -81,8 +88,8 @@ export default function UserEditProfileScreen({ navigation }) {
         })
 
         if (!result.cancelled) {
-           setUserImgPath(result.base64)
-           setUserImg(result.uri)
+            setUserImgPath(result.base64)
+            setUserImg(result.uri)
         }
     }
 
@@ -158,7 +165,7 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TouchableOpacity onPress={() => PickImage()}>
                             <Image
                                 // source={{uri: userImg ? userImg : null}}
-                                source={userImg ? {uri: userImg} : user}
+                                source={userImg ? { uri: userImg } : user}
                                 // source={user}
                                 style={styles.image}
                             />
@@ -335,7 +342,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        borderRadius:50,
+        borderRadius: 50,
         width: 90,
         height: 90,
     },
