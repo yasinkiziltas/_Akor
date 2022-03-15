@@ -123,7 +123,7 @@ export default function UserEditProfileScreen({ navigation }) {
                         />
                         <TouchableOpacity
                             style={{ position: 'absolute', left: 15, right: 10, top: 35 }}
-                            onPress={() => alert('İptal')}
+                            onPress={() => navigation.goBack()}
                         >
                             <Text style={{ color: '#0a0a0a', fontSize: 18 }}>İptal</Text>
                         </TouchableOpacity>
@@ -144,7 +144,7 @@ export default function UserEditProfileScreen({ navigation }) {
                         />
                         <TouchableOpacity
                             style={{ position: 'absolute', left: 15, right: 10, top: 20 }}
-                            onPress={() => alert('İptal')}
+                            onPress={() =>  navigation.goBack()}
                         >
                             <Text style={{ color: '#0a0a0a', fontSize: 18 }}>İptal</Text>
                         </TouchableOpacity>
@@ -164,9 +164,7 @@ export default function UserEditProfileScreen({ navigation }) {
                     <Animatable.View style={styles.imageContainer}>
                         <TouchableOpacity onPress={() => PickImage()}>
                             <Image
-                                // source={{uri: userImg ? userImg : null}}
                                 source={userImg ? { uri: userImg } : user}
-                                // source={user}
                                 style={styles.image}
                             />
                         </TouchableOpacity>

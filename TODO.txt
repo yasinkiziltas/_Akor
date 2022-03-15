@@ -1,12 +1,13 @@
 13.02.2021 
--Profil güncelleme işlemleri hallet (firestore)
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
+-Events ekranı generic olsun (firestoredan çek)
 -Bildirim entegrasyonunu hallet
   ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
--AppStack mobx ile yapılacak (giren kişinin user veya owner oldugu karışıyor)
+
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
 -Animatad öğren
 -EventDetail teklif gönder ve mesaj at butonu ekle
+-Tüm ekranlara mobx ekle (AppStack öncelik)
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
