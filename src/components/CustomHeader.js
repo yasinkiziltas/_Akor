@@ -66,7 +66,7 @@ export default function CustomHeader({ title, navigation, isBack, isFavorite }) 
                                     color={'#FA3930'}
                                     name="heart"
                                     size={25}
-                                    style={{ marginRight: 15 }}
+                                    style={{ marginRight: 15, }}
                                 />
                             </TouchableOpacity>
                         </View>
