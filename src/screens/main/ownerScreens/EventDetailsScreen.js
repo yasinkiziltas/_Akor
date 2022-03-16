@@ -57,7 +57,7 @@ export default function EventDetailsScreen({ navigation, route }) {
 
           {/* #425af5 */}
           <Text style={{
-            color: 'green',
+            color: 'gray',
             fontSize: 16,
             marginTop: 10,
             marginLeft: 20,
@@ -65,7 +65,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           </Text>
 
           <Text style={{
-            color: 'green',
+            color: 'gray',
             fontSize: 16,
             marginTop: 10,
             marginLeft: 5,

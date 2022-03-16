@@ -144,7 +144,7 @@ export default function UserEditProfileScreen({ navigation }) {
                         />
                         <TouchableOpacity
                             style={{ position: 'absolute', left: 15, right: 10, top: 20 }}
-                            onPress={() =>  navigation.goBack()}
+                            onPress={() => navigation.goBack()}
                         >
                             <Text style={{ color: '#0a0a0a', fontSize: 18 }}>İptal</Text>
                         </TouchableOpacity>
@@ -175,8 +175,8 @@ export default function UserEditProfileScreen({ navigation }) {
 
                     </Animatable.View>
                 ) : (
-                    null
-                )
+                        null
+                    )
             }
 
             <KeyboardAwareScrollView>
@@ -276,30 +276,30 @@ export default function UserEditProfileScreen({ navigation }) {
                                 Platform.OS == 'android' ? (
                                     <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
                                 ) : (
-                                    null
-                                )
+                                        null
+                                    )
                             }
                         </TouchableOpacity>
                     ) : (
-                        <TouchableOpacity
-                            onPress={() => showMode('date')}
-                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
-                            <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
-                            {
-                                Platform.OS == 'android' ? (
-                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
-                                ) : (
-                                    null
-                                )
-                            }
-                        </TouchableOpacity>
-                    )}
+                            <TouchableOpacity
+                                onPress={() => showMode('date')}
+                                style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                                <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
+                                {
+                                    Platform.OS == 'android' ? (
+                                        <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
+                                    ) : (
+                                            null
+                                        )
+                                }
+                            </TouchableOpacity>
+                        )}
 
                     {show && (
                         <>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                                 <DateTimePicker
-                                    style={{ width: 100, height: 50 }}
+                                    style={{ width: Platform.OS == 'android' ? 120 : 300, height: 50 }}
                                     testID='dateTimePicker'
                                     value={date}
                                     mode={mode}
