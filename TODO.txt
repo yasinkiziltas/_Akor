@@ -1,12 +1,9 @@
-13.02.2021 
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
--Events ekranı generic olsun (firestoredan çek)
--Bildirim entegrasyonunu hallet
-  ->(İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
-
+-Bildirim entegrasyonunu hallet (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
+-UserEventList ekranında arama yapma butonunu hallet
+-Mekan sahibi event eklerken random id eklet
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
 -Animatad öğren
--EventDetail teklif gönder ve mesaj at butonu ekle
 -Tüm ekranlara mobx ekle (AppStack öncelik)
 
 SETTINGS PAGE

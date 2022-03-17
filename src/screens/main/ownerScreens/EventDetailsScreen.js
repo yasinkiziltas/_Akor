@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   Platform,
+  Alert,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants'
@@ -14,40 +15,59 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import firebase from 'firebase'
+import userJobs from '../../../utils/currentUser'
 
 export default function EventDetailsScreen({ navigation, route }) {
   const [data, setData] = useState([])
+  const [userData, setUserData] = useState([])
+
+  const getUser = async () => {
+    await firebase
+      .firestore()
+      .collection('users')
+      .doc(userJobs.userId)
+      .get()
+      .then((documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          setUserData(documentSnapshot.data());
+        }
+      })
+  }
+
   useEffect(() => {
+    getUser()
     let { item } = route.params;
     setData(item)
   }, [])
 
-  const applyEvent = () => {
+  const applyEvent = async () => {
     try {
-      firebase
+      await firebase
         .firestore()
-        .collection('events')
+        .collection('recourses')
         .add({
-          // id: data.id,
+          userId: userJobs.userId,
+          userName: userData.userName,
+          userEmail: userData.userEmail,
+          userPhone: userData.userPhone,
+          userAge: userData.userAge,
+          userJob: userData.userJob,
           placeName: data.placeName,
-          eventType: data.eventType,
-          eventLocation: data.eventLocation,
-          eventDetail: data.eventDetail,
-          eventDate: data.eventDate,
-          eventHour: data.eventHour,
-          img: data.img,
-          isActive: true
         })
         .then(() => {
-          console.log('Eklendi');
           Alert.alert(
-            'Eklendi',
-            'Eklendi.'
+            'Başvuru işlemi',
+            'Başvurunuz iletildi!'
           );
         })
     } catch (error) {
       alert(error)
+      console.log(error)
     }
+  }
+
+  const sendMessage = () => {
+    alert('Mesaj gönder!')
   }
 
   return (
@@ -132,7 +152,9 @@ export default function EventDetailsScreen({ navigation, route }) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.btn, { marginTop: 20 }]}>
+        <TouchableOpacity
+          onPress={() => sendMessage()}
+          style={[styles.btn, { marginTop: 20 }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
             <MaterialCommunityIcons
               style={{ marginRight: 5, marginTop: 5 }}
@@ -182,3 +204,33 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS == 'ios' ? 6 : 4
   },
 })
+
+
+//event ekleme kodu
+// const applyEvent = () => {
+//   try {
+//     firebase
+//       .firestore()
+//       .collection('events')
+//       .add({
+//         // id: data.id,
+//         placeName: data.placeName,
+//         eventType: data.eventType,
+//         eventLocation: data.eventLocation,
+//         eventDetail: data.eventDetail,
+//         eventDate: data.eventDate,
+//         eventHour: data.eventHour,
+//         img: data.img,
+//         isActive: true
+//       })
+//       .then(() => {
+//         console.log('Eklendi');
+//         Alert.alert(
+//           'Eklendi',
+//           'Eklendi.'
+//         );
+//       })
+//   } catch (error) {
+//     alert(error)
+//     console.log(error)
+//   }

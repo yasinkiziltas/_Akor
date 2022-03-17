@@ -8,8 +8,10 @@ import {
     Animated,
     StatusBar,
     TouchableHighlight,
+    ActivityIndicator,
     Image,
-    ScrollView
+    ScrollView,
+    FlatList,
 } from 'react-native'
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { DATA } from '../../../constants/mainEvents'
@@ -21,37 +23,30 @@ import firebase from 'firebase'
 
 export default function UserEventsScreen({ navigation }) {
     const [listEvents, setListEvents] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const eventList = async () => {
+        if (!loading) {
+            setLoading(true)
+        }
         try {
-            // firebase
-            //     .firestore()
-            //     .collection('events')
-            //     .where('isActive', '==', true)
-            //     .get()
-            //     .then((querySnapshot) => {
-            //         querySnapshot.forEach(snapshot => {
-            //             let data = snapshot.data()
-            //             setListEvents(data)
-            //             console.log(JSON.stringify(data));
-            //         })
-            //     })
-
-            firebase.
+            await firebase.
                 firestore()
                 .collection('events')
-                // .where('isActive', '==', true)
+                .where('isActive', '==', true)
                 .get()
                 .then((querySnapshot) => {
                     const objectsArray = [];
                     querySnapshot.forEach((user) => {
                         objectsArray.push(user.data());
                     });
-                    console.log(objectsArray);
                     setListEvents(objectsArray)
+                    console.log(listEvents)
+                    setLoading(false)
                 });
         } catch (error) {
             alert(error)
+            setLoading(false)
         }
     }
 
@@ -59,22 +54,9 @@ export default function UserEventsScreen({ navigation }) {
         eventList()
     }, [])
 
-    const [listData, setListData] = useState(
-        DATA.map((EventItem, index) => ({
-            key: `${index}`,
-            placeName: EventItem.placeName,
-            eventType: EventItem.eventType,
-            eventLocation: EventItem.eventLocation,
-            eventDetail: EventItem.eventDetail,
-            eventDate: EventItem.eventDate,
-            eventHour: EventItem.eventHour,
-            img: EventItem.img
-        })),
-    );
-
     const [search, setSearch] = useState('')
-    const [filterData, setFilterData] = useState(listData)
-    const [masterData, setMasterData] = useState(listData)
+    const [filterData, setFilterData] = useState(listEvents)
+    const [masterData, setMasterData] = useState(listEvents)
 
     const searchFilter = (text) => {
         if (text) {
@@ -94,202 +76,39 @@ export default function UserEventsScreen({ navigation }) {
         }
     }
 
-    const closeRow = (rowMap, rowKey) => {
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-        }
-    };
-
-    const deleteRow = (rowMap, rowKey) => {
-        closeRow(rowMap, rowKey);
-        const newData = [...listData];
-        const prevIndex = listData.findIndex(item => item.key === rowKey);
-        newData.splice(prevIndex, 1);
-        setListData(newData);
-    };
-
-    const onRowDidOpen = rowKey => {
-        console.log('This row opened', rowKey);
-    };
-
-    const onLeftActionStatusChange = rowKey => {
-        console.log('onLeftActionStatusChange', rowKey);
-    };
-
-    const onRightActionStatusChange = rowKey => {
-        console.log('onRightActionStatusChange', rowKey);
-    };
-
-    const onRightAction = rowKey => {
-        console.log('onRightAction', rowKey);
-    };
-
-    const onLeftAction = rowKey => {
-        console.log('onLeftAction', rowKey);
-    };
-
-    const VisibleItem = props => {
-        const {
-            data,
-            rowHeightAnimatedValue,
-            removeRow,
-            leftActionState,
-            rightActionState,
-        } = props;
-
-        if (rightActionState) {
-            Animated.timing(rowHeightAnimatedValue, {
-                toValue: 0,
-                duration: 200,
-                useNativeDriver: false,
-            }).start(() => {
-                removeRow();
-            });
-        }
-
+    const renderItem = (data) => {
         return (
-            <>
-                <Animated.View
-                    style={[styles.rowFront, { height: rowHeightAnimatedValue }]}>
-                    <TouchableHighlight
-                        style={styles.rowFrontVisible}
-                        onPress={() => navigation.navigate('EventDetail', data)}
-                        underlayColor={'#aaa'}>
-                        <>
-                            <View style={{ position: 'absolute', right: 10, top: 5 }}>
-                                <Image
-                                    style={styles.itemImg}
-                                    source={data.item.img}
-                                />
-                            </View>
+            <Animated.View
+                style={styles.rowFront}>
+                <TouchableHighlight
+                    style={styles.rowFrontVisible}
+                    onPress={() => navigation.navigate('EventDetail', data)}
+                    underlayColor={'#aaa'}>
+                    <>
+                        <View style={{ position: 'absolute', right: 10, top: 5 }}>
+                            <Image
+                                style={styles.itemImg}
+                                source={data.item.img}
+                            />
+                        </View>
 
-                            <Text style={styles.eventTypeTxt}>{data.item.eventType} </Text>
+                        <Text style={styles.eventTypeTxt}>{data.item.eventType} </Text>
 
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={styles.placeName} numberOfLines={1}>
-                                    {data.item.placeName}
-                                </Text>
-                                <Text style={styles.subInfo} numberOfLines={1}>
-                                    {data.item.eventHour}
-                                </Text>
-                            </View>
-
-                            <Text style={styles.eventLocation}>
-                                {data.item.eventLocation}
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.placeName} numberOfLines={1}>
+                                {data.item.placeName}
                             </Text>
-                        </>
-                    </TouchableHighlight>
-                </Animated.View>
-            </>
-        );
-    };
+                            <Text style={styles.subInfo} numberOfLines={1}>
+                                {data.item.eventHour}
+                            </Text>
+                        </View>
 
-    const renderItem = (data, rowMap) => {
-        const rowHeightAnimatedValue = new Animated.Value(60);
-
-        return (
-            <VisibleItem
-                data={data}
-                rowHeightAnimatedValue={rowHeightAnimatedValue}
-                removeRow={() => deleteRow(rowMap, data.item.key)}
-            />
-        );
-    };
-
-    const HiddenItemWithActions = props => {
-        const {
-            swipeAnimatedValue,
-            leftActionActivated,
-            rightActionActivated,
-            rowActionAnimatedValue,
-            rowHeightAnimatedValue,
-            onClose,
-            onDelete,
-        } = props;
-
-        if (rightActionActivated) {
-            Animated.spring(rowActionAnimatedValue, {
-                toValue: 500,
-                useNativeDriver: false
-            }).start();
-        } else {
-            Animated.spring(rowActionAnimatedValue, {
-                toValue: 75,
-                useNativeDriver: false
-            }).start();
-        }
-
-        return (
-            <Animated.View style={[styles.rowBack, { height: rowHeightAnimatedValue }]}>
-                <Text>Left</Text>
-                {!leftActionActivated && (
-                    <TouchableOpacity
-                        style={[styles.backRightBtn, styles.backRightBtnLeft]}
-                        onPress={onClose}>
-                        <MaterialCommunityIcons
-                            name="close-circle-outline"
-                            size={25}
-                            style={styles.trash}
-                            color="#fff"
-                        />
-                    </TouchableOpacity>
-                )}
-                {!leftActionActivated && (
-                    <Animated.View
-                        style={[
-                            styles.backRightBtn,
-                            styles.backRightBtnRight,
-                            {
-                                flex: 1,
-                                width: rowActionAnimatedValue,
-                            },
-                        ]}>
-                        <TouchableOpacity
-                            style={[styles.backRightBtn, styles.backRightBtnRight]}
-                            // onPress={onDelete}
-                            onPress={() => alert('Mekanı favlara ekle!')}
-                        >
-                            <Animated.View
-                                style={[
-                                    styles.trash,
-                                    {
-                                        transform: [
-                                            {
-                                                scale: swipeAnimatedValue.interpolate({
-                                                    inputRange: [-90, -45],
-                                                    outputRange: [1, 0],
-                                                    extrapolate: 'clamp',
-                                                }),
-                                            },
-                                        ],
-                                    },
-                                ]}>
-                                <MaterialCommunityIcons
-                                    name="heart"
-                                    size={25}
-                                    color="#fff"
-                                />
-                            </Animated.View>
-                        </TouchableOpacity>
-                    </Animated.View>
-                )}
+                        <Text style={styles.eventLocation}>
+                            {data.item.eventLocation}
+                        </Text>
+                    </>
+                </TouchableHighlight>
             </Animated.View>
-        );
-    };
-
-    const renderHiddenItem = (data, rowMap) => {
-        const rowActionAnimatedValue = new Animated.Value(75);
-        const rowHeightAnimatedValue = new Animated.Value(60);
-
-        return (
-            <HiddenItemWithActions
-                data={data}
-                rowMap={rowMap}
-                rowActionAnimatedValue={rowActionAnimatedValue}
-                rowHeightAnimatedValue={rowHeightAnimatedValue}
-                onClose={() => closeRow(rowMap, data.item.key)}
-                onDelete={() => deleteRow(rowMap, data.item.key)}
-            />
         );
     };
 
@@ -301,7 +120,7 @@ export default function UserEventsScreen({ navigation }) {
                 isBack={true}
             />
 
-            <View style={styles.container}>
+            <View style={styles.containerHeader}>
                 <StatusBar barStyle="dark-content" />
 
                 <View style={{ flexDirection: 'row' }}>
@@ -325,44 +144,35 @@ export default function UserEventsScreen({ navigation }) {
 
                 </View>
 
-                {listData.length > 0 ? (
-                    <SwipeListView
-                        data={filterData}
-                        renderItem={renderItem}
-                        renderHiddenItem={renderHiddenItem}
-                        leftOpenValue={75}
-                        rightOpenValue={-150}
-                        disableRightSwipe
-                        onRowDidOpen={onRowDidOpen}
-                        leftActivationValue={100}
-                        rightActivationValue={-200}
-                        leftActionValue={0}
-                        rightActionValue={-500}
-                        onLeftAction={onLeftAction}
-                        onRightAction={onRightAction}
-                        onLeftActionStatusChange={onLeftActionStatusChange}
-                        onRightActionStatusChange={onRightActionStatusChange}
-                    />
-                ) : (
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
-                        </View>
-                    )}
+            </View>
 
+            <View style={styles.container}>
+
+                {listEvents.length > 0 ? (
+                    loading ?
+                        <ActivityIndicator
+                            size={25}
+                            color="green"
+                        />
+                        : <FlatList
+                            data={listEvents}
+                            renderItem={renderItem}
+                        />
+                ) : (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                    </View>
+                )}
             </View>
         </>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    containerHeader: {
         justifyContent: 'center',
         marginTop: 20,
         backgroundColor: '#f4f4f4',
-        flex: 1,
-    },
-    backTextWhite: {
-        color: '#FFF',
     },
     rowFront: {
         backgroundColor: '#FFF',
@@ -387,41 +197,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginBottom: 10,
         width: SIZES.width / 1.2
-    },
-    rowBack: {
-        alignItems: 'center',
-        backgroundColor: '#DDD',
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 15,
-        margin: 5,
-        marginBottom: 15,
-        borderRadius: 5,
-    },
-    backRightBtn: {
-        alignItems: 'flex-end',
-        bottom: 0,
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        width: 75,
-        paddingRight: 17,
-    },
-    backRightBtnLeft: {
-        backgroundColor: '#1f65ff',
-        right: 75,
-    },
-    backRightBtnRight: {
-        backgroundColor: 'red',
-        right: 0,
-        borderTopRightRadius: 5,
-        borderBottomRightRadius: 5,
-    },
-    trash: {
-        height: 25,
-        width: 25,
-        marginRight: 7,
     },
     placeName: {
         fontSize: 14,

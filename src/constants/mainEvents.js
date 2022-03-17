@@ -31,13 +31,13 @@ export const DATA = [
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d712',
-        placeName: 'Vodafone Park',
+        placeName: 'Ateşehir Club',
         eventType: 'Türk Sanat',
-        eventLocation: 'Eskişehir',
+        eventLocation: 'İstanbul',
         eventDetail: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-        eventDate: '14 Haziran',
-        eventHour: '19:00',
-        img: require('../../assets/images/voda.jpg')
+        eventDate: '12 Haziran',
+        eventHour: '22:00',
+        img: require('../../assets/images/onboard.png')
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d732',
