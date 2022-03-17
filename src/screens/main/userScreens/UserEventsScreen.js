@@ -17,8 +17,47 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants';
+import firebase from 'firebase'
 
 export default function UserEventsScreen({ navigation }) {
+    const [listEvents, setListEvents] = useState([])
+
+    const eventList = async () => {
+        try {
+            // firebase
+            //     .firestore()
+            //     .collection('events')
+            //     .where('isActive', '==', true)
+            //     .get()
+            //     .then((querySnapshot) => {
+            //         querySnapshot.forEach(snapshot => {
+            //             let data = snapshot.data()
+            //             setListEvents(data)
+            //             console.log(JSON.stringify(data));
+            //         })
+            //     })
+
+            firebase.
+                firestore()
+                .collection('events')
+                // .where('isActive', '==', true)
+                .get()
+                .then((querySnapshot) => {
+                    const objectsArray = [];
+                    querySnapshot.forEach((user) => {
+                        objectsArray.push(user.data());
+                    });
+                    console.log(objectsArray);
+                    setListEvents(objectsArray)
+                });
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    useEffect(() => {
+        eventList()
+    }, [])
 
     const [listData, setListData] = useState(
         DATA.map((EventItem, index) => ({
@@ -32,6 +71,7 @@ export default function UserEventsScreen({ navigation }) {
             img: EventItem.img
         })),
     );
+
     const [search, setSearch] = useState('')
     const [filterData, setFilterData] = useState(listData)
     const [masterData, setMasterData] = useState(listData)
@@ -304,10 +344,10 @@ export default function UserEventsScreen({ navigation }) {
                         onRightActionStatusChange={onRightActionStatusChange}
                     />
                 ) : (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
-                    </View>
-                )}
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                        </View>
+                    )}
 
             </View>
         </>

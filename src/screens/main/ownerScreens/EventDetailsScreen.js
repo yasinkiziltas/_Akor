@@ -13,6 +13,7 @@ import { SIZES } from '../../../constants'
 import ReadMore from '@fawazahmed/react-native-read-more';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
+import firebase from 'firebase'
 
 export default function EventDetailsScreen({ navigation, route }) {
   const [data, setData] = useState([])
@@ -20,6 +21,34 @@ export default function EventDetailsScreen({ navigation, route }) {
     let { item } = route.params;
     setData(item)
   }, [])
+
+  const applyEvent = () => {
+    try {
+      firebase
+        .firestore()
+        .collection('events')
+        .add({
+          // id: data.id,
+          placeName: data.placeName,
+          eventType: data.eventType,
+          eventLocation: data.eventLocation,
+          eventDetail: data.eventDetail,
+          eventDate: data.eventDate,
+          eventHour: data.eventHour,
+          img: data.img,
+          isActive: true
+        })
+        .then(() => {
+          console.log('Eklendi');
+          Alert.alert(
+            'Eklendi',
+            'Eklendi.'
+          );
+        })
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   return (
     <>
@@ -89,7 +118,9 @@ export default function EventDetailsScreen({ navigation, route }) {
 
       <View style={styles.btnView}>
 
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity
+          onPress={() => applyEvent()}
+          style={styles.btn}>
           <View style={styles.btnContainer}>
             <Entypo
               style={{ marginRight: 5, marginTop: 5 }}

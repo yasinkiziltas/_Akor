@@ -115,7 +115,7 @@ export default function AppStack() {
             await firebase
                 .firestore()
                 .collection('users')
-                .where('typeUser', '==', typeUser)
+                // .where('typeUser', '==', typeUser)
                 .get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach(snapshot => {
