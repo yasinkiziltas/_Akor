@@ -42,7 +42,7 @@ export default function UserEventsScreen({ navigation }) {
                         objectsArray.push(user.data());
                     });
                     setListEvents(objectsArray)
-                    console.log(listEvents)
+                    // console.log(listEvents)
                     setLoading(false)
                 });
         } catch (error) {

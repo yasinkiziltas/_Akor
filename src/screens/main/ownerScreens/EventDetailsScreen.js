@@ -26,8 +26,8 @@ export default function EventDetailsScreen({ navigation, route }) {
     await firebase
       .firestore()
       .collection('users')
-      .doc(userJobs.userId)
-      .doc(firebase.auth().currentUser.uid)
+      // .doc(userJobs.userId)
+      .doc(user.uid)
       .get()
       .then((documentSnapshot) => {
         if (documentSnapshot.exists) {
@@ -37,7 +37,7 @@ export default function EventDetailsScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    console.log('Şuanki kullanıcı: ', user.uid);
+    console.log(userData);
     getUser()
     let { item } = route.params;
     setData(item)
@@ -49,11 +49,11 @@ export default function EventDetailsScreen({ navigation, route }) {
         .firestore()
         .collection('recourses')
         .add({
-          userId: userJobs.userId,
+          userId: user.uid,
           userName: userData.userName,
           userEmail: userData.userEmail,
           userPhone: userData.userPhone,
-          userAge: userData.userAge,
+          // userAge: userData.userAge,
           userJob: userData.userJob,
           placeName: data.placeName,
         })
@@ -62,6 +62,7 @@ export default function EventDetailsScreen({ navigation, route }) {
             'Başvuru işlemi',
             'Başvurunuz iletildi!'
           );
+          navigation.goBack()
         })
     } catch (error) {
       alert(error)
