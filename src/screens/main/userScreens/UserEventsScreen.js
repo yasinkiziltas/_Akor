@@ -20,6 +20,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants';
 import firebase from 'firebase'
+import Shimmer from '../../../components/Shimmer'
 
 export default function UserEventsScreen({ navigation }) {
     const [listEvents, setListEvents] = useState([])
@@ -30,8 +31,8 @@ export default function UserEventsScreen({ navigation }) {
             setLoading(true)
         }
         try {
-            await firebase.
-                firestore()
+            await firebase
+                .firestore()
                 .collection('events')
                 .where('isActive', '==', true)
                 .get()
@@ -150,10 +151,45 @@ export default function UserEventsScreen({ navigation }) {
 
                 {listEvents.length > 0 ? (
                     loading ?
-                        <ActivityIndicator
-                            size={25}
-                            color="green"
-                        />
+                        <>
+                            <View style={styles.container}>
+                                <View style={styles.header}>
+                                    <View>
+                                        <View style={styles.upperText}>
+                                            <Shimmer width={200} height={14} />
+                                        </View>
+                                        <View style={styles.lowerText}>
+                                            <Shimmer width={120} height={14} />
+                                        </View>
+                                        <View style={styles.lowerText}>
+                                            <Shimmer width={120} height={14} />
+                                        </View>
+                                    </View>
+                                    <View style={styles.avatar}>
+                                        <Shimmer width={60} height={60} />
+                                    </View>
+                                </View>
+                            </View>
+
+                            <View style={styles.container}>
+                                <View style={styles.header}>
+                                    <View>
+                                        <View style={styles.upperText}>
+                                            <Shimmer width={200} height={14} />
+                                        </View>
+                                        <View style={styles.lowerText}>
+                                            <Shimmer width={120} height={14} />
+                                        </View>
+                                        <View style={styles.lowerText}>
+                                            <Shimmer width={120} height={14} />
+                                        </View>
+                                    </View>
+                                    <View style={styles.avatar}>
+                                        <Shimmer width={60} height={60} />
+                                    </View>
+                                </View>
+                            </View>
+                        </>
                         : <FlatList
                             data={listEvents}
                             renderItem={renderItem}
@@ -239,4 +275,16 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#999',
     },
+    container: {
+        flex: 1,
+        marginVertical: 40,
+    },
+    header: {
+        flexDirection: 'row',
+        width: '100%',
+        margin: 8,
+    },
+    avatar: { borderRadius: 30, width: 60, marginLeft: 20, overflow: 'hidden' },
+    upperText: { marginLeft: 8, marginTop: 14 },
+    lowerText: { marginLeft: 8, marginTop: 4 },
 });
