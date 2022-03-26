@@ -159,10 +159,10 @@ export default function UserEventsScreen({ navigation }) {
                             renderItem={renderItem}
                         />
                 ) : (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
-                    </View>
-                )}
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                        </View>
+                    )}
             </View>
         </>
     );

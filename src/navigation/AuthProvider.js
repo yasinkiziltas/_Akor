@@ -21,7 +21,7 @@ const firebaseConfig = {
     storageBucket: "akormusicapp.appspot.com",
     messagingSenderId: "252792251070",
     appId: "1:252792251070:web:ac8cb0453eef83359374ef"
-  };
+};
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);

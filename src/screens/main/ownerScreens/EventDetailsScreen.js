@@ -18,6 +18,7 @@ import firebase from 'firebase'
 import userJobs from '../../../utils/currentUser'
 
 export default function EventDetailsScreen({ navigation, route }) {
+  const [user, setUser] = useState(firebase.auth().currentUser)
   const [data, setData] = useState([])
   const [userData, setUserData] = useState([])
 
@@ -25,7 +26,8 @@ export default function EventDetailsScreen({ navigation, route }) {
     await firebase
       .firestore()
       .collection('users')
-      .doc(userJobs.userId)
+      // .doc(userJobs.userId)
+      .doc(firebase.auth().currentUser.uid)
       .get()
       .then((documentSnapshot) => {
         if (documentSnapshot.exists) {
@@ -35,6 +37,7 @@ export default function EventDetailsScreen({ navigation, route }) {
   }
 
   useEffect(() => {
+    console.log('Şuanki kullanıcı: ', user.uid);
     getUser()
     let { item } = route.params;
     setData(item)
