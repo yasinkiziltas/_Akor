@@ -39,7 +39,6 @@ export default function EventDetailsScreen({ navigation, route }) {
     getUser()
     let { item } = route.params;
     setData(item)
-    console.log(item.id)
   }, [])
 
   const applyEvent = async () => {
@@ -47,7 +46,8 @@ export default function EventDetailsScreen({ navigation, route }) {
       await firebase
         .firestore()
         .collection('recourses')
-        .add({
+        .doc(data.id)
+        .set({
           id: data.id,
           userId: user.uid,
           userName: userData.userName,

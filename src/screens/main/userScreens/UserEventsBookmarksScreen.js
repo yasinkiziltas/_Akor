@@ -53,8 +53,11 @@ export default function UserEventsBookmarks() {
       firebase
         .firestore()
         .collection('recourses')
-        .where('id', '==', id)
+        .doc(id)
         .delete()
+        .then(() => {
+          alert('Başvuru başarıyla silinmiştir!')
+        })
     } catch (error) {
       alert(error)
     }
