@@ -152,6 +152,7 @@ export default function UserEventsScreen({ navigation }) {
                 {listEvents.length > 0 ? (
                     loading ?
                         <>
+                            <ActivityIndicator color='gray' size={25} />
                             <View style={styles.container}>
                                 <View style={styles.header}>
                                     <View>
@@ -193,7 +194,7 @@ export default function UserEventsScreen({ navigation }) {
                         : <FlatList
                             data={listEvents}
                             renderItem={renderItem}
-                            keyExtractor={(item, index) => item.key}
+                            keyExtractor={(item, index) => item.id}
                         />
                 ) : (
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

@@ -39,6 +39,7 @@ export default function EventDetailsScreen({ navigation, route }) {
     getUser()
     let { item } = route.params;
     setData(item)
+    console.log(item.id)
   }, [])
 
   const applyEvent = async () => {
@@ -47,6 +48,7 @@ export default function EventDetailsScreen({ navigation, route }) {
         .firestore()
         .collection('recourses')
         .add({
+          id: data.id,
           userId: user.uid,
           userName: userData.userName,
           userEmail: userData.userEmail,
@@ -72,6 +74,39 @@ export default function EventDetailsScreen({ navigation, route }) {
     }
   }
 
+  // const applyEvent = async () => {
+  //   try {
+  //     await firebase
+  //       .firestore()
+  //       .collection('recourses')
+  //       .doc(data.id)
+  //       .collection('subrecourses')
+  //       .add({
+  //         id: data.id,
+  //         userId: user.uid,
+  //         userName: userData.userName,
+  //         userEmail: userData.userEmail,
+  //         userPhone: userData.userPhone,
+  //         userJob: userData.userJob,
+  //         placeName: data.placeName,
+  //         eventDate: data.eventDate,
+  //         eventLocation: data.eventLocation,
+  //         eventHour: data.eventHour,
+  //         img: data.img,
+  //       })
+  //       .then(() => {
+  //         Alert.alert(
+  //           'Başvuru işlemi',
+  //           'Başvurunuz mekan sahibine iletildi!'
+  //         );
+  //         navigation.goBack()
+  //       })
+  //   } catch (error) {
+  //     alert(error)
+  //     console.log(error)
+  //   }
+  // }
+
   const sendMessage = () => {
     alert('Mesaj gönder!')
   }
@@ -87,7 +122,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           <CustomHeader
             navigation={navigation}
             isBack={true}
-            isFavorite={true}
+          // isFavorite={true}
           />
         </ImageBackground>
       </View>

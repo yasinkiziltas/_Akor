@@ -7,7 +7,8 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import LottieView from 'lottie-react-native';
@@ -47,6 +48,32 @@ export default function UserEventsBookmarks() {
     }
   }
 
+  const deleteEvent = (id) => {
+    try {
+      firebase
+        .firestore()
+        .collection('recourses')
+        .where('id', '==', id)
+        .delete()
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const deleteConfirm = (id) => {
+    Alert.alert(
+      'Başvuru iptal',
+      'Başvuruyu iptal etmek istediğinizden emin misiniz?',
+      [
+        { text: 'Evet', onPress: () => deleteEvent(id) },
+        { text: 'Hayır', onPress: () => { }, style: 'cancel' },
+      ],
+      {
+        cancelable: true
+      }
+    );
+  }
+
   useEffect(() => {
     myBookmarks()
   }, [])
@@ -68,7 +95,7 @@ export default function UserEventsBookmarks() {
                   style={styles.img}
                 />
                 <TouchableOpacity
-                  onPress={() => alert('Silme işlemi')}
+                  onPress={() => deleteConfirm(data.item.id)}
                   style={styles.delete}>
                   <AntDesign
                     style={styles.deleteIcon}
