@@ -193,7 +193,7 @@ export default function UserEventsScreen({ navigation }) {
                         : <FlatList
                             data={listEvents}
                             renderItem={renderItem}
-                            keyExtractor={(item, index) => item.id}
+                            keyExtractor={(item, index) => item.key}
                         />
                 ) : (
                         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

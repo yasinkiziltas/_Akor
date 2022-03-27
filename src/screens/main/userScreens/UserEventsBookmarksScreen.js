@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import LottieView from 'lottie-react-native';
@@ -14,12 +15,19 @@ import { result } from '../../../constants/images'
 import firebase from 'firebase'
 import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants/theme'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 export default function UserEventsBookmarks() {
   const [user, setUser] = useState(firebase.auth().currentUser)
   const [recdata, setRecdata] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const myBookmarks = async () => {
+
+    if (!loading) {
+      setLoading(true)
+    }
+
     try {
       firebase
         .firestore()
@@ -31,9 +39,11 @@ export default function UserEventsBookmarks() {
             objectsArray.push(d.data());
           });
           setRecdata(objectsArray)
+          setLoading(false)
         });
     } catch (error) {
       alert(error)
+      setLoading(false)
     }
   }
 
@@ -49,34 +59,30 @@ export default function UserEventsBookmarks() {
           <View style={{ margin: 18 }}>
             <TouchableOpacity
               onPress={() => alert('Detaya git')}
-              style={{
-                width: SIZES.width / 1.1,
-                height: SIZES.height / 5,
-                borderWidth: 0.5,
-                borderColor: 'gray',
-                borderRadius: 20
-              }}>
+              style={styles.content}
+            >
+
               <View style={{ flexDirection: 'row' }}>
                 <Image
                   source={data.item.img}
-                  style={{
-                    margin: 10,
-                    width: 100,
-                    height: 100,
-                    borderRadius: 30,
-                    borderWidth: 0.5,
-                    borderColor: 'gray'
-                  }}
+                  style={styles.img}
                 />
+                <TouchableOpacity
+                  onPress={() => alert('Silme işlemi')}
+                  style={styles.delete}>
+                  <AntDesign
+                    style={styles.deleteIcon}
+                    color="red"
+                    size={20}
+                    name="delete"
+                  />
+
+                </TouchableOpacity>
+
                 <View style={{ flexDirection: 'column' }}>
-                  <Text style={{
-                    color: 'gray',
-                    marginVertical: 10
-                  }}>{data.item.eventDate} {data.item.eventHour}</Text>
-                  <Text style={{
-                    fontWeight: 'bold',
-                    fontSize: 15
-                  }}>{data.item.placeName}</Text>
+                  <Text style={styles.eventInfo}>{data.item.eventDate}  {data.item.eventHour}</Text>
+                  <Text style={styles.eventPlaceName}>{data.item.placeName}</Text>
+                  <Text style={styles.eventInfo}>{data.item.eventLocation}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -92,13 +98,20 @@ export default function UserEventsBookmarks() {
       <StatusBar hidden={true} />
       <CustomHeader title='Başvurularım' />
 
-      <View>
-        {
+      {
+        loading
+          ?
+          <ActivityIndicator
+            size={30}
+            color="gray"
+          />
+          :
           recdata.length > 0
             ?
             <FlatList
               data={recdata}
               renderItem={renderItem}
+              keyExtractor={(item, index) => item.id}
             />
             :
             <>
@@ -108,18 +121,53 @@ export default function UserEventsBookmarks() {
                   style={styles.lottie}
                   autoPlay={true}
                 />
+                <Text style={styles.topText}>Mekan başvurunuz bulunmamaktadır.. </Text>
               </View>
-              <Text style={styles.topText}>Mekan başvurunuz bulunmamaktadır.. </Text>
             </>
-        }
-      </View>
+
+
+      }
+
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  content: {
+    width: SIZES.width / 1.1,
+    height: SIZES.height / 5,
+    borderWidth: 0.5,
+    borderColor: 'gray',
+    borderRadius: 20
+  },
+  img: {
+    margin: 10,
+    width: 100,
+    height: 100,
+    borderRadius: 30,
+    borderWidth: 0.5,
+    borderColor: 'gray'
+  },
+  delete: {
+    position: 'absolute',
+    right: 20,
+    top: 40
+  },
+  deleteIcon: {
+    marginLeft: 5,
+    marginTop: 5,
+  },
+  eventInfo: {
+    color: 'gray',
+    marginVertical: 10
+  },
+  eventPlaceName: {
+    fontWeight: 'bold',
+    fontSize: 15
+  },
   topText: {
     color: 'gray',
+    textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 16,
   },

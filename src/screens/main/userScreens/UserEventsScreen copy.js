@@ -1,466 +1,242 @@
-import React, { useState, useEffect } from 'react'
-import CustomHeader from '../../../components/CustomHeader'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     Text,
-    StyleSheet,
+    ImageBackground,
     TouchableOpacity,
-    Animated,
-    StatusBar,
-    TouchableHighlight,
-    Image,
-    ScrollView
+    StyleSheet,
+    ScrollView,
+    Platform,
+    Alert,
 } from 'react-native'
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { DATA } from '../../../constants/mainEvents'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Searchbar } from 'react-native-paper';
-import { SIZES } from '../../../constants';
+import CustomHeader from '../../../components/CustomHeader'
+import { SIZES } from '../../../constants'
+import ReadMore from '@fawazahmed/react-native-read-more';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
 import firebase from 'firebase'
+import userJobs from '../../../utils/currentUser'
 
-export default function UserEventsScreen({ navigation }) {
-    const [listEvents, setListEvents] = useState([])
+export default function EventDetailsScreen({ navigation, route }) {
+    const [user, setUser] = useState(firebase.auth().currentUser)
+    const [data, setData] = useState([])
+    const [userData, setUserData] = useState([])
 
-    const eventList = async () => {
-        try {
-            firebase.
-                firestore()
-                .collection('events')
-                // .where('isActive', '==', true)
-                .get()
-                .then((querySnapshot) => {
-                    const objectsArray = [];
-                    querySnapshot.forEach((user) => {
-                        objectsArray.push(user.data());
-                    });
-                    setListEvents(objectsArray)
-                });
-        } catch (error) {
-            alert(error)
-        }
+    const getUser = async () => {
+        await firebase
+            .firestore()
+            .collection('users')
+            // .doc(userJobs.userId)
+            .doc(user.uid)
+            .get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    setUserData(documentSnapshot.data());
+                }
+            })
     }
 
     useEffect(() => {
-        eventList()
+        getUser()
+        let { item } = route.params;
+        setData(item)
     }, [])
 
-    const [listData, setListData] = useState(
-        DATA.map((EventItem, index) => ({
-            key: `${index}`,
-            placeName: EventItem.placeName,
-            eventType: EventItem.eventType,
-            eventLocation: EventItem.eventLocation,
-            eventDetail: EventItem.eventDetail,
-            eventDate: EventItem.eventDate,
-            eventHour: EventItem.eventHour,
-            img: EventItem.img
-        })),
-    );
-
-    const [search, setSearch] = useState('')
-    const [filterData, setFilterData] = useState(listData)
-    const [masterData, setMasterData] = useState(listData)
-
-    const searchFilter = (text) => {
-        if (text) {
-            const newData = masterData.filter((item) => {
-                const itemData = item.placeName ?
-                    item.placeName.toUpperCase()
-                    : ''.toUpperCase();
-                const textData = text.toUpperCase();
-                return itemData.indexOf(textData) > - 1;
-            })
-            setFilterData(newData)
-            setSearch(text)
-        }
-        else {
-            setFilterData(masterData)
-            setSearch(text)
+    const applyEvent = () => {
+        try {
+            firebase
+                .firestore()
+                .collection('events')
+                .add({
+                    id: data.id,
+                    placeName: data.placeName,
+                    eventType: data.eventType,
+                    eventLocation: data.eventLocation,
+                    eventDetail: data.eventDetail,
+                    eventDate: data.eventDate,
+                    eventHour: data.eventHour,
+                    img: data.img,
+                    isActive: true
+                })
+                .then(() => {
+                    console.log('Eklendi');
+                    Alert.alert(
+                        'Eklendi',
+                        'Eklendi.'
+                    );
+                })
+        } catch (error) {
+            alert(error)
+            console.log(error)
         }
     }
 
-    const closeRow = (rowMap, rowKey) => {
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-        }
-    };
 
-    const deleteRow = (rowMap, rowKey) => {
-        closeRow(rowMap, rowKey);
-        const newData = [...listData];
-        const prevIndex = listData.findIndex(item => item.key === rowKey);
-        newData.splice(prevIndex, 1);
-        setListData(newData);
-    };
-
-    const onRowDidOpen = rowKey => {
-        console.log('This row opened', rowKey);
-    };
-
-    const onLeftActionStatusChange = rowKey => {
-        console.log('onLeftActionStatusChange', rowKey);
-    };
-
-    const onRightActionStatusChange = rowKey => {
-        console.log('onRightActionStatusChange', rowKey);
-    };
-
-    const onRightAction = rowKey => {
-        console.log('onRightAction', rowKey);
-    };
-
-    const onLeftAction = rowKey => {
-        console.log('onLeftAction', rowKey);
-    };
-
-    const VisibleItem = props => {
-        const {
-            data,
-            rowHeightAnimatedValue,
-            removeRow,
-            leftActionState,
-            rightActionState,
-        } = props;
-
-        if (rightActionState) {
-            Animated.timing(rowHeightAnimatedValue, {
-                toValue: 0,
-                duration: 200,
-                useNativeDriver: false,
-            }).start(() => {
-                removeRow();
-            });
-        }
-
-        return (
-            <>
-                <Animated.View
-                    style={[styles.rowFront, { height: rowHeightAnimatedValue }]}>
-                    <TouchableHighlight
-                        style={styles.rowFrontVisible}
-                        onPress={() => navigation.navigate('EventDetail', data)}
-                        underlayColor={'#aaa'}>
-                        <>
-                            <View style={{ position: 'absolute', right: 10, top: 5 }}>
-                                <Image
-                                    style={styles.itemImg}
-                                    source={data.item.img}
-                                />
-                            </View>
-
-                            <Text style={styles.eventTypeTxt}>{data.item.eventType} </Text>
-
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text style={styles.placeName} numberOfLines={1}>
-                                    {data.item.placeName}
-                                </Text>
-                                <Text style={styles.subInfo} numberOfLines={1}>
-                                    {data.item.eventHour}
-                                </Text>
-                            </View>
-
-                            <Text style={styles.eventLocation}>
-                                {data.item.eventLocation}
-                            </Text>
-                        </>
-                    </TouchableHighlight>
-                </Animated.View>
-            </>
-        );
-    };
-
-    const renderItem = (data, rowMap) => {
-        const rowHeightAnimatedValue = new Animated.Value(60);
-
-        return (
-            <VisibleItem
-                data={data}
-                rowHeightAnimatedValue={rowHeightAnimatedValue}
-                removeRow={() => deleteRow(rowMap, data.item.key)}
-            />
-        );
-    };
-
-    const HiddenItemWithActions = props => {
-        const {
-            swipeAnimatedValue,
-            leftActionActivated,
-            rightActionActivated,
-            rowActionAnimatedValue,
-            rowHeightAnimatedValue,
-            onClose,
-            onDelete,
-        } = props;
-
-        if (rightActionActivated) {
-            Animated.spring(rowActionAnimatedValue, {
-                toValue: 500,
-                useNativeDriver: false
-            }).start();
-        } else {
-            Animated.spring(rowActionAnimatedValue, {
-                toValue: 75,
-                useNativeDriver: false
-            }).start();
-        }
-
-        return (
-            <Animated.View style={[styles.rowBack, { height: rowHeightAnimatedValue }]}>
-                <Text>Left</Text>
-                {!leftActionActivated && (
-                    <TouchableOpacity
-                        style={[styles.backRightBtn, styles.backRightBtnLeft]}
-                        onPress={onClose}>
-                        <MaterialCommunityIcons
-                            name="close-circle-outline"
-                            size={25}
-                            style={styles.trash}
-                            color="#fff"
-                        />
-                    </TouchableOpacity>
-                )}
-                {!leftActionActivated && (
-                    <Animated.View
-                        style={[
-                            styles.backRightBtn,
-                            styles.backRightBtnRight,
-                            {
-                                flex: 1,
-                                width: rowActionAnimatedValue,
-                            },
-                        ]}>
-                        <TouchableOpacity
-                            style={[styles.backRightBtn, styles.backRightBtnRight]}
-                            // onPress={onDelete}
-                            onPress={() => alert('Mekanı favlara ekle!')}
-                        >
-                            <Animated.View
-                                style={[
-                                    styles.trash,
-                                    {
-                                        transform: [
-                                            {
-                                                scale: swipeAnimatedValue.interpolate({
-                                                    inputRange: [-90, -45],
-                                                    outputRange: [1, 0],
-                                                    extrapolate: 'clamp',
-                                                }),
-                                            },
-                                        ],
-                                    },
-                                ]}>
-                                <MaterialCommunityIcons
-                                    name="heart"
-                                    size={25}
-                                    color="#fff"
-                                />
-                            </Animated.View>
-                        </TouchableOpacity>
-                    </Animated.View>
-                )}
-            </Animated.View>
-        );
-    };
-
-    const renderHiddenItem = (data, rowMap) => {
-        const rowActionAnimatedValue = new Animated.Value(75);
-        const rowHeightAnimatedValue = new Animated.Value(60);
-
-        return (
-            <HiddenItemWithActions
-                data={data}
-                rowMap={rowMap}
-                rowActionAnimatedValue={rowActionAnimatedValue}
-                rowHeightAnimatedValue={rowHeightAnimatedValue}
-                onClose={() => closeRow(rowMap, data.item.key)}
-                onDelete={() => deleteRow(rowMap, data.item.key)}
-            />
-        );
-    };
+    const sendMessage = () => {
+        alert('Mesaj gönder!')
+    }
 
     return (
         <>
-            <CustomHeader
-                title="Mekanlar"
-                navigation={navigation}
-                isBack={true}
-            />
+            <View>
+                <ImageBackground
+                    resizeMode='stretch'
+                    style={styles.contentImg}
+                    source={data.img}
+                >
+                    <CustomHeader
+                        navigation={navigation}
+                        isBack={true}
+                        isFavorite={true}
+                    />
+                </ImageBackground>
+            </View>
 
-            <View style={styles.container}>
-                <StatusBar barStyle="dark-content" />
+            <View style={{ flexDirection: 'column' }}>
+                <Text style={{
+                    fontWeight: 'bold',
+                    fontSize: 24,
+                    marginTop: 20,
+                    marginLeft: 20,
+                }}>{data.placeName}
+                </Text>
 
                 <View style={{ flexDirection: 'row' }}>
-                    <Searchbar
-                        style={styles.searchBar}
-                        placeholder="Mekan Ara.."
-                        onChangeText={(text) => searchFilter(text)}
-                        value={search}
-                    />
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('UserEventsBookmarks')}
-                        style={styles.bookmarkBtn}>
+                    <Text style={{
+                        color: 'gray',
+                        fontSize: 16,
+                        marginTop: 10,
+                        marginLeft: 20,
+                    }}>{data.eventLocation}
+                    </Text>
 
-                        <AntDesign
-                            style={{ fontWeight: 'bold' }}
-                            name="hearto"
-                            size={18}
-                            color="gray"
-                        />
-                    </TouchableOpacity>
+                    {/* #425af5 */}
+                    <Text style={{
+                        color: 'gray',
+                        fontSize: 16,
+                        marginTop: 10,
+                        marginLeft: 20,
+                    }}>{data.eventDate}
+                    </Text>
 
+                    <Text style={{
+                        color: 'gray',
+                        fontSize: 16,
+                        marginTop: 10,
+                        marginLeft: 5,
+                    }}>{data.eventHour}
+                    </Text>
                 </View>
 
-                {listData.length > 0 ? (
-                    <SwipeListView
-                        data={filterData}
-                        renderItem={renderItem}
-                        renderHiddenItem={renderHiddenItem}
-                        leftOpenValue={75}
-                        rightOpenValue={-150}
-                        disableRightSwipe
-                        onRowDidOpen={onRowDidOpen}
-                        leftActivationValue={100}
-                        rightActivationValue={-200}
-                        leftActionValue={0}
-                        rightActionValue={-500}
-                        onLeftAction={onLeftAction}
-                        onRightAction={onRightAction}
-                        onLeftActionStatusChange={onLeftActionStatusChange}
-                        onRightActionStatusChange={onRightActionStatusChange}
-                    />
-                ) : (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                <ScrollView>
+                    <ReadMore
+                        seeMoreText='Daha fazla..'
+                        seeLessText='Daha az..'
+                        animate='#92C19C'
+                        numberOfLines={10}
+                        style={{ margin: 15 }}>
+                        {
+                            data.eventDetail
+                        }
+                    </ReadMore>
+                </ScrollView>
+            </View>
+
+            <View style={styles.btnView}>
+
+                <TouchableOpacity
+                    onPress={() => applyEvent()}
+                    style={styles.btn}>
+                    <View style={styles.btnContainer}>
+                        <Entypo
+                            style={{ marginRight: 5, marginTop: 5 }}
+                            color={"white"}
+                            size={18}
+                            name="check"
+                        />
+                        <Text style={styles.btnText}>Başvur</Text>
                     </View>
-                )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => sendMessage()}
+                    style={[styles.btn, { marginTop: 20 }]}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <MaterialCommunityIcons
+                            style={{ marginRight: 5, marginTop: 5 }}
+                            color={"white"}
+                            size={18}
+                            name="message"
+                        />
+                        <Text style={styles.btnText}>Mesaj Gönder</Text>
+                    </View>
+                </TouchableOpacity>
 
             </View>
+
         </>
-    );
-};
 
+    )
+}
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
+    contentImg: {
+        borderRadius: 10,
+        width: SIZES.width,
+        height: SIZES.height / 3
+    },
+    btnView: {
+        // flex: 1,
         marginTop: 20,
-        backgroundColor: '#f4f4f4',
-        flex: 1,
-    },
-    backTextWhite: {
-        color: '#FFF',
-    },
-    rowFront: {
-        backgroundColor: '#FFF',
-        borderRadius: 5,
-        height: 60,
-        margin: 5,
-        marginBottom: 15,
-        shadowColor: '#999',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,
-        elevation: 5,
-    },
-    rowFrontVisible: {
-        backgroundColor: '#FFF',
-        borderRadius: 5,
-        height: 60,
-        padding: 10,
-        marginBottom: 15,
-    },
-    searchBar: {
-        marginLeft: 5,
-        marginBottom: 10,
-        width: SIZES.width / 1.2
-    },
-    rowBack: {
+        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#DDD',
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingLeft: 15,
-        margin: 5,
-        marginBottom: 15,
+        flexDirection: 'column'
+    },
+    btn: {
+        backgroundColor: '#00b1b1',
         borderRadius: 5,
+        width: 290,
+        height: 35,
     },
-    backRightBtn: {
-        alignItems: 'flex-end',
-        bottom: 0,
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0,
-        width: 75,
-        paddingRight: 17,
+    btnContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    backRightBtnLeft: {
-        backgroundColor: '#1f65ff',
-        right: 75,
-    },
-    backRightBtnRight: {
-        backgroundColor: 'red',
-        right: 0,
-        borderTopRightRadius: 5,
-        borderBottomRightRadius: 5,
-    },
-    trash: {
-        height: 25,
-        width: 25,
-        marginRight: 7,
-    },
-    placeName: {
-        fontSize: 14,
+    btnText: {
+        fontSize: 18,
+        color: '#fff',
         fontWeight: 'bold',
-        marginBottom: 5,
-        // color: 'green',
+        textAlign: 'center',
+        marginTop: Platform.OS == 'ios' ? 6 : 4
     },
-    subInfo: {
-        textDecorationLine: 'underline',
-        fontSize: 12,
-        // fontWeight: 'bold',
-        marginBottom: 5,
-        marginLeft: 5,
-        color: 'green',
-    },
-    itemImg: {
-        borderRadius: 100,
-        width: 50,
-        height: 50,
-        borderColor: 'gray',
-        borderWidth: 1
-    },
-    bookmarkBtn: {
-        marginLeft: 10,
-        borderWidth: 1,
-        borderColor: 'gray',
-        borderRadius: 30,
-        width: 40,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    eventTypeTxt: {
-        position: 'absolute',
-        top: 30,
-        color: 'gray',
-        right: 70,
-    },
-    eventLocation: {
-        fontSize: 12,
-        color: '#999',
-    },
-});
+})
 
-            // firebase
-            //     .firestore()
-            //     .collection('events')
-            //     .where('isActive', '==', true)
-            //     .get()
-            //     .then((querySnapshot) => {
-            //         querySnapshot.forEach(snapshot => {
-            //             let data = snapshot.data()
-            //             setListEvents(data)
-            //             console.log(JSON.stringify(data));
-            //         })
-            //     })
+
+//event ekleme kodu
+// const applyEvent = () => {
+//   try {
+//     firebase
+//       .firestore()
+//       .collection('events')
+//       .add({
+//         // id: data.id,
+//         placeName: data.placeName,
+//         eventType: data.eventType,
+//         eventLocation: data.eventLocation,
+//         eventDetail: data.eventDetail,
+//         eventDate: data.eventDate,
+//         eventHour: data.eventHour,
+//         img: data.img,
+//         isActive: true
+//       })
+//       .then(() => {
+//         console.log('Eklendi');
+//         Alert.alert(
+//           'Eklendi',
+//           'Eklendi.'
+//         );
+//       })
+//   } catch (error) {
+//     alert(error)
+//     console.log(error)
+//   }
