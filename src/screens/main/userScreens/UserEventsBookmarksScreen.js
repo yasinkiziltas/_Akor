@@ -119,7 +119,16 @@ export default function UserEventsBookmarks() {
           </View>
         </ScrollView>
         :
-        null
+        <>
+          <View style={styles.lottieView}>
+            <LottieView
+              source={result}
+              style={styles.lottie}
+              autoPlay={true}
+            />
+            <Text style={styles.topText}>Mekan başvurunuz bulunmamaktadır.. </Text>
+          </View>
+        </>
     );
   };
 
@@ -154,8 +163,6 @@ export default function UserEventsBookmarks() {
                 <Text style={styles.topText}>Mekan başvurunuz bulunmamaktadır.. </Text>
               </View>
             </>
-
-
       }
 
     </>
