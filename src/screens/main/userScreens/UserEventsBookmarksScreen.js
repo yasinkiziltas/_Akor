@@ -1,8 +1,19 @@
-import { View, Text, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import LottieView from 'lottie-react-native';
 import { result } from '../../../constants/images'
 import firebase from 'firebase'
+import CustomHeader from '../../../components/CustomHeader'
+import { SIZES } from '../../../constants/theme'
 
 export default function UserEventsBookmarks() {
   const [user, setUser] = useState(firebase.auth().currentUser)
@@ -28,45 +39,97 @@ export default function UserEventsBookmarks() {
 
   useEffect(() => {
     myBookmarks()
-    console.log('user: ', user.uid);
   }, [])
 
   const renderItem = (data) => {
     return (
       data.item.userId == user.uid
         ?
-        <View style={{ flex: 1, marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>{data.item.placeName}</Text>
-        </View>
+        <ScrollView>
+          <View style={{ margin: 18 }}>
+            <TouchableOpacity
+              onPress={() => alert('Detaya git')}
+              style={{
+                width: SIZES.width / 1.1,
+                height: SIZES.height / 5,
+                borderWidth: 0.5,
+                borderColor: 'gray',
+                borderRadius: 20
+              }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image
+                  source={data.item.img}
+                  style={{
+                    margin: 10,
+                    width: 100,
+                    height: 100,
+                    borderRadius: 30,
+                    borderWidth: 0.5,
+                    borderColor: 'gray'
+                  }}
+                />
+                <View style={{ flexDirection: 'column' }}>
+                  <Text style={{
+                    color: 'gray',
+                    marginVertical: 10
+                  }}>{data.item.eventDate} {data.item.eventHour}</Text>
+                  <Text style={{
+                    fontWeight: 'bold',
+                    fontSize: 15
+                  }}>{data.item.placeName}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
         :
         null
     );
   };
 
   return (
-    <View>
-      {
-        recdata.length > 0
-          ?
-          <FlatList
-            data={recdata}
-            renderItem={renderItem}
-          />
-          :
-          <>
-            <LottieView
-              source={result}
-              style={{ width: 250, height: 250 }}
-              autoPlay={true}
+    <>
+      <StatusBar hidden={true} />
+      <CustomHeader title='Başvurularım' />
+
+      <View>
+        {
+          recdata.length > 0
+            ?
+            <FlatList
+              data={recdata}
+              renderItem={renderItem}
             />
-            <Text style={{
-              color: 'gray',
-              fontWeight: 'bold',
-              fontSize: 16,
-            }}>Mekan başvurunuz bulunmamaktadır..
-        </Text>
-          </>
-      }
-    </View>
+            :
+            <>
+              <View style={styles.lottieView}>
+                <LottieView
+                  source={result}
+                  style={styles.lottie}
+                  autoPlay={true}
+                />
+              </View>
+              <Text style={styles.topText}>Mekan başvurunuz bulunmamaktadır.. </Text>
+            </>
+        }
+      </View>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  topText: {
+    color: 'gray',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  lottieView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  lottie: {
+    width: 250,
+    height: 250
+  },
+})

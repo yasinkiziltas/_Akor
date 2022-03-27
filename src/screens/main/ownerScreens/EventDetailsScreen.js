@@ -37,7 +37,6 @@ export default function EventDetailsScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    console.log(userData);
     getUser()
     let { item } = route.params;
     setData(item)
@@ -53,9 +52,14 @@ export default function EventDetailsScreen({ navigation, route }) {
           userName: userData.userName,
           userEmail: userData.userEmail,
           userPhone: userData.userPhone,
-          // userAge: userData.userAge,
           userJob: userData.userJob,
           placeName: data.placeName,
+          eventDate: data.eventDate,
+          eventLocation: data.eventLocation,
+          eventHour: data.eventHour,
+          img: data.img,
+          // userAge: userData.userAge,
+
         })
         .then(() => {
           Alert.alert(
