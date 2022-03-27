@@ -15,7 +15,6 @@ import ReadMore from '@fawazahmed/react-native-read-more';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import firebase from 'firebase'
-import userJobs from '../../../utils/currentUser'
 
 export default function EventDetailsScreen({ navigation, route }) {
   const [user, setUser] = useState(firebase.auth().currentUser)
@@ -59,12 +58,11 @@ export default function EventDetailsScreen({ navigation, route }) {
           eventHour: data.eventHour,
           img: data.img,
           // userAge: userData.userAge,
-
         })
         .then(() => {
           Alert.alert(
             'Başvuru işlemi',
-            'Başvurunuz iletildi!'
+            'Başvurunuz mekan sahibine iletildi!'
           );
           navigation.goBack()
         })

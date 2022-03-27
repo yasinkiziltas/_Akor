@@ -152,6 +152,7 @@ export default function UserEventsScreen({ navigation }) {
                 {listEvents.length > 0 ? (
                     loading ?
                         <>
+                            <ActivityIndicator color='gray' size={25} />
                             <View style={styles.container}>
                                 <View style={styles.header}>
                                     <View>
