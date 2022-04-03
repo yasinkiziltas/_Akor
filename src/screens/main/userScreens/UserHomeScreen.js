@@ -43,7 +43,6 @@ export default function UserHomeScreen({ navigation }) {
                         objectsArray.push(event.data());
                     });
                     setEventData(objectsArray)
-                    // console.log(listEvents)
                     setLoading(false)
                 });
         } catch (error) {
@@ -57,53 +56,55 @@ export default function UserHomeScreen({ navigation }) {
 
         AsyncStorage.getItem('cUsername').then(user => {
             setCurrentUserName(user)
-            // console.log('Name: ', currentUserName)
         }).catch(e =>
             console.log(e)
         )
 
         AsyncStorage.getItem('cUseremail').then(useremail => {
             setCurrentUserMail(useremail)
-            // console.log('Mail: ', currentUserEmail)
         }).catch(e =>
             console.log(e)
         )
     }, [])
 
-    const renderItemEvents = ({ item }) => (
-        <>
+    const renderItem = (data) => {
+        return (
             <View>
                 <TouchableOpacity
                     style={{ padding: 5 }}
-                    onPress={() => alert('Detay')}
+                    onPress={() => navigation.navigate('EventDetails', data)}
                 >
                     <ImageBackground
                         imageStyle={{ borderRadius: 20 }}
                         style={styles.randomEvents}
-                        source={item.img}
+                        source={data.item.img}
                     >
                         <View style={styles.textView}>
                             <Text style={styles.typeText}>Tür</Text>
-                            <Text style={styles.type}>{item.eventType}</Text>
+                            <Text style={styles.type}>{data.item.eventType}</Text>
                         </View>
 
                         <View style={styles.eventDate}>
-                            <Text style={styles.eventDateText}>{item.eventDate}</Text>
+                            <Text style={styles.eventDateText}>{data.item.eventDate}</Text>
                         </View>
 
                         <View style={styles.placeName}>
-                            <Text style={styles.placeNameText}>{item.placeName}</Text>
+                            <Text style={styles.placeNameText}>{data.item.placeName}</Text>
 
                             <View style={styles.eventTabInfo}>
-                                <Text style={styles.eventTabLocationText}>{item.eventLocation}</Text>
-                                <Text style={styles.eventTabHourText}>{item.eventHour}</Text>
+                                <Text style={styles.eventTabLocationText}>{data.item.eventLocation}</Text>
+                                <Text style={styles.eventTabHourText}>{data.item.eventHour}</Text>
                             </View>
                         </View>
                     </ImageBackground>
                 </TouchableOpacity>
             </View>
-        </>
-    )
+        )
+    }
+
+    // const renderItemEvents = (item) => (
+
+    // )
 
     return (
         <>
@@ -142,7 +143,7 @@ export default function UserHomeScreen({ navigation }) {
                             showsHorizontalScrollIndicator={false}
                             horizontal
                             data={eventData}
-                            renderItem={renderItemEvents}
+                            renderItem={renderItem}
                             keyExtractor={item => item.id}
                         />
                 }

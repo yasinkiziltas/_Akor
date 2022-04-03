@@ -61,6 +61,7 @@ function MainStackUsers() {
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={UserHomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Notifications" component={UserNotificationsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="EventDetails" component={EventDetailsScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
