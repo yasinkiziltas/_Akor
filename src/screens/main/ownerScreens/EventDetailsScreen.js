@@ -25,7 +25,6 @@ export default function EventDetailsScreen({ navigation, route }) {
     await firebase
       .firestore()
       .collection('users')
-      // .doc(userJobs.userId)
       .doc(user.uid)
       .get()
       .then((documentSnapshot) => {

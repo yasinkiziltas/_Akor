@@ -8,7 +8,8 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import LottieView from 'lottie-react-native';
@@ -18,7 +19,7 @@ import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants/theme'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-export default function UserEventsBookmarks() {
+export default function UserEventsBookmarks({navigation}) {
   const [user, setUser] = useState(firebase.auth().currentUser)
   const [recdata, setRecdata] = useState([])
   const [loading, setLoading] = useState(false)
@@ -88,7 +89,7 @@ export default function UserEventsBookmarks() {
         <ScrollView>
           <View style={{ margin: 18 }}>
             <TouchableOpacity
-              onPress={() => alert('Detaya git')}
+           onPress={() => navigation.navigate('EventDetail', data)}
               style={styles.content}
             >
 
@@ -135,7 +136,14 @@ export default function UserEventsBookmarks() {
   return (
     <>
       <StatusBar hidden={true} />
-      <CustomHeader title='Başvurularım' />
+
+      {
+        Platform.OS == 'ios' ?
+          <View style={{ marginVertical: 25 }}>
+            <CustomHeader title='Başvurularım' />
+          </View> :
+          <CustomHeader title='Başvurularım' />
+      }
 
       {
         loading
@@ -182,8 +190,8 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 30,
-    borderWidth: 0.5,
-    borderColor: 'gray'
+    borderWidth: 1,
+    borderColor: 'black'
   },
   delete: {
     position: 'absolute',

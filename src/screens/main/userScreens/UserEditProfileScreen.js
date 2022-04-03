@@ -54,7 +54,7 @@ export default function UserEditProfileScreen({ navigation }) {
                     userAddress: userAddress,
                     userGender: userGender,
                     userPhone: userPhone,
-                    userPhoto: userImgPath
+                    userPhoto: userImg //userImgPath
                 })
                 .then(() => {
                     console.log('User Updated!');

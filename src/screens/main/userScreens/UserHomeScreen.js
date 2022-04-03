@@ -14,7 +14,6 @@ import { SIZES } from '../../../constants/index';
 import { AuthContext } from '../../../navigation/AuthProvider'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
-import { DATA } from '../../../constants/mainEvents'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from 'firebase';
 

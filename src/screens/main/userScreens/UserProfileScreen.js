@@ -4,7 +4,8 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    ScrollView
+    ScrollView,
+    Image
 } from 'react-native'
 import { AuthContext } from '../../../navigation/AuthProvider'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -13,11 +14,28 @@ import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import firebase from 'firebase'
 
 export default function UserProfileScreen({ navigation }) {
     const { logout, userEmail } = useContext(AuthContext)
+    const [user, setUser] = useState(firebase.auth().currentUser)
+    const [userData, setUserData] = useState(null)
     const [name, setName] = useState()
     const [email, setEmail] = useState()
+
+    const getUser = async () => {
+        await firebase
+            .firestore()
+            .collection('users')
+            .doc(user.uid)
+            .get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    console.log('User Data', documentSnapshot.data());
+                    setUserData(documentSnapshot.data());
+                }
+            })
+    }
 
     AsyncStorage.getItem('cUsername').then(name => {
         setName(name)
@@ -31,24 +49,8 @@ export default function UserProfileScreen({ navigation }) {
         console.log(e)
     )
 
-    // const fetchUser = () => {
-    //     firebase
-    //         .firestore()
-    //         .collection('users')
-    //         .where('userEmail', '==', userEmail)
-    //         .get()
-    //         .then(querySnapshot => {
-
-    //             console.log('Total users: ', querySnapshot.size);
-    //             querySnapshot.forEach(documentSnapshot => {
-    //                 console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
-    //             });
-
-    //         })
-    // }
-
     useEffect(() => {
-        // fetchUser()
+        getUser()
     }, [])
 
     return (
@@ -59,13 +61,18 @@ export default function UserProfileScreen({ navigation }) {
             >
                 {/* Arkaplan */}
                 <LinearGradient
-                    colors={[COLORS.gray,  COLORS.gray, '#4e4376',]}
+                    colors={[COLORS.gray, COLORS.gray, '#4e4376',]}
                     style={styles.background}
                 />
 
                 {/*Kullanıcı Resim*/}
                 <View style={styles.userImg}>
-
+                    <Image
+                        style={{ borderRadius: 100 }}
+                        source={{ uri: userData ? userData.userPhoto : null }}
+                        width={120}
+                        height={120}
+                    />
                 </View>
 
                 {/* İsim & Email */}
@@ -78,13 +85,13 @@ export default function UserProfileScreen({ navigation }) {
 
             {/* Bilgiler */}
             <Animatable.View
-                  animation="fadeInUp"
+                animation="fadeInUp"
                 style={styles.userInfo}
             >
                 <Text style={styles.accountText}>Hesap</Text>
 
                 <ScrollView>
-                    <View style={{margin:15}}>
+                    <View style={{ margin: 15 }}>
                         <TouchableOpacity
                             onPress={() => navigation.navigate('UserEditProfile')}
                             style={styles.profile}>
