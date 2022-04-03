@@ -47,6 +47,7 @@ export default function UserEventsScreen({ navigation }) {
 
     const [listData, setListData] = useState(
         DATA.map((EventItem, index) => ({
+            id: EventItem.id,
             key: `${index}`,
             placeName: EventItem.placeName,
             eventType: EventItem.eventType,

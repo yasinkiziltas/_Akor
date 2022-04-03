@@ -74,6 +74,7 @@ export default function EventDetailsScreen({ navigation, route }) {
     }
   }
 
+
   // const applyEvent = async () => {
   //   try {
   //     await firebase
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
 //       .firestore()
 //       .collection('events')
 //       .add({
-//         // id: data.id,
+//         id: data.id,
 //         placeName: data.placeName,
 //         eventType: data.eventType,
 //         eventLocation: data.eventLocation,
@@ -275,3 +276,4 @@ const styles = StyleSheet.create({
 //     alert(error)
 //     console.log(error)
 //   }
+// }

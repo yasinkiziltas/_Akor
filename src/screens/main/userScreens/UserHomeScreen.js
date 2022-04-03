@@ -1,5 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, ImageBackground, Image } from 'react-native'
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    FlatList,
+    ImageBackground,
+    StatusBar,
+    ActivityIndicator,
+} from 'react-native'
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants/index';
 import { AuthContext } from '../../../navigation/AuthProvider'
@@ -7,49 +16,45 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import { DATA } from '../../../constants/mainEvents'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import firebase from 'firebase';
 
-const renderItemEvents = ({ item }) => (
-    <>
-        <View>
-            <TouchableOpacity
-                style={{ padding: 5 }}
-                onPress={() => alert('Detay')}
-            >
-                <ImageBackground
-                    imageStyle={{ borderRadius: 20 }}
-                    style={styles.randomEvents}
-                    source={item.img}
-                >
-                    <View style={styles.textView}>
-                        <Text style={styles.typeText}>Tür</Text>
-                        <Text style={styles.type}>{item.eventType}</Text>
-                    </View>
-
-                    <View style={styles.eventDate}>
-                        <Text style={styles.eventDateText}>{item.eventDate}</Text>
-                    </View>
-
-                    <View style={styles.placeName}>
-                        <Text style={styles.placeNameText}>{item.placeName}</Text>
-
-                        <View style={styles.eventTabInfo}>
-                            <Text style={styles.eventTabLocationText}>{item.eventLocation}</Text>
-                            <Text style={styles.eventTabHourText}>{item.eventHour}</Text>
-                        </View>
-                    </View>
-                </ImageBackground>
-            </TouchableOpacity>
-        </View>
-    </>
-)
 
 export default function UserHomeScreen({ navigation }) {
-
     const { userName, userEmail } = useContext(AuthContext)
     const [currentUserName, setCurrentUserName] = useState()
     const [currentUserEmail, setCurrentUserMail] = useState()
+    const [eventData, setEventData] = useState([])
+    const [loading, setLoading] = useState()
+
+    const fetchEvents = async () => {
+
+        if (!loading) {
+            setLoading(true)
+        }
+
+        try {
+            await firebase
+                .firestore()
+                .collection('events')
+                .get()
+                .then((querySnapshot) => {
+                    const objectsArray = [];
+                    querySnapshot.forEach((event) => {
+                        objectsArray.push(event.data());
+                    });
+                    setEventData(objectsArray)
+                    // console.log(listEvents)
+                    setLoading(false)
+                });
+        } catch (error) {
+            alert(error)
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
+        fetchEvents();
+
         AsyncStorage.getItem('cUsername').then(user => {
             setCurrentUserName(user)
             // console.log('Name: ', currentUserName)
@@ -65,8 +70,44 @@ export default function UserHomeScreen({ navigation }) {
         )
     }, [])
 
+    const renderItemEvents = ({ item }) => (
+        <>
+            <View>
+                <TouchableOpacity
+                    style={{ padding: 5 }}
+                    onPress={() => alert('Detay')}
+                >
+                    <ImageBackground
+                        imageStyle={{ borderRadius: 20 }}
+                        style={styles.randomEvents}
+                        source={item.img}
+                    >
+                        <View style={styles.textView}>
+                            <Text style={styles.typeText}>Tür</Text>
+                            <Text style={styles.type}>{item.eventType}</Text>
+                        </View>
+
+                        <View style={styles.eventDate}>
+                            <Text style={styles.eventDateText}>{item.eventDate}</Text>
+                        </View>
+
+                        <View style={styles.placeName}>
+                            <Text style={styles.placeNameText}>{item.placeName}</Text>
+
+                            <View style={styles.eventTabInfo}>
+                                <Text style={styles.eventTabLocationText}>{item.eventLocation}</Text>
+                                <Text style={styles.eventTabHourText}>{item.eventHour}</Text>
+                            </View>
+                        </View>
+                    </ImageBackground>
+                </TouchableOpacity>
+            </View>
+        </>
+    )
+
     return (
         <>
+            <StatusBar hidden={true} />
             <Animatable.View
                 animation="fadeInUp"
                 style={styles.container}>
@@ -90,14 +131,30 @@ export default function UserHomeScreen({ navigation }) {
 
             <Animatable.View animation="fadeInDown">
                 <Text style={styles.welcomeText}>Yaklaşan Etkinlikler</Text>
+                {
+                    loading ? //eventData.length < 0 && 
+                        <ActivityIndicator
+                            size={20}
+                            color="gray"
+                        />
+                        :
+                        <FlatList
+                            showsHorizontalScrollIndicator={false}
+                            horizontal
+                            data={eventData}
+                            renderItem={renderItemEvents}
+                            keyExtractor={item => item.id}
+                        />
+                }
 
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    horizontal
-                    data={DATA}
-                    renderItem={renderItemEvents}
-                    keyExtractor={item => item.id}
-                />
+                {
+                    eventData.length < 0 || !eventData || eventData == null ?
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: 'gray', fontSize: 18, marginVertical: 20 }}>Etkinlik bulunamadı..</Text>
+                        </View>
+                        : null
+                }
+
             </Animatable.View>
         </>
     )

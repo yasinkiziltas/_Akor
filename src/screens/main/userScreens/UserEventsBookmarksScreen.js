@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   content: {
     width: SIZES.width / 1.1,
     height: SIZES.height / 5,
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 20
   },
