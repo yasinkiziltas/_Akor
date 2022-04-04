@@ -243,6 +243,15 @@ export const AuthProvider = ({ children, navigation }) => {
                         setLoadingEmail(true)
                     }
 
+                    firebase
+                        .firestore()
+                        .collection('users')
+                        .doc(user.uid)
+                        .update({
+                            userEmail: newEmail
+                        })
+                        .then(console.log('Success change mail!'))
+
                     reAuth(userPassword).then(() => {
                         var user = firebase.auth().currentUser;
 
