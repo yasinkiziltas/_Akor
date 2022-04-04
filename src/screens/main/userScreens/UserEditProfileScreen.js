@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View,
     StyleSheet,
@@ -18,25 +18,39 @@ import RNPickerSelect from 'react-native-picker-select';
 import firebase from 'firebase'
 import { user } from '../../../constants/images'
 import * as ImagePicker from 'expo-image-picker';
-import { Jiro } from 'react-native-textinput-effects';
 
 export default function UserEditProfileScreen({ navigation }) {
-    const [userName, setUserName] = useState('')
-    const [userBio, setUserBio] = useState('')
+    const [currentUser, setCurrentUser] = useState(firebase.auth().currentUser)
+    const [userData, setUserData] = useState([])
     const [userDateOfBirth, setUserDateOfBirth] = useState('')
-    const [userAge, setUserAge] = useState(null)
-    const [userAddress, setUserAddress] = useState('')
-    const [userJob, setUserJob] = useState('')
-    const [userGender, setUserGender] = useState('')
-    const [userPhoto, setUserPhoto] = useState(null)
-    const [userPhone, setUserPhone] = useState(null)
     const [userImg, setUserImg] = useState('')
     const [userImgPath, setUserImgPath] = useState('')
     const [imageShow, setImageShow] = useState(true)
-
     const [date, setDate] = useState(new Date())
     const [mode, setMode] = useState('date')
     const [show, setShow] = useState(false)
+
+    const getUser = async () => {
+        try {
+            await firebase
+                .firestore()
+                .collection('users')
+                .doc(currentUser.uid)
+                .get()
+                .then((documentSnapshot) => {
+                    if (documentSnapshot.exists) {
+                        setUserData(documentSnapshot.data());
+                    }
+                })
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    useEffect(() => {
+        getUser()
+    }, [])
+
 
     const handleUpdate = async () => {
         const cUser = firebase.auth().currentUser;
@@ -46,18 +60,17 @@ export default function UserEditProfileScreen({ navigation }) {
                 .collection('users')
                 .doc(cUser.uid)
                 .update({
-                    userName: userName,
-                    userBio: userBio,
-                    userDateOfBirth: userDateOfBirth,
-                    userAge: userAge,
-                    userJob: userJob,
-                    userAddress: userAddress,
-                    userGender: userGender,
-                    userPhone: userPhone,
-                    userPhoto: userImg //userImgPath
+                    userName: userData.userName,
+                    userBio: userData.userBio,
+                    userDateOfBirth: userData.userDateOfBirth ? userData.userDateOfBirth : userDateOfBirth,
+                    userAge: userData.userAge,
+                    userJob: userData.userJob,
+                    userAddress: userData.userAddress,
+                    userGender: userData.userGender,
+                    userPhone: userData.userPhone,
+                    userPhoto: userData.userPhoto ? userData.userPhoto : userImg //userImgPath
                 })
                 .then(() => {
-                    console.log('User Updated!');
                     Alert.alert(
                         'Profil Güncellendi!',
                         'Bilgilerin başarıyla güncellendi.'
@@ -164,8 +177,12 @@ export default function UserEditProfileScreen({ navigation }) {
                     <Animatable.View style={styles.imageContainer}>
                         <TouchableOpacity onPress={() => PickImage()}>
                             <Image
-                                source={userImg ? { uri: userImg } : user}
                                 style={styles.image}
+                                source={
+                                    userImg ? { uri: userImg }
+                                        : userData.userPhoto ? { uri: userData.userPhoto }
+                                            : user
+                                }
                             />
                         </TouchableOpacity>
 
@@ -175,8 +192,8 @@ export default function UserEditProfileScreen({ navigation }) {
 
                     </Animatable.View>
                 ) : (
-                        null
-                    )
+                    null
+                )
             }
 
             <KeyboardAwareScrollView>
@@ -186,8 +203,10 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TextInput
                             onFocus={() => setImageShow(false)}
                             onSubmitEditing={() => setImageShow(true)}
-                            value={userName}
-                            onChangeText={value => setUserName(value)}
+                            // value={userData ? userData.userName : userName}
+                            // onChangeText={value => setUserName(value)}
+                            value={userData ? userData.userName : ''}
+                            onChangeText={(txt) => setUserData({ ...userData, userName: txt })}
                             style={{ paddingLeft: 25, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
                             placeholder='Ad Soyad'
                         />
@@ -201,9 +220,9 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TextInput
                             onFocus={() => setImageShow(false)}
                             onSubmitEditing={() => setImageShow(true)}
-                            value={userPhone}
+                            value={userData ? userData.userPhone : ''}
+                            onChangeText={(txt) => setUserData({ ...userData, userPhone: txt })}
                             keyboardType='number-pad'
-                            onChangeText={value => setUserPhone(value)}
                             style={{ paddingLeft: 35, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
                             placeholder='Telefon'
                         />
@@ -216,9 +235,9 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TextInput
                             onFocus={() => setImageShow(false)}
                             onSubmitEditing={() => setImageShow(true)}
-                            value={userAge}
+                            value={userData ? userData.userAge : ''}
+                            onChangeText={(txt) => setUserData({ ...userData, userAge: txt })}
                             keyboardType='number-pad'
-                            onChangeText={value => setUserAge(value)}
                             style={{ paddingLeft: 60, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
                             placeholder='Yaş'
                         />
@@ -231,8 +250,8 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TextInput
                             onFocus={() => setImageShow(false)}
                             onSubmitEditing={() => setImageShow(true)}
-                            value={userJob}
-                            onChangeText={value => setUserJob(value)}
+                            value={userData ? userData.userJob : ''}
+                            onChangeText={(txt) => setUserData({ ...userData, userJob: txt })}
                             style={{ paddingLeft: 37, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
                             placeholder='Meslek'
                         />
@@ -245,8 +264,8 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TextInput
                             onFocus={() => setImageShow(false)}
                             onSubmitEditing={() => setImageShow(true)}
-                            value={userAddress}
-                            onChangeText={value => setUserAddress(value)}
+                            value={userData ? userData.userAddress : ''}
+                            onChangeText={(txt) => setUserData({ ...userData, userAddress: txt })}
                             style={{ paddingLeft: 50, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
                             placeholder='Adres'
                         />
@@ -259,8 +278,8 @@ export default function UserEditProfileScreen({ navigation }) {
                         <TextInput
                             onFocus={() => setImageShow(false)}
                             onSubmitEditing={() => setImageShow(true)}
-                            value={userBio}
-                            onChangeText={value => setUserBio(value)}
+                            value={userData ? userData.userBio : ''}
+                            onChangeText={(txt) => setUserData({ ...userData, userBio: txt })}
                             style={{ paddingLeft: 30, marginTop: Platform.OS == 'ios' ? 6 : 2 }}
                             placeholder='Biyografi'
                         />
@@ -276,24 +295,26 @@ export default function UserEditProfileScreen({ navigation }) {
                                 Platform.OS == 'android' ? (
                                     <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
                                 ) : (
-                                        null
-                                    )
+                                    null
+                                )
                             }
                         </TouchableOpacity>
                     ) : (
-                            <TouchableOpacity
-                                onPress={() => showMode('date')}
-                                style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
-                                <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
-                                {
-                                    Platform.OS == 'android' ? (
-                                        <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
-                                    ) : (
-                                            null
-                                        )
-                                }
-                            </TouchableOpacity>
-                        )}
+                        <TouchableOpacity
+                            onPress={() => showMode('date')}
+                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                            <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
+                            <Text style={{ color: '#C0C0C0', fontSize: 15, textAlign: 'center' }}>({userData.userDateOfBirth})</Text>
+                            {
+                                Platform.OS == 'android' ? (
+                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
+                                ) : (
+                                    null
+                                )
+                            }
+                        </TouchableOpacity>
+                                              
+                    )}
 
                     {show && (
                         <>
@@ -313,10 +334,10 @@ export default function UserEditProfileScreen({ navigation }) {
                     )}
 
                     <RNPickerSelect
-                        value={userGender}
-                        style={{ inputAndroid: { color: 'black' } }}
-                        onValueChange={(value) => setUserGender(value)}
+                        value={userData ? userData.userGender : ''}
+                        onValueChange={(txt) => setUserData({ ...userData, userGender: txt })}
                         placeholder={{ label: "Cinsiyetinizi Seçiniz", value: "", color: 'gray' }}
+                        style={{ inputAndroid: { color: 'black', } }}
                         textInputProps={{
                             textAlign: 'center',
                             fontSize: 24,
@@ -327,6 +348,8 @@ export default function UserEditProfileScreen({ navigation }) {
                             { label: 'Kadın', value: 'Kadın' },
                         ]}
                     />
+
+
                 </View>
             </KeyboardAwareScrollView>
         </>

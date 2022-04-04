@@ -8,15 +8,16 @@ import {
     ImageBackground,
     StatusBar,
     ActivityIndicator,
+    LogBox
 } from 'react-native'
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants/index';
-import { AuthContext } from '../../../navigation/AuthProvider'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import firebase from 'firebase';
 
+LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core']);
 
 export default function UserHomeScreen({ navigation }) {
     const [user, setUser] = useState(firebase.auth().currentUser)
