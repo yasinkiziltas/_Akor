@@ -17,11 +17,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase'
 
 export default function UserProfileScreen({ navigation }) {
-    const { logout, userEmail } = useContext(AuthContext)
     const [user, setUser] = useState(firebase.auth().currentUser)
     const [userData, setUserData] = useState(null)
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
 
     const getUser = async () => {
         await firebase
@@ -36,18 +33,6 @@ export default function UserProfileScreen({ navigation }) {
                 }
             })
     }
-
-    AsyncStorage.getItem('cUsername').then(name => {
-        setName(name)
-    }).catch(e =>
-        console.log(e)
-    )
-
-    AsyncStorage.getItem('cUseremail').then(email => {
-        setEmail(email)
-    }).catch(e =>
-        console.log(e)
-    )
 
     useEffect(() => {
         getUser()
@@ -77,8 +62,8 @@ export default function UserProfileScreen({ navigation }) {
 
                 {/* İsim & Email */}
                 <View style={styles.userBio}>
-                    <Text style={styles.userBioNameText}>{name}</Text>
-                    <Text style={styles.userBioMailText}>{email}</Text>
+                    <Text style={styles.userBioNameText}>{userData ? userData.userName : null}</Text>
+                    <Text style={styles.userBioMailText}>{userData ? userData.userEmail : null}</Text>
                 </View>
 
             </Animatable.View>

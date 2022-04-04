@@ -19,9 +19,8 @@ import firebase from 'firebase';
 
 
 export default function UserHomeScreen({ navigation }) {
-    const { userName, userEmail } = useContext(AuthContext)
-    const [currentUserName, setCurrentUserName] = useState()
-    const [currentUserEmail, setCurrentUserMail] = useState()
+    const [user, setUser] = useState(firebase.auth().currentUser)
+    const [userData, setUserData] = useState(null)
     const [eventData, setEventData] = useState([])
     const [loading, setLoading] = useState()
 
@@ -50,20 +49,22 @@ export default function UserHomeScreen({ navigation }) {
         }
     }
 
+    const getUser = async () => {
+        await firebase
+            .firestore()
+            .collection('users')
+            .doc(user.uid)
+            .get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    setUserData(documentSnapshot.data());
+                }
+            })
+    }
+
     useEffect(() => {
         fetchEvents();
-
-        AsyncStorage.getItem('cUsername').then(user => {
-            setCurrentUserName(user)
-        }).catch(e =>
-            console.log(e)
-        )
-
-        AsyncStorage.getItem('cUseremail').then(useremail => {
-            setCurrentUserMail(useremail)
-        }).catch(e =>
-            console.log(e)
-        )
+        getUser();
     }, [])
 
     const renderItem = (data) => {
@@ -101,10 +102,6 @@ export default function UserHomeScreen({ navigation }) {
         )
     }
 
-    // const renderItemEvents = (item) => (
-
-    // )
-
     return (
         <>
             <StatusBar hidden={true} />
@@ -112,7 +109,16 @@ export default function UserHomeScreen({ navigation }) {
                 animation="fadeInUp"
                 style={styles.container}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.welcomeText}>Hoşgeldin! <Text style={styles.welcomeUserText}>{currentUserName}</Text></Text>
+                    <Text style={styles.welcomeText}>Hoşgeldin, {
+                        loading ?
+                            <ActivityIndicator
+                                style={{ marginHorizontal: 20 }}
+                                size={20}
+                                color="green"
+                            />
+                            :
+                            <Text style={styles.welcomeUserText}>{userData ? userData.userName : null}</Text>
+                    }</Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('Notifications')}
                         style={styles.addEvent}

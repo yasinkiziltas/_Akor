@@ -71,6 +71,8 @@ export const AuthProvider = ({ children, navigation }) => {
                             setUserName(user.displayName);
                             setEmail(user.email);
                             setLoading(false)
+                            AsyncStorage.setItem('cUsername', user.displayName)
+                            AsyncStorage.setItem('cUseremail', email)
                             AsyncStorage.setItem('cUsertype', userType)
                         }
 
