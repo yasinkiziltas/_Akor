@@ -5,11 +5,8 @@
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
 -Animatad öğren
 -Tüm ekranlara mobx ekle (AppStack öncelik)
-
--Profil sayfası bilgilerini getir.
 -Başvurularım sayfasında onpress yapınca başvuru modal olarak gözüksün, 
 başvuruyu iptal et butonu koy basınca silinsin.
--UserEditProfile sayfasında kullanıcının bilgileri dolu gelsin.
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)

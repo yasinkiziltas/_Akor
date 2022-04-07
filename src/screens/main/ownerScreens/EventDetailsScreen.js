@@ -56,6 +56,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           placeName: data.placeName,
           eventDate: data.eventDate,
           eventLocation: data.eventLocation,
+          eventDetail: data.eventDetail,
           eventHour: data.eventHour,
           img: data.img,
           // userAge: userData.userAge,
