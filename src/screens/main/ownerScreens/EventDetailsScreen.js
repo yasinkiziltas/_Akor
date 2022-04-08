@@ -74,6 +74,45 @@ export default function EventDetailsScreen({ navigation, route }) {
     }
   }
 
+  const favoriteConfirm = () => {
+    Alert.alert(
+      'Favori',
+      'Başvuruyu favorilere eklemek istediğinizden emin misiniz?',
+      [
+        { text: 'Evet', onPress: () => addFavorites() },
+        { text: 'Hayır', onPress: () => { }, style: 'cancel' },
+      ],
+      {
+        cancelable: true
+      }
+    );
+  }
+
+  const addFavorites = async () => {
+    try {
+      await firebase
+        .firestore()
+        .collection('favorites')
+        .add({
+          id: data.id,
+          userId: user.uid,
+          placeName: data.placeName,
+          eventDate: data.eventDate,
+          eventLocation: data.eventLocation,
+          eventDetail: data.eventDetail,
+          eventHour: data.eventHour,
+          img: data.img,
+        })
+        .then(() => {
+          Alert.alert(
+            'Favori ekleme işlemi',
+            'İlan favorilere eklendi!'
+          );
+        })
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   // const applyEvent = async () => {
   //   try {
@@ -136,6 +175,16 @@ export default function EventDetailsScreen({ navigation, route }) {
           marginLeft: 20,
         }}>{data.placeName}
         </Text>
+
+        <View style={{ position: 'absolute', right: 15, top: 25, }}>
+          <TouchableOpacity onPress={() => favoriteConfirm()}>
+            <Entypo
+              name='heart'
+              size={26}
+              color='red'
+            />
+          </TouchableOpacity>
+        </View>
 
         <View style={{ flexDirection: 'row' }}>
           <Text style={{

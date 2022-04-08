@@ -14,6 +14,7 @@ import UserEventsBookmarksScreen from '../screens/main/userScreens/UserEventsBoo
 import UserChangePasswordScreen from '../screens/main/userScreens/UserChangePasswordScreen'
 import UserChangeEmailScreen from '../screens/main/userScreens/UserChangeEmailScreen'
 import UserSettingsScreen from '../screens/main/userScreens/UserSettingsScreen'
+import UserFavoritesScreen from '../screens/main/userScreens/UserFavoritesScreen'
 import MessageScreen from '../screens/main/MessageScreen'
 import UserNotificationsScreen from '../screens/main/UserNotificationsScreen';
 
@@ -75,6 +76,7 @@ function ListEventsStackUsers({ navigation }) {
             <Stack.Screen name="ListEvents" component={UserEventsScreen} options={{ headerShown: false, }} />
             <Stack.Screen name="UserEventsBookmarks" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
             <Stack.Screen name="EventDetail" component={EventDetailsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserFavorites" component={UserFavoritesScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
@@ -93,6 +95,7 @@ function ProfileStackUsers() {
             <Stack.Screen name="Profile" component={UserProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserEditProfile" component={UserEditProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserEventsBookmark" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
+            {/* <Stack.Screen name="UserFavorites" component={UserFavoritesScreen} options={{ headerShown: false }} /> */}
             <Stack.Screen name="UserChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserChangeEmail" component={UserChangeEmailScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserSettings" component={UserSettingsScreen} options={{ headerShown: false }} />

@@ -25,15 +25,6 @@ export default function FormButton({ hidepass, value, onChangeText, placeholder,
                     placeholderTextColor="#666"
                     {...rest}
                 />
-
-                {hidepass ? (
-                    <AntDesign
-                        name="eye"
-                        size={20}
-                    />
-                ) : (
-                    null
-                )}
             </View>
         </View>
     )

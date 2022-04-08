@@ -21,12 +21,14 @@ import * as Yup from 'yup'
 import { Formik } from 'formik';
 import LottieView from 'lottie-react-native';
 import CustomHeader from '../../../components/CustomHeader';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function UserLoginScreen({ navigation }) {
 
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
     const [userType, setUserType] = useState('User')
+    const [hidePass, setHidePass] = useState(true);
     const { login, loading } = useContext(AuthContext)
 
     return (
@@ -97,16 +99,24 @@ export default function UserLoginScreen({ navigation }) {
                                         <Text style={styles.errors}>{errors.mail} </Text>
                                     }
 
-                                    <FormInput
+                                  <View style={{flexDirection:'row'}}>
+                                  <FormInput
                                         onBlur={() => setFieldTouched('password')}
                                         value={values.password}
                                         placeholder="Şifre"
                                         onChangeText={handleChange('password')}
-                                        // onChangeText={value => setPassword(value)}
                                         iconType="lock"
-                                        hidepass={true}
-                                        secureTextEntry={true}
+                                        secureTextEntry={hidePass ? true : false}
                                     />
+
+                                    <Icon
+                                        name={hidePass ? 'eye' : 'eye-slash'}
+                                        size={15}
+                                        style={{position:'absolute', right:15, top:10}}
+                                        color="grey"
+                                        onPress={() => setHidePass(!hidePass)}
+                                    />
+                                  </View>
 
                                     {(errors.password && touched.password) &&
                                         <Text style={styles.errors}>{errors.password} </Text>

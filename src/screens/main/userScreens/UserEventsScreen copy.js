@@ -299,7 +299,7 @@ export default function UserEventsScreen({ navigation }) {
                         value={search}
                     />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('UserEventsBookmarks')}
+                        onPress={() => navigation.navigate('UserFavoritesScreen')}
                         style={styles.bookmarkBtn}>
 
                         <AntDesign

@@ -132,7 +132,7 @@ export default function UserEventsScreen({ navigation }) {
                         value={search}
                     />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('UserEventsBookmarks')}
+                        onPress={() => navigation.navigate('UserFavorites')}
                         style={styles.bookmarkBtn}>
 
                         <AntDesign
@@ -197,10 +197,10 @@ export default function UserEventsScreen({ navigation }) {
                             keyExtractor={(item, index) => item.id}
                         />
                 ) : (
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
-                        </View>
-                    )}
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                    </View>
+                )}
             </View>
         </>
     );

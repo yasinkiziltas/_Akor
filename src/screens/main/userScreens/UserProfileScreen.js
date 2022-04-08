@@ -91,12 +91,25 @@ export default function UserProfileScreen({ navigation }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity
+                            onPress={() => navigation.navigate('UserFavorites')}
+                            style={styles.profile}>
+                            <TouchableOpacity style={styles.favBtn}>
+                                <Ionicons
+                                    color="#6344f1"
+                                    name="md-bookmark-outline"
+                                    size={24}
+                                />
+                            </TouchableOpacity>
+                            <Text style={styles.btnText}>Favoriler</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
                             onPress={() => navigation.navigate('UserEventsBookmark')}
                             style={styles.profile}>
                             <TouchableOpacity style={styles.bookmarkBtn}>
                                 <Ionicons
                                     color="#6ac26d"
-                                    name="md-bookmark-outline"
+                                    name="md-people-circle"
                                     size={24}
                                 />
                             </TouchableOpacity>
@@ -187,6 +200,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 30,
         backgroundColor: '#ddecf7',
+        width: 50,
+        height: 50,
+        borderRadius: 30
+    },
+    favBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 30,
+        backgroundColor: '#e2e1f7',
         width: 50,
         height: 50,
         borderRadius: 30
