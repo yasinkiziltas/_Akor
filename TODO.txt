@@ -1,13 +1,13 @@
 -Mesajlaşma entegrasyonunu hallet (user-mekan sahibi)
 -Bildirim entegrasyonunu hallet (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 -UserEventList ekranında arama yapma butonunu hallet
--Mekan sahibi event eklerken random id eklet
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
 -Animatad öğren
 -Tüm ekranlara mobx ekle (AppStack öncelik)
--Başvurularım sayfasında onpress yapınca başvuru modal olarak gözüksün, 
-başvuruyu iptal et butonu koy basınca silinsin.
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
 -Uygulamayı değerlendir Android tarafında çalışmıyor
+
+MEKAN SAHIBI TARAFI
+-Mekan sahibi event eklerken random id eklet

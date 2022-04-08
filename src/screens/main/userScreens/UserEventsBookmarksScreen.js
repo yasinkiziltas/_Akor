@@ -92,53 +92,46 @@ export default function UserEventsBookmarks({ navigation }) {
       data.item.userId == user.uid
         ?
         <ScrollView>
-          <View style={{ margin: 18 }}>
-          <View style={styles.centeredView}>
-            <Modal
-              animationType=""
-              transparent={true}
-              visible={modalVisible}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <TouchableOpacity
-                    onPress={() => setModalVisible(!modalVisible)}
-                    style={{position:'absolute', right:40, top:25}}
-                  >
-                    <Text style={{ color: 'red', fontWeight: 'bold' }}>Kapat</Text>
-                  </TouchableOpacity>
+          <View style={{ margin: 15 }}>
+            <View style={styles.centeredView}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}>
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <Pressable>
+                      <Text style={styles.textStyle}>{data.item.placeName}</Text>
+                      <ScrollView>
+                        <ReadMore
+                          seeMoreText='Daha fazla..'
+                          seeLessText='Daha az..'
+                          animate='#92C19C'
+                          numberOfLines={10}>
+                          {
+                            data.item.eventDetail
+                          }
+                        </ReadMore>
 
-                  <Pressable>
-                    <Text style={styles.textStyle}>{data.item.placeName}</Text>
-                    <ScrollView>
-                      <ReadMore
-                        seeMoreText='Daha fazla..'
-                        seeLessText='Daha az..'
-                        animate='#92C19C'
-                        numberOfLines={10}>
-                        {
-                          data.item.eventDetail
-                        }
-                      </ReadMore>
+                        <View style={{ flexDirection: 'row' }}>
+                          <TouchableOpacity
+                            onPress={() => deleteConfirm(data.item.id)}
+                            style={styles.btn}>
+                            <Text style={styles.btnText}>Sil</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={() => setModalVisible(!modalVisible)}
+                            style={styles.btn}>
+                            <Text style={styles.btnText}>Kapat</Text>
+                          </TouchableOpacity>
 
-                      <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity
-                          onPress={() => setModalVisible(!modalVisible)}
-                          style={styles.btn}>
-                          <Text style={styles.btnText}>Başvur</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                          onPress={() => deleteConfirm(data.item.id)}
-                          style={styles.btn}>
-                          <Text style={styles.btnText}>Sil</Text>
-                        </TouchableOpacity>
-                      </View>
-                    </ScrollView>
-                  </Pressable>
+                        </View>
+                      </ScrollView>
+                    </Pressable>
+                  </View>
                 </View>
-              </View>
-            </Modal>
-          </View>
+              </Modal>
+            </View>
             <TouchableOpacity
               onPress={() => setModalVisible(!modalVisible)}
               style={styles.content}
@@ -149,18 +142,6 @@ export default function UserEventsBookmarks({ navigation }) {
                   source={data.item.img}
                   style={styles.img}
                 />
-                <TouchableOpacity
-                  onPress={() => deleteConfirm(data.item.id)}
-                  style={styles.delete}>
-                  <AntDesign
-                    style={styles.deleteIcon}
-                    color="red"
-                    size={20}
-                    name="delete"
-                  />
-
-                </TouchableOpacity>
-
                 <View style={{ flexDirection: 'column' }}>
                   <Text style={styles.eventInfo}>{data.item.eventDate}  {data.item.eventHour}</Text>
                   <Text style={styles.eventPlaceName}>{data.item.placeName}</Text>
