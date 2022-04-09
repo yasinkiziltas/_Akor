@@ -7,11 +7,9 @@ import {
     ScrollView,
     Image
 } from 'react-native'
-import { AuthContext } from '../../../navigation/AuthProvider'
 import { LinearGradient } from 'expo-linear-gradient';
-import { COLORS, SIZES } from '../../../constants/theme';
+import { COLORS } from '../../../constants/theme';
 import * as Animatable from 'react-native-animatable';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase'

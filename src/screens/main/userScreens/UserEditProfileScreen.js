@@ -63,7 +63,7 @@ export default function UserEditProfileScreen({ navigation }) {
                     userName: userData.userName,
                     userBio: userData.userBio,
                     userDateOfBirth: userData.userDateOfBirth ? userData.userDateOfBirth : userDateOfBirth,
-                    // userAge: userData.userAge,
+                    userAge: userData.userAge,
                     userJob: userData.userJob,
                     userAddress: userData.userAddress,
                     userGender: userData.userGender,
@@ -313,7 +313,7 @@ export default function UserEditProfileScreen({ navigation }) {
                                 )
                             }
                         </TouchableOpacity>
-                                              
+
                     )}
 
                     {show && (
