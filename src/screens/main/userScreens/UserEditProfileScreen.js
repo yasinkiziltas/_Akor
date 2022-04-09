@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
     View,
     StyleSheet,
@@ -8,7 +8,6 @@ import {
     StatusBar,
     TextInput,
     Image,
-    Alert,
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -18,6 +17,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import firebase from 'firebase'
 import { user } from '../../../constants/images'
 import * as ImagePicker from 'expo-image-picker';
+import CustomAlert from '../../../components/CustomAlert';
 
 export default function UserEditProfileScreen({ navigation }) {
     const [currentUser, setCurrentUser] = useState(firebase.auth().currentUser)
@@ -51,7 +51,6 @@ export default function UserEditProfileScreen({ navigation }) {
         getUser()
     }, [])
 
-
     const handleUpdate = async () => {
         const cUser = firebase.auth().currentUser;
         try {
@@ -71,10 +70,12 @@ export default function UserEditProfileScreen({ navigation }) {
                     userPhoto: userImg ? userImg : userData.userPhoto  //userImgPath
                 })
                 .then(() => {
-                    Alert.alert(
-                        'Profil Güncellendi!',
-                        'Bilgilerin başarıyla güncellendi.'
-                    );
+                    // Alert.alert(
+                    //     'Profil Güncellendi!',
+                    //     'Bilgilerin başarıyla güncellendi.'
+                    // );
+                    <CustomAlert />
+                    
                 })
         } catch (error) {
             alert(error)
@@ -135,14 +136,14 @@ export default function UserEditProfileScreen({ navigation }) {
                             navigation={navigation}
                         />
                         <TouchableOpacity
-                            style={{ position: 'absolute', left: 15, right: 10, top: 35 }}
+                            style={styles.cancel}
                             onPress={() => navigation.goBack()}
                         >
                             <Text style={{ color: '#0a0a0a', fontSize: 18 }}>İptal</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            style={{ position: 'absolute', right: 10, top: 35 }}
+                            style={styles.ok}
                             onPress={() => handleUpdate()}
                         >
                             <Text style={{ color: '#0793e3', fontWeight: 'bold', fontSize: 18 }}>Kaydet</Text>
@@ -362,6 +363,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    cancel:{
+        position: 'absolute', 
+        left: 15, 
+        right: 10, 
+        top: 35 
+    },
+    ok:{
+        position: 'absolute', 
+        right: 10, 
+        top: 35
+    },
     image: {
         borderRadius: 50,
         width: 90,
@@ -377,6 +389,47 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',
         borderBottomWidth: 0.3,
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
+    },
+    buttonOpen: {
+        backgroundColor: "#F194FF",
+    },
+    buttonClose: {
+        backgroundColor: "#2196F3",
+    },
+    textStyle: {
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: "center"
+    }
 })
 
 

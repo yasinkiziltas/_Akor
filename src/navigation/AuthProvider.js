@@ -127,6 +127,7 @@ export const AuthProvider = ({ children, navigation }) => {
                                 userPhone: null,
                                 userJob: null,
                                 userDateOfBirth: null,
+                                userAge: null,
                                 userJob: null,
                                 userPhoto: null,
                                 userAddress: null,
