@@ -62,7 +62,7 @@ export default function UserEventsBookmarks({ navigation }) {
         .doc(id)
         .delete()
         .then(() => {
-          alert('Başvuru başarıyla silinmiştir!')
+          alert('Başvuru başarıyla iptal edildi!')
         })
     } catch (error) {
       alert(error)
@@ -117,7 +117,7 @@ export default function UserEventsBookmarks({ navigation }) {
                           <TouchableOpacity
                             onPress={() => deleteConfirm(data.item.id)}
                             style={styles.btn}>
-                            <Text style={styles.btnText}>Sil</Text>
+                            <Text style={styles.btnText}>İptal Et</Text>
                           </TouchableOpacity>
                           <TouchableOpacity
                             onPress={() => setModalVisible(!modalVisible)}

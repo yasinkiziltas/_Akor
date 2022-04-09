@@ -63,12 +63,12 @@ export default function UserEditProfileScreen({ navigation }) {
                     userName: userData.userName,
                     userBio: userData.userBio,
                     userDateOfBirth: userData.userDateOfBirth ? userData.userDateOfBirth : userDateOfBirth,
-                    userAge: userData.userAge,
+                    // userAge: userData.userAge,
                     userJob: userData.userJob,
                     userAddress: userData.userAddress,
                     userGender: userData.userGender,
                     userPhone: userData.userPhone,
-                    userPhoto: userData.userPhoto ? userData.userPhoto : userImg //userImgPath
+                    userPhoto: userImg ? userImg : userData.userPhoto  //userImgPath
                 })
                 .then(() => {
                     Alert.alert(
@@ -304,7 +304,7 @@ export default function UserEditProfileScreen({ navigation }) {
                             onPress={() => showMode('date')}
                             style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
                             <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
-                            <Text style={{ color: '#C0C0C0', fontSize: 15, textAlign: 'center' }}>({userData.userDateOfBirth})</Text>
+                            <Text style={{ color: '#C0C0C0', fontSize: 15, textAlign: 'center' }}> {userData.userDateOfBirth ? (userData.userDateOfBirth) : null}</Text>
                             {
                                 Platform.OS == 'android' ? (
                                     <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
