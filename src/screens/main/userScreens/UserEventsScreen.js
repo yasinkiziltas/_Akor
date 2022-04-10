@@ -10,12 +10,8 @@ import {
     TouchableHighlight,
     ActivityIndicator,
     Image,
-    ScrollView,
     FlatList,
 } from 'react-native'
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { DATA } from '../../../constants/mainEvents'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Searchbar } from 'react-native-paper';
 import { SIZES } from '../../../constants';
@@ -42,7 +38,6 @@ export default function UserEventsScreen({ navigation }) {
                         objectsArray.push(user.data());
                     });
                     setListEvents(objectsArray)
-                    // console.log(listEvents)
                     setLoading(false)
                 });
         } catch (error) {
@@ -197,10 +192,10 @@ export default function UserEventsScreen({ navigation }) {
                             keyExtractor={(item, index) => item.id}
                         />
                 ) : (
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
-                    </View>
-                )}
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: 'gray', fontWeight: 'bold' }}>Hiç etkinlik bulunamadı..</Text>
+                        </View>
+                    )}
             </View>
         </>
     );

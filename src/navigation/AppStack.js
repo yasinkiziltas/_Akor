@@ -99,6 +99,7 @@ function ProfileStackUsers() {
             <Stack.Screen name="UserChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserChangeEmail" component={UserChangeEmailScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserSettings" component={UserSettingsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserFavorite" component={UserFavoritesScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

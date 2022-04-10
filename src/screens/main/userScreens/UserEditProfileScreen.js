@@ -75,7 +75,7 @@ export default function UserEditProfileScreen({ navigation }) {
                     //     'Bilgilerin başarıyla güncellendi.'
                     // );
                     <CustomAlert />
-                    
+
                 })
         } catch (error) {
             alert(error)
@@ -193,8 +193,8 @@ export default function UserEditProfileScreen({ navigation }) {
 
                     </Animatable.View>
                 ) : (
-                    null
-                )
+                        null
+                    )
             }
 
             <KeyboardAwareScrollView>
@@ -296,26 +296,26 @@ export default function UserEditProfileScreen({ navigation }) {
                                 Platform.OS == 'android' ? (
                                     <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
                                 ) : (
-                                    null
-                                )
+                                        null
+                                    )
                             }
                         </TouchableOpacity>
                     ) : (
-                        <TouchableOpacity
-                            onPress={() => showMode('date')}
-                            style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
-                            <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
-                            <Text style={{ color: '#C0C0C0', fontSize: 15, textAlign: 'center' }}> {userData.userDateOfBirth ? (userData.userDateOfBirth) : null}</Text>
-                            {
-                                Platform.OS == 'android' ? (
-                                    <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
-                                ) : (
-                                    null
-                                )
-                            }
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => showMode('date')}
+                                style={{ marginTop: 15, marginLeft: 1, marginBottom: 10 }}>
+                                <Text style={{ color: '#C0C0C0', fontSize: 22, textAlign: 'center' }}>Doğum Tarihi Seçiniz</Text>
+                                <Text style={{ color: '#C0C0C0', fontSize: 15, textAlign: 'center' }}> {userData.userDateOfBirth ? (userData.userDateOfBirth) : null}</Text>
+                                {
+                                    Platform.OS == 'android' ? (
+                                        <Text style={{ color: 'black', fontSize: 22, textAlign: 'center' }}>{userDateOfBirth}</Text>
+                                    ) : (
+                                            null
+                                        )
+                                }
+                            </TouchableOpacity>
 
-                    )}
+                        )}
 
                     {show && (
                         <>
@@ -363,15 +363,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    cancel:{
-        position: 'absolute', 
-        left: 15, 
-        right: 10, 
-        top: 35 
+    cancel: {
+        position: 'absolute',
+        left: 15,
+        right: 10,
+        top: 35
     },
-    ok:{
-        position: 'absolute', 
-        right: 10, 
+    ok: {
+        position: 'absolute',
+        right: 10,
         top: 35
     },
     image: {

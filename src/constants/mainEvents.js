@@ -21,13 +21,13 @@ export const DATA = [
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d73',
-        placeName: 'Zorlu PSM',
+        placeName: 'IF Beşiktaş',
         eventType: 'Pop',
-        eventLocation: 'İzmir',
+        eventLocation: 'İstanbul',
         eventDetail: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
         eventDate: '12 Ocak',
         eventHour: '19:30',
-        img: require('../../assets/images/zorlu.jpg')
+        img: require('../../assets/images/if.png')
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d712',
@@ -41,13 +41,13 @@ export const DATA = [
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d732',
-        placeName: 'Zorlu PSM',
+        placeName: 'Dorock XL',
         eventType: 'Rap',
         eventLocation: 'Ankara',
         eventDetail: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
         eventDate: '15 Ocak',
         eventHour: '12:00',
-        img: require('../../assets/images/zorlu.jpg')
+        img: require('../../assets/images/dorock.jpg')
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d7311',

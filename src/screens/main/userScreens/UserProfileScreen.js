@@ -89,7 +89,7 @@ export default function UserProfileScreen({ navigation }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('UserFavorites')}
+                            onPress={() => navigation.navigate('UserFavorite')}
                             style={styles.profile}>
                             <TouchableOpacity style={styles.favBtn}>
                                 <Ionicons

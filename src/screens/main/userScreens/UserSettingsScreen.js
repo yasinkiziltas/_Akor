@@ -29,7 +29,7 @@ const onShare = () => {
 }
 
 export default function UserSettingsScreen({ navigation }) {
-  const {logout, loadingLogout} = useContext(AuthContext)
+  const { logout, loadingLogout } = useContext(AuthContext)
   return (
     <>
       {
@@ -209,20 +209,21 @@ export default function UserSettingsScreen({ navigation }) {
           </View>
         </View>
 
-        {loadingLogout ? (
-          <ActivityIndicator
-            size={24}
-            color="red"
-          />
-        ) : (
-          null
-        )}
-
         <TouchableOpacity
           onPress={() => logout()}
-          style={{ flex: 1, marginTop: 15, alignItems: 'center' }}
+          style={{ flex: 1, marginTop: 50, alignItems: 'center' }}
         >
           <Text style={{ fontSize: 17, color: 'blue' }}>Çıkış Yap</Text>
+
+          {loadingLogout ? (
+            <ActivityIndicator
+              size={24}
+              style={{ marginTop: 20 }}
+              color="red"
+            />
+          ) : (
+              null
+            )}
         </TouchableOpacity>
       </View>
     </>

@@ -74,6 +74,35 @@ export default function EventDetailsScreen({ navigation, route }) {
     }
   }
 
+  const addEvent = () => {
+    try {
+      firebase
+        .firestore()
+        .collection('events')
+        .add({
+          id: data.id,
+          placeName: data.placeName,
+          eventType: data.eventType,
+          eventLocation: data.eventLocation,
+          eventDetail: data.eventDetail,
+          eventDate: data.eventDate,
+          eventHour: data.eventHour,
+          img: data.img,
+          isActive: true
+        })
+        .then(() => {
+          console.log('Eklendi');
+          Alert.alert(
+            'Eklendi',
+            'Eklendi.'
+          );
+        })
+    } catch (error) {
+      alert(error)
+      console.log(error)
+    }
+  }
+
   const favoriteConfirm = () => {
     Alert.alert(
       'Favori',
@@ -105,7 +134,7 @@ export default function EventDetailsScreen({ navigation, route }) {
         })
         .then(() => {
           Alert.alert(
-            'Favori ekleme işlemi',
+            'Başarılı!',
             'İlan favorilere eklendi!'
           );
         })
@@ -244,6 +273,20 @@ export default function EventDetailsScreen({ navigation, route }) {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => addEvent()}
+          style={[styles.btn, { marginTop: 10 }]}>
+          <View style={styles.btnContainer}>
+            <Entypo
+              style={{ marginRight: 5, marginTop: 5 }}
+              color={"white"}
+              size={18}
+              name="check"
+            />
+            <Text style={styles.btnText}>İlanı Ekle</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           onPress={() => sendMessage()}
           style={[styles.btn, { marginTop: 20 }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -295,34 +338,3 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS == 'ios' ? 6 : 4
   },
 })
-
-
-//event ekleme kodu
-// const applyEvent = () => {
-//   try {
-//     firebase
-//       .firestore()
-//       .collection('events')
-//       .add({
-//         id: data.id,
-//         placeName: data.placeName,
-//         eventType: data.eventType,
-//         eventLocation: data.eventLocation,
-//         eventDetail: data.eventDetail,
-//         eventDate: data.eventDate,
-//         eventHour: data.eventHour,
-//         img: data.img,
-//         isActive: true
-//       })
-//       .then(() => {
-//         console.log('Eklendi');
-//         Alert.alert(
-//           'Eklendi',
-//           'Eklendi.'
-//         );
-//       })
-//   } catch (error) {
-//     alert(error)
-//     console.log(error)
-//   }
-// }
