@@ -15,7 +15,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function UserFavoritesScreen({ navigation }) {
-  const [userData, setUserData] = useState(null)
+  const [userData, setUserData] = useState([])
   const cUser = firebase.auth().currentUser;
 
   const favoriteList = async () => {
@@ -26,8 +26,13 @@ export default function UserFavoritesScreen({ navigation }) {
         .get()
         .then((querySnapshot) => {
           const objectsArray = [];
-          querySnapshot.forEach((event) => {
-            objectsArray.push(event.data());
+          querySnapshot.forEach((fav) => {
+            {
+              fav.data().userId == cUser.uid ?
+                objectsArray.push(fav.data())
+                :
+                null
+            }
           });
           setUserData(objectsArray)
         });
@@ -102,14 +107,7 @@ export default function UserFavoritesScreen({ navigation }) {
 
               </TouchableOpacity>
               :
-              <View style={styles.container}>
-                <MaterialIcons
-                  size={45}
-                  color="gray"
-                  name="favorite-border"
-                />
-                <Text style={{ color: 'gray', marginTop: 5 }}>Favori ilanınınz bulunmamaktadir..</Text>
-              </View>
+              null
           }
 
         </ScrollView>
@@ -120,12 +118,27 @@ export default function UserFavoritesScreen({ navigation }) {
   return (
     <>
       <Text style={styles.fav}>Favoriler</Text>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        data={userData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      {
+        userData.length > 0 ?
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            data={userData}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+
+          />
+          :
+          <View style={styles.container}>
+            <MaterialIcons
+              size={45}
+              color="gray"
+              name="favorite-border"
+            />
+            <Text style={{ color: 'gray', marginTop: 5 }}>Favori ilanınınz bulunmamaktadir..</Text>
+          </View>
+
+      }
+
     </>
   )
 }
