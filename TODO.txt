@@ -2,16 +2,19 @@
 -Bildirim entegrasyonunu hallet (İlk baştaki bildirim hoşgeldiniz bildirimi olabilir)
 -UserEventList ekranında arama yapma butonunu hallet
 -UserEventList ekranına profil butonu koyulacak bastığında drawer navigator acılacak profil göstericek
--Animatad öğren
 -Tüm ekranlara mobx ekle (AppStack öncelik)
--Login ekranında şifre görme olayını yap
 -User Auth ekranlarının UI değiştir
+-UserDetail'da başvururken confirm oluştur.
+
+
 
 MEKAN SAHIBI TARAFI
 -Mekan sahibi event eklerken random id eklet
 
-
-
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)
 -Uygulamayı değerlendir Android tarafında çalışmıyor
+
+
+GENEL
+-Animatad öğren

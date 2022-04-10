@@ -122,7 +122,8 @@ export default function EventDetailsScreen({ navigation, route }) {
       await firebase
         .firestore()
         .collection('favorites')
-        .add({
+        .doc(data.id)
+        .set({
           id: data.id,
           userId: user.uid,
           placeName: data.placeName,
@@ -132,6 +133,16 @@ export default function EventDetailsScreen({ navigation, route }) {
           eventHour: data.eventHour,
           img: data.img,
         })
+        // .add({
+        //   id: data.id,
+        //   userId: user.uid,
+        //   placeName: data.placeName,
+        //   eventDate: data.eventDate,
+        //   eventLocation: data.eventLocation,
+        //   eventDetail: data.eventDetail,
+        //   eventHour: data.eventHour,
+        //   img: data.img,
+        // })
         .then(() => {
           Alert.alert(
             'Başarılı!',

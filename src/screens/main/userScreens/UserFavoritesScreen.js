@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native'
 import firebase from 'firebase'
 import { SIZES } from '../../../constants/index'
-import CustomHeader from '../../../components/CustomHeader'
+import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function UserFavoritesScreen({ navigation }) {
@@ -33,6 +34,35 @@ export default function UserFavoritesScreen({ navigation }) {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const deleteFavorite = (id) => {
+    try {
+      firebase
+        .firestore()
+        .collection('favorites')
+        .doc(id)
+        .delete()
+        .then(() => {
+          alert('Favori başarıyla silindi!')
+        })
+    } catch (error) {
+      alert(error)
+    }
+  }
+
+  const deleteConfirm = (id) => {
+    Alert.alert(
+      'Favori',
+      'Favoriyi silmek istediğinizden emin misiniz?',
+      [
+        { text: 'Evet', onPress: () => deleteFavorite(id) },
+        { text: 'Hayır', onPress: () => { }, style: 'cancel' },
+      ],
+      {
+        cancelable: true
+      }
+    );
   }
 
   useEffect(() => {
@@ -60,6 +90,15 @@ export default function UserFavoritesScreen({ navigation }) {
                   <Text style={styles.subText}>{data.item.eventHour}</Text>
                 </View>
 
+                <TouchableOpacity
+                  onPress={() => deleteConfirm(data.item.id)}
+                  style={{ position: 'absolute', right: 10 }}>
+                  <Feather
+                    name="x-circle"
+                    size={30}
+                    color="red"
+                  />
+                </TouchableOpacity>
 
               </TouchableOpacity>
               :
