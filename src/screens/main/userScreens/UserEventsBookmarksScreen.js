@@ -41,8 +41,13 @@ export default function UserEventsBookmarks({ navigation }) {
         .get()
         .then((querySnapshot) => {
           const objectsArray = [];
-          querySnapshot.forEach((d) => {
-            objectsArray.push(d.data());
+          querySnapshot.forEach((fav) => {
+            {
+              fav.data().userId == user.uid ?
+                objectsArray.push(fav.data())
+                :
+                null
+            }
           });
           setRecdata(objectsArray)
           setLoading(false)

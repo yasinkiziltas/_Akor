@@ -8,6 +8,7 @@ import {
     StatusBar,
     TextInput,
     Image,
+    Alert
 } from 'react-native'
 import CustomHeader from '../../../components/CustomHeader';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -70,11 +71,11 @@ export default function UserEditProfileScreen({ navigation }) {
                     userPhoto: userImg ? userImg : userData.userPhoto  //userImgPath
                 })
                 .then(() => {
-                    // Alert.alert(
-                    //     'Profil Güncellendi!',
-                    //     'Bilgilerin başarıyla güncellendi.'
-                    // );
-                    <CustomAlert />
+                    Alert.alert(
+                        'Profil Güncellendi!',
+                        'Bilgilerin başarıyla güncellendi.'
+                    );
+                    // <CustomAlert />
 
                 })
         } catch (error) {
