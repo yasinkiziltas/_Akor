@@ -102,7 +102,7 @@ export default function UserProfileScreen({ navigation }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('UserEventsBookmark')}
+                            onPress={() => navigation.navigate('UserApplys')}
                             style={styles.profile}>
                             <TouchableOpacity style={styles.bookmarkBtn}>
                                 <Ionicons

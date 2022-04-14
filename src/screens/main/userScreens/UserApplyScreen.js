@@ -176,18 +176,28 @@ export default function UserEventsBookmarks({ navigation }) {
                           <>
                             <View style={{ flexDirection: 'column' }}>
                               <Text style={styles.eventStatusSuccess}>{data.item.eventStatus}</Text>
-
-                              <TouchableOpacity
-                                onPress={() => alert('Mesaj ekranına git')}
-                                style={{ marginTop: 10 }}>
-                                <Text>Mesaj Gönder</Text>
-                              </TouchableOpacity>
                             </View>
                           </>
                           :
                           <Text style={styles.eventStatusWaiting}>{data.item.eventStatus}</Text>
                       }
                     </View>
+
+                    {
+                      data.item.eventStatus == 'Onaylandı' ?
+                        <TouchableOpacity
+                          onPress={() => alert('Mesaj ekranına git')}
+                          style={{
+                            height: 18,
+                            borderRadius: 15,
+                            marginTop: 10,
+                            backgroundColor: 'green',
+                          }}>
+                          <Text style={{ textAlign: 'center', color: 'white', fontWeight: 'bold' }}>Mesaj Gönder</Text>
+                        </TouchableOpacity>
+                        : null
+                    }
+
                   </View>
                 </View>
               </TouchableOpacity>

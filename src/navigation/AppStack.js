@@ -10,7 +10,7 @@ import UserHomeScreen from '../screens/main/userScreens/UserHomeScreen';
 import UserEventsScreen from '../screens/main/userScreens/UserEventsScreen';
 import UserProfileScreen from '../screens/main/userScreens/UserProfileScreen'
 import UserEditProfileScreen from '../screens/main/userScreens/UserEditProfileScreen'
-import UserEventsBookmarksScreen from '../screens/main/userScreens/UserEventsBookmarksScreen'
+import UserApplyScreen from '../screens/main/userScreens/UserApplyScreen'
 import UserChangePasswordScreen from '../screens/main/userScreens/UserChangePasswordScreen'
 import UserChangeEmailScreen from '../screens/main/userScreens/UserChangeEmailScreen'
 import UserSettingsScreen from '../screens/main/userScreens/UserSettingsScreen'
@@ -74,7 +74,7 @@ function ListEventsStackUsers({ navigation }) {
     return (
         <Stack.Navigator>
             <Stack.Screen name="ListEvents" component={UserEventsScreen} options={{ headerShown: false, }} />
-            <Stack.Screen name="UserEventsBookmarks" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserApply" component={UserApplyScreen} options={{ headerShown: false }} />
             <Stack.Screen name="EventDetail" component={EventDetailsScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserFavorites" component={UserFavoritesScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
@@ -94,7 +94,7 @@ function ProfileStackUsers() {
         <Stack.Navigator initialRouteName="Profile">
             <Stack.Screen name="Profile" component={UserProfileScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserEditProfile" component={UserEditProfileScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="UserEventsBookmark" component={UserEventsBookmarksScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="UserApplys" component={UserApplyScreen} options={{ headerShown: false }} />
             {/* <Stack.Screen name="UserFavorites" component={UserFavoritesScreen} options={{ headerShown: false }} /> */}
             <Stack.Screen name="UserChangePassword" component={UserChangePasswordScreen} options={{ headerShown: false }} />
             <Stack.Screen name="UserChangeEmail" component={UserChangeEmailScreen} options={{ headerShown: false }} />
