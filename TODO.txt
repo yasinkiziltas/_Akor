@@ -7,7 +7,6 @@
 -UserDetail'da başvururken confirm oluştur.
 -Favoriler ve Başvurulardaki lenght olayını düzelt (eğer yoksa yazı gözüksün.)
 
-
 MEKAN SAHIBI TARAFI
 -Mekan sahibi event eklerken random id eklet
 

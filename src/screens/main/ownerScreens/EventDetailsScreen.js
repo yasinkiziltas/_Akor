@@ -58,6 +58,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           eventLocation: data.eventLocation,
           eventDetail: data.eventDetail,
           eventHour: data.eventHour,
+          eventStatus: 'Beklemede',
           img: data.img,
           // userAge: userData.userAge,
         })

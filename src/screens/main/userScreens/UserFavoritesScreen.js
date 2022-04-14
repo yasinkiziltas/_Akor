@@ -92,19 +92,18 @@ export default function UserFavoritesScreen({ navigation }) {
                 <View style={styles.subContainer}>
                   <Text style={styles.subPlaceText}>{data.item.placeName}, ({data.item.eventLocation})</Text>
                   <Text style={styles.subText}>{data.item.eventDate}</Text>
-                  <Text style={styles.subText}>{data.item.eventHour}</Text>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.subText}>{data.item.eventHour}</Text>
+                    <TouchableOpacity onPress={() => deleteConfirm(data.item.id)}>
+                      <Feather
+                        style={{ marginLeft: 5 }}
+                        name="x-circle"
+                        size={22}
+                        color="red"
+                      />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-
-                <TouchableOpacity
-                  onPress={() => deleteConfirm(data.item.id)}
-                  style={{ position: 'absolute', right: 10 }}>
-                  <Feather
-                    name="x-circle"
-                    size={30}
-                    color="red"
-                  />
-                </TouchableOpacity>
-
               </TouchableOpacity>
               :
               null

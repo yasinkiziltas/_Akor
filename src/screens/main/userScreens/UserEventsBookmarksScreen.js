@@ -58,6 +58,23 @@ export default function UserEventsBookmarks({ navigation }) {
     }
   }
 
+  const successEvent = (eventId) => {
+    try {
+      firebase
+        .firestore()
+        .collection('recourses')
+        .doc(eventId)
+        .update({
+          eventStatus: 'Başarılı'
+        })
+        .then(() => {
+          alert('Başarılı')
+        })
+    } catch (error) {
+      alert(error)
+    }
+  }
+
   const deleteEvent = (id) => {
     setModalVisible(!modalVisible)
     try {
@@ -96,66 +113,94 @@ export default function UserEventsBookmarks({ navigation }) {
     return (
       data.item.userId == user.uid
         ?
-        <ScrollView>
-          <View style={{ margin: 15 }}>
-            <View style={styles.centeredView}>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}>
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <Pressable>
-                      <Text style={styles.textStyle}>{data.item.placeName}</Text>
-                      <ScrollView>
-                        <ReadMore
-                          seeMoreText='Daha fazla..'
-                          seeLessText='Daha az..'
-                          animate='#92C19C'
-                          numberOfLines={10}>
-                          {
-                            data.item.eventDetail
-                          }
-                        </ReadMore>
+        <>
+          <ScrollView>
+            <View style={{ margin: 15 }}>
+              <View style={styles.centeredView}>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}>
+                  <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                      <Pressable>
+                        <Text style={styles.textStyle}>{data.item.placeName}</Text>
+                        <ScrollView>
+                          <ReadMore
+                            seeMoreText='Daha fazla..'
+                            seeLessText='Daha az..'
+                            animate='#92C19C'
+                            numberOfLines={10}>
+                            {
+                              data.item.eventDetail
+                            }
+                          </ReadMore>
 
-                        <View style={{ flexDirection: 'row' }}>
-                          <TouchableOpacity
-                            onPress={() => deleteConfirm(data.item.id)}
-                            style={styles.btn}>
-                            <Text style={styles.btnText}>İptal Et</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            onPress={() => setModalVisible(!modalVisible)}
-                            style={styles.btn}>
-                            <Text style={styles.btnText}>Kapat</Text>
-                          </TouchableOpacity>
+                          <View style={{ flexDirection: 'row' }}>
+                            <TouchableOpacity
+                              onPress={() => deleteConfirm(data.item.id)}
+                              style={styles.btn}>
+                              <Text style={styles.btnText}>İptal Et</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              onPress={() => setModalVisible(!modalVisible)}
+                              style={styles.btn}>
+                              <Text style={styles.btnText}>Kapat</Text>
+                            </TouchableOpacity>
 
-                        </View>
-                      </ScrollView>
-                    </Pressable>
+                          </View>
+                        </ScrollView>
+                      </Pressable>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
+              <TouchableOpacity
+                onPress={() => setModalVisible(!modalVisible)}
+                style={styles.content}
+              >
+
+                <View style={{ flexDirection: 'row' }}>
+                  <Image
+                    source={data.item.img}
+                    style={styles.img}
+                  />
+                  <View style={{ flexDirection: 'column' }}>
+                    <Text style={styles.eventInfo}>{data.item.eventDate}  {data.item.eventHour}</Text>
+                    <Text style={styles.eventPlaceName}>{data.item.placeName}</Text>
+                    <Text style={styles.eventInfo}>{data.item.eventLocation}</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Text style={styles.eventStatusInfo}>Durum: </Text>
+                      {
+                        data.item.eventStatus == 'Onaylandı' ?
+                          <>
+                            <View style={{ flexDirection: 'column' }}>
+                              <Text style={styles.eventStatusSuccess}>{data.item.eventStatus}</Text>
+
+                              <TouchableOpacity
+                                onPress={() => alert('Mesaj ekranına git')}
+                                style={{ marginTop: 10 }}>
+                                <Text>Mesaj Gönder</Text>
+                              </TouchableOpacity>
+                            </View>
+                          </>
+                          :
+                          <Text style={styles.eventStatusWaiting}>{data.item.eventStatus}</Text>
+                      }
+                    </View>
                   </View>
                 </View>
-              </Modal>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              onPress={() => setModalVisible(!modalVisible)}
-              style={styles.content}
-            >
+          </ScrollView>
 
-              <View style={{ flexDirection: 'row' }}>
-                <Image
-                  source={data.item.img}
-                  style={styles.img}
-                />
-                <View style={{ flexDirection: 'column' }}>
-                  <Text style={styles.eventInfo}>{data.item.eventDate}  {data.item.eventHour}</Text>
-                  <Text style={styles.eventPlaceName}>{data.item.placeName}</Text>
-                  <Text style={styles.eventInfo}>{data.item.eventLocation}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+          {/* <TouchableOpacity
+            onPress={() => successEvent(data.item.id)}
+            style={{ marginLeft: 50 }}>
+            <Text>Onayla</Text>
+          </TouchableOpacity> */}
+
+        </>
         :
         <>
           <View style={styles.lottieView}>
@@ -246,6 +291,17 @@ const styles = StyleSheet.create({
   eventPlaceName: {
     fontWeight: 'bold',
     fontSize: 15
+  },
+  eventStatusInfo: {
+    color: 'gray'
+  },
+  eventStatusSuccess: {
+    color: 'green',
+    fontWeight: 'bold',
+  },
+  eventStatusWaiting: {
+    color: 'red',
+    fontWeight: 'bold'
   },
   topText: {
     color: 'gray',
