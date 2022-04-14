@@ -20,6 +20,7 @@ export default function EventDetailsScreen({ navigation, route }) {
   const [user, setUser] = useState(firebase.auth().currentUser)
   const [data, setData] = useState([])
   const [userData, setUserData] = useState([])
+  const [visibleLike, setVisibleLike] = useState(false)
 
   const getUser = async () => {
     await firebase
@@ -119,6 +120,9 @@ export default function EventDetailsScreen({ navigation, route }) {
   }
 
   const addFavorites = async () => {
+    if (!visibleLike) {
+      setVisibleLike(true)
+    }
     try {
       await firebase
         .firestore()
@@ -217,15 +221,20 @@ export default function EventDetailsScreen({ navigation, route }) {
         }}>{data.placeName}
         </Text>
 
-        <View style={{ position: 'absolute', right: 15, top: 25, }}>
-          <TouchableOpacity onPress={() => favoriteConfirm()}>
-            <Entypo
-              name='heart'
-              size={26}
-              color='red'
-            />
-          </TouchableOpacity>
-        </View>
+        {
+          visibleLike ?
+            null
+            :
+            <View style={{ position: 'absolute', right: 15, top: 25, }}>
+              <TouchableOpacity onPress={() => favoriteConfirm()}>
+                <Entypo
+                  name='heart'
+                  size={26}
+                  color='red'
+                />
+              </TouchableOpacity>
+            </View>
+        }
 
         <View style={{ flexDirection: 'row' }}>
           <Text style={{
