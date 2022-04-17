@@ -15,7 +15,8 @@ import UserChangePasswordScreen from '../screens/main/userScreens/UserChangePass
 import UserChangeEmailScreen from '../screens/main/userScreens/UserChangeEmailScreen'
 import UserSettingsScreen from '../screens/main/userScreens/UserSettingsScreen'
 import UserFavoritesScreen from '../screens/main/userScreens/UserFavoritesScreen'
-import MessageScreen from '../screens/main/MessageScreen'
+import ChatListScreen from '../screens/main/ChatListScreen'
+import ChatScreen from '../screens/main/ChatScreen'
 import UserNotificationsScreen from '../screens/main/UserNotificationsScreen';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -84,7 +85,8 @@ function ListEventsStackUsers({ navigation }) {
 function MessageStackUsers() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Message" component={MessageScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ChatList" component={ChatListScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Chat" component={ChatScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
@@ -126,7 +128,7 @@ export default function AppStack() {
                     querySnapshot.forEach(snapshot => {
                         let data = snapshot.data().typeUser
                         setCurrentUserType(data)
-                        // console.log currentUserType;
+                        // console.log('Tip: ', currentUserType);
                     })
                 })
         } catch (error) {

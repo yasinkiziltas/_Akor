@@ -19,14 +19,20 @@ import { result } from '../../../constants/images'
 import firebase from 'firebase'
 import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants/theme'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import ReadMore from '@fawazahmed/react-native-read-more';
+import { useNavigation } from "@react-navigation/core";
 
-export default function UserEventsBookmarks({ navigation }) {
+export default function UserApplyScreen() {
   const [user, setUser] = useState(firebase.auth().currentUser)
   const [recdata, setRecdata] = useState([])
   const [loading, setLoading] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
+
+  const [chats, setChats] = useState([]);
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const myBookmarks = async () => {
 
@@ -65,7 +71,7 @@ export default function UserEventsBookmarks({ navigation }) {
         .collection('recourses')
         .doc(eventId)
         .update({
-          eventStatus: 'Başarılı'
+          eventStatus: 'Onaylandı'
         })
         .then(() => {
           alert('Başarılı')
@@ -107,7 +113,30 @@ export default function UserEventsBookmarks({ navigation }) {
 
   useEffect(() => {
     myBookmarks()
-  }, [])
+
+    return firebase
+      .firestore()
+      .collection("chats")
+      .onSnapshot((querySnapshot) => {
+        setChats(querySnapshot.docs);
+      })
+  }, [user.email])
+
+  const createChat = async (eventEmail) => {
+    try {
+      await firebase
+        .firestore()
+        .collection("chats")
+        .add({
+          users: [user.email, eventEmail]
+        })
+        .then(() => {
+          navigation.navigate('Chat')
+        })
+    } catch (error) {
+      alert(error)
+    }
+  }
 
   const renderItem = (data) => {
     return (
@@ -186,7 +215,7 @@ export default function UserEventsBookmarks({ navigation }) {
                     {
                       data.item.eventStatus == 'Onaylandı' ?
                         <TouchableOpacity
-                          onPress={() => alert('Mesaj ekranına git')}
+                          onPress={() => createChat(data.item.eventEmail)}
                           style={{
                             height: 18,
                             borderRadius: 15,
@@ -204,11 +233,11 @@ export default function UserEventsBookmarks({ navigation }) {
             </View>
           </ScrollView>
 
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => successEvent(data.item.id)}
             style={{ marginLeft: 50 }}>
             <Text>Onayla</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
 
         </>
         :
