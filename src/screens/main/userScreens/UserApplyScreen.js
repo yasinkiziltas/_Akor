@@ -20,19 +20,13 @@ import firebase from 'firebase'
 import CustomHeader from '../../../components/CustomHeader'
 import { SIZES } from '../../../constants/theme'
 import ReadMore from '@fawazahmed/react-native-read-more';
-import { useNavigation } from "@react-navigation/core";
 
-export default function UserApplyScreen() {
+export default function UserApplyScreen({ navigation }) {
   const [user, setUser] = useState(firebase.auth().currentUser)
   const [recdata, setRecdata] = useState([])
   const [loading, setLoading] = useState(false)
   const [modalVisible, setModalVisible] = useState(false);
-
-  const [chats, setChats] = useState([]);
   const [isDialogVisible, setIsDialogVisible] = useState(false);
-  const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigation();
 
   const myBookmarks = async () => {
 
@@ -113,30 +107,19 @@ export default function UserApplyScreen() {
 
   useEffect(() => {
     myBookmarks()
-
-    return firebase
-      .firestore()
-      .collection("chats")
-      .onSnapshot((querySnapshot) => {
-        setChats(querySnapshot.docs);
-      })
-  }, [user.email])
+  }, []);
 
   const createChat = async (eventEmail) => {
-    try {
-      await firebase
-        .firestore()
-        .collection("chats")
-        .add({
-          users: [user.email, eventEmail]
-        })
-        .then(() => {
-          navigation.navigate('Chat')
-        })
-    } catch (error) {
-      alert(error)
-    }
-  }
+    if (!user.email || !eventEmail) return;
+    const response = await firebase
+      .firestore()
+      .collection("chats")
+      .add({
+        users: [user.email, eventEmail]
+      });
+    setIsDialogVisible(false);
+    navigation.navigate("Chat", { chatId: response.id });
+  };
 
   const renderItem = (data) => {
     return (

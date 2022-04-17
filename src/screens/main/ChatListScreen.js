@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, ActivityIndicator } from "react-native";
+import { Text, View, ActivityIndicator, Platform } from "react-native";
 import {
     List,
     Avatar,
@@ -9,7 +9,6 @@ import {
     Dialog,
     Button,
     TextInput,
-    Provider,
 } from "react-native-paper";
 import firebase from "firebase";
 import { useNavigation } from "@react-navigation/core";
@@ -57,23 +56,34 @@ export default function ChatListScreen() {
 
     return (
         <>
-            <CustomHeader
-                title="Mesajlar"
-            />
 
             {
-                chats.length > 0 ? (
-                    isLoading ? (
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <ActivityIndicator
-                                size={40}
-                                color='gray'
-                            />
-                        </View>
-                    ) : (
+                Platform.OS == 'android' ?
+                    <CustomHeader
+                        title="Mesajlar"
+                    />
+                    :
+                    <View style={{ marginVertical: 15 }}>
+                        <CustomHeader
+                            title="Mesajlar"
+                        />
+                    </View>
+
+            }
+
+            {
+                isLoading ? (
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator
+                            size={40}
+                            color='gray'
+                        />
+                    </View>
+                ) : (
+                        chats.length > 0 ? (
                             <View style={{ flex: 1 }}>
-                                {chats.map((chat) => (
-                                    <React.Fragment>
+                                {chats.map((chat, i) => (
+                                    <React.Fragment key={i}>
                                         <List.Item
                                             title={chat.data().users.find((x) => x !== email)}
                                             description={(chat.data().messages ?? [])[0]?.text ?? undefined}
@@ -110,31 +120,31 @@ export default function ChatListScreen() {
                                             <Button onPress={() => setIsDialogVisible(false)}>Cancel</Button>
                                             <Button onPress={() => createChat()} loading={isLoading}>
                                                 Save
-          </Button>
+                                </Button>
                                         </Dialog.Actions>
                                     </Dialog>
                                 </Portal>
 
-                                <FAB
+                                {/* <FAB
                                     icon="plus"
                                     style={{ position: "absolute", bottom: 16, right: 16 }}
                                     onPress={() => setIsDialogVisible(true)}
-                                />
+                                /> */}
                             </View>
-                        )
-                ) : (
-                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                            <Entypo
-                                size={60}
-                                color="gray"
-                                name="chat"
-                                style={{ marginBottom: 20 }}
-                            />
-                            <Text style={{
-                                color: 'gray',
-                                fontWeight: 'bold'
-                            }}>Aktif sohbet bulunmamaktadır.</Text>
-                        </View>
+                        ) : (
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Entypo
+                                        size={60}
+                                        color="gray"
+                                        name="chat"
+                                        style={{ marginBottom: 20 }}
+                                    />
+                                    <Text style={{
+                                        color: 'gray',
+                                        fontWeight: 'bold'
+                                    }}>Aktif sohbet bulunmamaktadır.</Text>
+                                </View>
+                            )
                     )
             }
         </>

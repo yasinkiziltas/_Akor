@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Platform } from 'react-native'
+import { Platform, Image, StyleSheet } from 'react-native'
 
 import EventAddScreen from '../screens/main/ownerScreens/EventAddScreen';
 import EventHomeScreen from '../screens/main/ownerScreens/EventHomeScreen'
 import EventProfileScreen from '../screens/main/ownerScreens/EventProfileScreen'
 import EventDetailsScreen from '../screens/main/ownerScreens/EventDetailsScreen'
-
 import UserHomeScreen from '../screens/main/userScreens/UserHomeScreen';
 import UserEventsScreen from '../screens/main/userScreens/UserEventsScreen';
 import UserProfileScreen from '../screens/main/userScreens/UserProfileScreen'
@@ -18,11 +17,9 @@ import UserFavoritesScreen from '../screens/main/userScreens/UserFavoritesScreen
 import ChatListScreen from '../screens/main/ChatListScreen'
 import ChatScreen from '../screens/main/ChatScreen'
 import UserNotificationsScreen from '../screens/main/UserNotificationsScreen';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
 import { COLORS } from '../constants';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -107,6 +104,8 @@ function ProfileStackUsers() {
 }
 
 export default function AppStack() {
+    const [cUser, setCUser] = useState(firebase.auth().currentUser)
+    const [userData, setUserData] = useState(null)
     const [typeUser, setTypeUser] = useState()
     const [currentUserType, setCurrentUserType] = useState()
 
@@ -117,7 +116,20 @@ export default function AppStack() {
         console.log(e)
     )
 
-    const getUsers = async () => {
+    const getUser = async () => {
+        firebase
+            .firestore()
+            .collection('users')
+            .doc(cUser.uid)
+            .get()
+            .then((documentSnapshot) => {
+                if (documentSnapshot.exists) {
+                    setUserData(documentSnapshot.data());
+                }
+            })
+    }
+
+    const getUserType = async () => {
         try {
             await firebase
                 .firestore()
@@ -137,7 +149,8 @@ export default function AppStack() {
     }
 
     useEffect(() => {
-        getUsers()
+        getUser()
+        getUserType()
     }, [])
 
     return (
@@ -207,12 +220,22 @@ export default function AppStack() {
                                 headerShown: false,
                                 tabBarColor: '#B9BFDA',
                                 tabBarLabel: false,
-                                tabBarIcon: ({ color, size }) => (
-                                    <MaterialCommunityIcons
-                                        name="account"
-                                        color={color}
-                                        size={25}
-                                    />
+                                tabBarIcon: ({ color }) => (
+                                    userData.userPhoto ? (
+                                        <Image
+                                            style={styles.userImg}
+                                            source={require('../../assets/images/user.png')}
+                                            source={{ uri: userData.userPhoto }}
+                                        />
+
+                                    ) : (
+                                            <MaterialCommunityIcons
+                                                name="account"
+                                                color={color}
+                                                size={25}
+                                            />
+                                        )
+
                                 ),
                             }}
                         />
@@ -414,3 +437,12 @@ export default function AppStack() {
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    userImg: {
+        tintColor: 'black',
+        width: 25,
+        height: 25,
+        borderRadius: 50
+    },
+})

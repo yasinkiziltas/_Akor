@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useRoute } from '@react-navigation/native'
+import { useRoute } from "@react-navigation/core";
 import { View, Text } from 'react-native'
 import firebase from 'firebase';
 import { GiftedChat } from 'react-native-gifted-chat'
@@ -60,6 +60,7 @@ export default function ChatScreen({ navigation }) {
       />
       <View style={{ flex: 1 }}>
         <GiftedChat
+          isTyping={true}
           messages={messages.map(x => ({
             ...x,
             createdAt: x?.createdAt.toDate(),
