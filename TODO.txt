@@ -6,6 +6,8 @@
 
 MEKAN SAHIBI TARAFI
 -Mekan sahibi event eklerken random id eklet
+-Mekan sahibi eventEmail eklet 
+
 
 SETTINGS PAGE
 -Uygulamayı paylaş linkini düzelt (yayınladıktan sonra)

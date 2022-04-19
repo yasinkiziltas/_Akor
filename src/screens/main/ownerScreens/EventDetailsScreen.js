@@ -41,6 +41,20 @@ export default function EventDetailsScreen({ navigation, route }) {
     setData(item)
   }, [])
 
+  const confirmApply = () => {
+    Alert.alert(
+      'Başvuru',
+      'Başvuru yapmak istediğinize emin misiniz?',
+      [
+        { text: 'Evet', onPress: () => applyEvent() },
+        { text: 'Hayır', onPress: () => { }, style: 'cancel' },
+      ],
+      {
+        cancelable: true
+      }
+    );
+  }
+
   const applyEvent = async () => {
     try {
       await firebase
@@ -61,6 +75,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           eventHour: data.eventHour,
           eventStatus: 'Beklemede',
           img: data.img,
+          eventEmail: null
           // userAge: userData.userAge,
         })
         .then(() => {
@@ -192,10 +207,6 @@ export default function EventDetailsScreen({ navigation, route }) {
   //   }
   // }
 
-  const sendMessage = () => {
-    alert('Mesaj gönder!')
-  }
-
   return (
     <>
       <View>
@@ -280,7 +291,7 @@ export default function EventDetailsScreen({ navigation, route }) {
       <View style={styles.btnView}>
 
         <TouchableOpacity
-          onPress={() => applyEvent()}
+          onPress={() => confirmApply()}
           style={styles.btn}>
           <View style={styles.btnContainer}>
             <Entypo
@@ -307,7 +318,7 @@ export default function EventDetailsScreen({ navigation, route }) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => sendMessage()}
           style={[styles.btn, { marginTop: 20 }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -319,7 +330,7 @@ export default function EventDetailsScreen({ navigation, route }) {
             />
             <Text style={styles.btnText}>Mesaj Gönder</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
       </View>
 
