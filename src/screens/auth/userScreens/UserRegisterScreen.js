@@ -26,7 +26,8 @@ export default function UserRegisterScreen({ navigation }) {
             <StatusBar hidden={true} />
 
             <KeyboardAwareScrollView>
-                <Animatable.View
+
+                {/* <Animatable.View
                     animation="slideInDown"
                     style={styles.container}
                 >
@@ -42,6 +43,15 @@ export default function UserRegisterScreen({ navigation }) {
                         />
 
                     </ImageBackground>
+                </Animatable.View> */}
+
+                <Animatable.View
+                    animation={"slideInDown"}
+                    style={{ alignItems: 'center', marginTop: 10, }}>
+                    <Image
+                        source={registerBackground}
+                        style={{ width: 300, height: 300, borderRadius: 50 }}
+                    />
                 </Animatable.View>
 
                 <Animatable.View

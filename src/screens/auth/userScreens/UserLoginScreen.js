@@ -33,9 +33,9 @@ export default function UserLoginScreen({ navigation }) {
 
             <KeyboardAwareScrollView>
 
-                <Animatable.View 
-                animation={"bounceInDown"}
-                style={{ alignItems: 'center', marginTop: 40, }}>
+                <Animatable.View
+                    animation={"slideInUp"}
+                    style={{ alignItems: 'center', marginTop: 40, }}>
                     <Image
                         source={loginBack}
                         style={{ width: 350, height: 350, borderRadius: 50 }}
@@ -43,7 +43,7 @@ export default function UserLoginScreen({ navigation }) {
                 </Animatable.View >
 
                 <Animatable.View
-                    animation="slideInUp"
+                    animation="slideInDown"
                     style={styles.inputView}
                 >
                     <Text style={styles.loginText}>Giriş</Text>
