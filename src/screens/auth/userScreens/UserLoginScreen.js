@@ -7,20 +7,16 @@ import {
     StatusBar,
     TouchableOpacity,
     ActivityIndicator,
-    ImageBackground,
 } from 'react-native'
-import { loginbackground2 } from '../../../constants/images'
+import { loginBack } from '../../../constants/images'
 import * as Animatable from 'react-native-animatable';
 import FormInput from '../../../components/FormInput'
 import FormButton from '../../../components/FormButton'
 import { SIZES } from '../../../constants'
-import { loadingAuth } from '../../../constants/images';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { AuthContext } from '../../../navigation/AuthProvider'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
-import LottieView from 'lottie-react-native';
-import CustomHeader from '../../../components/CustomHeader';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function UserLoginScreen({ navigation }) {
@@ -36,29 +32,15 @@ export default function UserLoginScreen({ navigation }) {
             <StatusBar hidden={true} />
 
             <KeyboardAwareScrollView>
-                <Animatable.View
-                    animation="slideInDown"
-                    style={styles.container}
-                >
-                    {/* <Image
-                        resizeMode='contain'
-                        style={styles.backgroundImg}
-                        source={loginBackground}
-                    /> */}
 
-                    <ImageBackground
-                        // resizeMode='contain'¨
-                        style={styles.backgroundImg}
-                        source={loginbackground2}
-                    >
-
-                        <CustomHeader
-                            isBack={true}
-                            navigation={navigation}
-                        />
-
-                    </ImageBackground>
-                </Animatable.View>
+                <Animatable.View 
+                animation={"bounceInDown"}
+                style={{ alignItems: 'center', marginTop: 40, }}>
+                    <Image
+                        source={loginBack}
+                        style={{ width: 350, height: 350, borderRadius: 50 }}
+                    />
+                </Animatable.View >
 
                 <Animatable.View
                     animation="slideInUp"
@@ -67,7 +49,7 @@ export default function UserLoginScreen({ navigation }) {
                     <Text style={styles.loginText}>Giriş</Text>
 
                     <Formik
-                        initialValues={{ mail, password, userType}}
+                        initialValues={{ mail, password, userType }}
                         onSubmit={values => { login(values.mail, values.password, values.userType) }}
                         validationSchema={
                             Yup.object().shape({
@@ -99,24 +81,24 @@ export default function UserLoginScreen({ navigation }) {
                                         <Text style={styles.errors}>{errors.mail} </Text>
                                     }
 
-                                  <View style={{flexDirection:'row'}}>
-                                  <FormInput
-                                        onBlur={() => setFieldTouched('password')}
-                                        value={values.password}
-                                        placeholder="Şifre"
-                                        onChangeText={handleChange('password')}
-                                        iconType="lock"
-                                        secureTextEntry={hidePass ? true : false}
-                                    />
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <FormInput
+                                            onBlur={() => setFieldTouched('password')}
+                                            value={values.password}
+                                            placeholder="Şifre"
+                                            onChangeText={handleChange('password')}
+                                            iconType="lock"
+                                            secureTextEntry={hidePass ? true : false}
+                                        />
 
-                                    <Icon
-                                        name={hidePass ? 'eye' : 'eye-slash'}
-                                        size={15}
-                                        style={{position:'absolute', right:15, top:10}}
-                                        color="grey"
-                                        onPress={() => setHidePass(!hidePass)}
-                                    />
-                                  </View>
+                                        <Icon
+                                            name={hidePass ? 'eye' : 'eye-slash'}
+                                            size={15}
+                                            style={{ position: 'absolute', right: 15, top: 10 }}
+                                            color="grey"
+                                            onPress={() => setHidePass(!hidePass)}
+                                        />
+                                    </View>
 
                                     {(errors.password && touched.password) &&
                                         <Text style={styles.errors}>{errors.password} </Text>
@@ -146,8 +128,8 @@ export default function UserLoginScreen({ navigation }) {
                                         //     loop
                                         // />
                                     ) : (
-                                            null
-                                        )}
+                                        null
+                                    )}
 
                                 </View>
 
@@ -155,7 +137,7 @@ export default function UserLoginScreen({ navigation }) {
                                     <FormButton
                                         onPress={() => handleSubmit()}
                                         text="Giriş"
-                                        backgroundColor={"green"}
+                                        backgroundColor={"#ff8e88"}
                                     />
                                 </View>
                             </>

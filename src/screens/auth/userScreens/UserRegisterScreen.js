@@ -128,7 +128,7 @@ export default function UserRegisterScreen({ navigation }) {
                                     <FormButton
                                         onPress={() => handleSubmit()}
                                         text="Kayıt Ol"
-                                        backgroundColor={"green"}
+                                        backgroundColor={"#322783"}
                                     />
                                 </View>
 

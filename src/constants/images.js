@@ -1,6 +1,5 @@
 export const logo = require('../../assets/logo.png')
-export const loginBackground = require('../../assets/images/loginBackground.jpg')
-export const loginbackground2 = require('../../assets/images/loginbackground2.jpg')
+export const loginBack = require('../../assets/images/loginBack2.jpg')
 export const registerBackground = require('../../assets/images/registerBackground.jpg')
 export const forgotPasswordBackground = require('../../assets/images/forgotPassword.jpg')
 export const onboard = require('../../assets/images/onboard.png')
@@ -13,17 +12,6 @@ export const ownerAuth = require('../../assets/images/ownerAuth.jpg')
 export const ownerAuth2 = require('../../assets/images/ownerAuth2.jpg')
 export const user = require('../../assets/images/user.png')
 
-export default {
-    logo,
-    loginBackground,
-    loginbackground2,
-    registerBackground,
-    forgotPasswordBackground,
-    onboard,
-    onboard2,
-    loadingAuth,
-    result,
-    ownerAuth,
-    ownerAuth2,
-    user
+export default {  
+    
 }
