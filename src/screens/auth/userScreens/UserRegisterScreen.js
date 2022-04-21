@@ -27,24 +27,6 @@ export default function UserRegisterScreen({ navigation }) {
 
             <KeyboardAwareScrollView>
 
-                {/* <Animatable.View
-                    animation="slideInDown"
-                    style={styles.container}
-                >
-
-                    <ImageBackground
-                        style={styles.backgroundImg}
-                        source={registerBackground}
-                    >
-
-                        <CustomHeader
-                            isBack={true}
-                            navigation={navigation}
-                        />
-
-                    </ImageBackground>
-                </Animatable.View> */}
-
                 <Animatable.View
                     animation={"slideInDown"}
                     style={{ alignItems: 'center', marginTop: 10, }}>
